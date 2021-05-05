@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "lint:fix",
+      "problemMatcher": [],
+      "label": "npm: lint:fix",
+      "detail": "eslint --fix src/**/*.{js,jsx,ts,tsx}"
+    },
+    {
+      "type": "npm",
+      "script": "format",
+      "problemMatcher": [],
+      "label": "npm: format",
+      "detail": "prettier --write ."
+    }
+  ]
+}
