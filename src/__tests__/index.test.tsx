@@ -1,6 +1,7 @@
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+// import React from "react";
+// import { render } from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
+// import { act } from "react-dom/test-utils";
 
 let container: HTMLDivElement;
 beforeEach(() => {
@@ -18,6 +19,6 @@ afterEach(() => {
 
 it("テストが動くかテスト", () => {
   // render(<Somethings />, container);
-  act(() => {});
+  // act(() => {  });
   expect("").toEqual("");
 });

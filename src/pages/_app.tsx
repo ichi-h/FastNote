@@ -1,7 +1,9 @@
-import "../styles/globals.css";
+import React from 'react'
 import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
+import "../styles/globals.css";
+
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return <Component {...pageProps} />;
 }
 
