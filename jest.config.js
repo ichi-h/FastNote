@@ -3,11 +3,12 @@ module.exports = {
   // `<rootDir>` is a token Jest substitutes
   roots: ["<rootDir>/src"],
 
+  preset: "ts-jest",
+
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
     "^.+\\.tsx$": "babel-jest",
-    "^.+\\.tsx$": "ts-jest",
   },
 
   // Test spec file resolution pattern
@@ -17,4 +18,6 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  setupFilesAfterEnv: ["./src/jest.setup.tsx"],
 };
