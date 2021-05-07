@@ -1,7 +1,8 @@
-// import React from "react";
-// import { render } from "react-dom";
+import { render } from "react-dom";
 import { unmountComponentAtNode } from "react-dom";
-// import { act } from "react-dom/test-utils";
+import { act } from "react-dom/test-utils";
+
+import { StartButton } from "../pages/index";
 
 let container: HTMLDivElement;
 beforeEach(() => {
@@ -17,8 +18,13 @@ afterEach(() => {
   container = null;
 });
 
-it("テストが動くかテスト", () => {
-  // render(<Somethings />, container);
-  // act(() => {  });
-  expect("").toEqual("");
+it("「メモを取る」ボタンからページ遷移するか", () => {
+  render(<StartButton />, container);
+  const startButton = container.querySelector(`[data-testid="start-button"]`);
+
+  act(() => {
+    startButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+
+  expect(window.location.pathname).toEqual("/home");
 });
