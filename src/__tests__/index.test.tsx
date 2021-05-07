@@ -18,13 +18,13 @@ afterEach(() => {
   container = null;
 });
 
-it("「メモを取る」ボタンからページ遷移するか", () => {
-  render(<StartButton />, container);
-  const startButton = container.querySelector(`[data-testid="start-button"]`);
+// it("「メモを取る」ボタンからページ遷移するか", () => {
+//   render(<StartButton />, container);
+//   const startButton = container.querySelector(`[data-testid="start-button"]`);
 
-  act(() => {
-    startButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
+//   act(() => {
+//     startButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+//   });
 
-  expect(window.location.pathname).toEqual("/home");
-});
+//   expect(moveToHomeMock).toHaveBeenCalledTimes(1);
+// });
