@@ -2,7 +2,16 @@ import React from "react";
 import Head from "next/head";
 import css from "styled-jsx/css";
 
-export default function Home(): JSX.Element {
+export const StartButton = () => {
+  return (
+    <div className="login-form">
+      <button data-testid="start-button">メモを取る</button>
+      <style jsx>{buttonStyle}</style>
+    </div>
+  );
+};
+
+export default function LandingPage(): JSX.Element {
   return (
     <>
       <Head>
@@ -28,9 +37,7 @@ export default function Home(): JSX.Element {
             </p>
           </div>
 
-          <div className="login-form">
-            <button>メモを取る</button>
-          </div>
+          <StartButton />
         </div>
 
         <style jsx>{homeStyle}</style>
@@ -83,7 +90,9 @@ const homeStyle = css`
     width: 80%;
     font-size: 2rem;
   }
+`;
 
+const buttonStyle = css`
   button {
     background-color: #f2b950;
     border-radius: 3px;
