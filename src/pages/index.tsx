@@ -1,11 +1,19 @@
 import React from "react";
 import Head from "next/head";
+import Router from "next/router";
 import css from "styled-jsx/css";
 
 export const StartButton = () => {
+  const moveToHome = () => Router.push("/home");
+
   return (
     <div className="login-form">
-      <button data-testid="start-button">メモを取る</button>
+      <button
+        data-testid="start-button"
+        onClick={moveToHome}
+      >
+        メモを取る
+      </button>
       <style jsx>{buttonStyle}</style>
     </div>
   );
