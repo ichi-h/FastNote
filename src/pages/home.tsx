@@ -6,7 +6,7 @@ import css from "styled-jsx/css";
 import MemoList from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
-import SettingsItem from "../components/settings/settingsItem";
+import SettingsContent from "../components/settings/settingsContent";
 import Navbar from "../components/navbar";
 
 export const openNavbarState = atom({
@@ -82,7 +82,7 @@ export default function Home() {
               </div>
               <div>
                 <Route path="/home" exact component={Editor} />
-                <Route path="/home/settings" exact component={SettingsItem} />
+                <Route path="/home/settings" exact component={SettingsContent} />
               </div>
             </div>
           </div>
