@@ -50,7 +50,7 @@ function BlackCover() {
 
   const clickHandle = () => {
     toggleCheck(!checked);
-  }
+  };
 
   return (
     <>
