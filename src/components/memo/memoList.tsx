@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import css from "styled-jsx/css";
-import getMemo from "../../lib/getMemo"
+import getMemo from "../../lib/getMemo";
 
 export default function MemoList() {
   const memo = getMemo();
@@ -9,7 +9,13 @@ export default function MemoList() {
   return (
     <>
       <div className="memo-list">
-        MomeList
+        {memo.map((value, i) => {
+          return (
+            <div className={`memo-item-${i}`} id={`memo-item-${i}`}>
+              {value.title}
+            </div>
+          );
+        })}
       </div>
 
       <style jsx>{memoListStyle}</style>
@@ -20,5 +26,11 @@ export default function MemoList() {
 const memoListStyle = css`
   .memo-list {
     height: 100%;
+    overflow-y: scroll;
+  }
+
+  div[class*="memo-item-"] {
+    height: 15%;
+    border: 1px solid black;
   }
 `;
