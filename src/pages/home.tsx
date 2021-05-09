@@ -1,6 +1,6 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { atom, useRecoilState } from "recoil";
 import css from "styled-jsx/css";
 
 import MemoList from "../components/memo/memoList";
@@ -46,11 +46,15 @@ function TopBar() {
 }
 
 function BlackCover() {
-  const checked = useRecoilValue(openNavbarState);
+  const [checked, toggleCheck] = useRecoilState(openNavbarState);
+
+  const clickHandle = () => {
+    toggleCheck(!checked);
+  }
 
   return (
     <>
-      <div className="black-cover" />
+      <div className="black-cover" onClick={clickHandle} />
       {blackCoverStyle(checked)}
     </>
   );
@@ -166,6 +170,7 @@ const blackCoverStyle = (checked: boolean) => {
         width: 100%;
         height: 100%;
         transition: 0.3s;
+        cursor: pointer;
         z-index: 100;
 
         opacity: ${opacity};
