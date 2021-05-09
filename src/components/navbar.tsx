@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import css from "styled-jsx/css";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getCategories } from "../lib/getMemo";
 import { openNavbarState } from "../pages/home";
@@ -51,9 +52,19 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
 }
 
 function SettingsButton() {
+  const toggle = useSetRecoilState(openNavbarState);
+
+  const clickHandle = () => {
+    toggle(false);
+  };
+
   return (
     <>
-      <button>設定</button>
+      <Link to="/home/settings">
+        <div className="settings-button" onClick={clickHandle}>
+          設定
+        </div>
+      </Link>
 
       <style jsx>{settingsButtonStyle}</style>
     </>
@@ -152,8 +163,9 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
 };
 
 const settingsButtonStyle = css`
-  button {
+  .settings-button {
     margin-left: 2rem;
     font-size: 2rem;
+    cursor: pointer;
   }
 `;
