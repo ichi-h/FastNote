@@ -31,6 +31,11 @@ function CategoriesCheckbox(props: {
 
 function CategoriesList(props: { categoriesChecked: boolean }) {
   const [categories, count] = getCategories();
+  const toggle = useSetRecoilState(openNavbarState);
+
+  const clickHandle = () => {
+    toggle(false);
+  };
 
   return (
     <>
@@ -39,7 +44,11 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
           {categories.map((category, i) => {
             return (
               <li className="category">
-                {category} ({count[i]})
+                <Link to="/home">
+                  <div className="category-button" onClick={clickHandle}>
+                    {category} ({count[i]})
+                  </div>
+                </Link>
               </li>
             );
           })}
@@ -153,9 +162,12 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
         }
 
         .category {
-          font-size: 2rem;
           margin-left: 4rem;
           list-style: none;
+        }
+
+        .category-button {
+          font-size: 2rem;
         }
       `}
     </style>
