@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 import css from "styled-jsx/css";
 import getMemo from "../../lib/getMemo";
 
