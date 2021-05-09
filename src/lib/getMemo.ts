@@ -10,15 +10,6 @@ export default function getMemo() {
       content: "",
     },
     {
-      title: "sample1",
-      category: "sample1",
-      tag: ["a", "b", "c"],
-      favorite: false,
-      creationDate: 20210501,
-      updateDate: 20210504,
-      content: "",
-    },
-    {
       title: "sample2",
       category: "sample1",
       tag: ["d", "e", "f"],
