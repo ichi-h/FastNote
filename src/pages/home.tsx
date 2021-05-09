@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
+import { atom, useRecoilState } from "recoil";
 import css from "styled-jsx/css";
 
 import MemoList from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
 import SettingsItem from "../components/settings/settingsItem";
+import Navbar from "../components/navbar";
+
+export const openNavbarState = atom({
+  key: "openNavbarState",
+  default: false,
+});
 
 function TopBar() {
-  const [checked, toggleCheck] = useState(false);
+  const [checked, toggleCheck] = useRecoilState(openNavbarState);
   const checkHandle = () => {
     toggleCheck(!checked);
   };
