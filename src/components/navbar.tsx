@@ -1,14 +1,31 @@
 import css from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
+import { getCategories } from "../lib/getMemo";
 import { openNavbarState } from "../pages/home";
 
 export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
+  const [categories, count] = getCategories();
 
   return (
     <>
-      <div className="navbar">aaa</div>
+      <div className="navbar">
+        <label htmlFor="">
+          <input type="checkbox" name="" id="" />
+          カテゴリー
+        </label>
+
+        <div className="categories">
+          <ul>
+            {
+              categories.map((category, i) => {
+                return <li>{category} ({count[i]})</li>;
+              })
+            }
+          </ul>
+        </div>
+      </div>
 
       {navbarStyle(checked)}
     </>
