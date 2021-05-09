@@ -8,10 +8,7 @@ export const StartButton = () => {
 
   return (
     <div className="login-form">
-      <button
-        data-testid="start-button"
-        onClick={moveToHome}
-      >
+      <button data-testid="start-button" onClick={moveToHome}>
         メモを取る
       </button>
       <style jsx>{buttonStyle}</style>
