@@ -1,3 +1,4 @@
+import { useState } from "react";
 import css from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
@@ -8,34 +9,56 @@ export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
   const [categories, count] = getCategories();
 
+  const [categoriesChecked, toggle] = useState(true);
+
+  const clickHandle = () => {
+    toggle(!categoriesChecked);
+  };
+
   return (
     <>
       <div className="navbar">
-        <label htmlFor="">
-          <input type="checkbox" name="" id="" />
-          カテゴリー
-        </label>
-
         <div className="categories">
-          <ul>
-            {
-              categories.map((category, i) => {
-                return <li>{category} ({count[i]})</li>;
-              })
-            }
-          </ul>
+          <label htmlFor="categories-checkbox" className="checkbox-label">
+            <input
+              type="checkbox"
+              className="categories-checkbox"
+              name="categories-checkbox"
+              id="categories-checkbox"
+              defaultChecked={categoriesChecked}
+              onClick={clickHandle}
+            />
+            カテゴリー
+          </label>
+
+          <div className="categories-list">
+            <ul>
+              {categories.map((category, i) => {
+                return (
+                  <li className="category">
+                    {category} ({count[i]})
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
 
-      {navbarStyle(checked)}
+      {navbarStyle(checked, categoriesChecked)}
     </>
   );
 }
 
-const navbarStyle = (checked: boolean) => {
+const navbarStyle = (checked: boolean, categoriesChecked: boolean) => {
   const leftPos = (bool: boolean) => {
     if (bool) return "0";
     else return "-20vw";
+  };
+
+  const showCategories = (bool: boolean) => {
+    if (bool) return "initial";
+    else return "none";
   };
 
   return (
@@ -50,6 +73,30 @@ const navbarStyle = (checked: boolean) => {
         background-color: white;
         transition: 0.3s;
         z-index: 1000;
+      }
+
+      .categories {
+        margin-top: 2rem;
+      }
+
+      .checkbox-label {
+        font-size: 2rem;
+        margin-left: 2rem;
+      }
+
+      .categories-checkbox {
+        display: none;
+      }
+
+      .categories-list {
+        display: ${showCategories(categoriesChecked)};
+        transition: 0.3s;
+      }
+
+      .category {
+        font-size: 2rem;
+        margin-left: 4rem;
+        list-style: none;
       }
     `}</style>
   );
