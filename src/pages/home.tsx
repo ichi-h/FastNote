@@ -77,8 +77,23 @@ const homeCampusStyle = css`
   }
 
   .separator {
+    display: flex;
     width: 100%;
     height: calc(100vh - ${TOP_BAR_HEIGHT});
+  }
+
+  .separator > div:first-child,
+  .separator > div:last-child {
+    height: 100%;
+    border: 1px solid black;
+  }
+
+  .separator > div:first-child {
+    width: 33%;
+  }
+
+  .separator > div:last-child {
+    width: 77%;
   }
 `;
 
