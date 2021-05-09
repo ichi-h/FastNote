@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import css from "styled-jsx/css";
 
-function TopBar () {
+function TopBar() {
   const [checked, toggleCheck] = useState(false);
   const checkHandle = () => {
     toggleCheck(!checked);
