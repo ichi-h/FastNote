@@ -50,6 +50,16 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
   );
 }
 
+function SettingsButton() {
+  return (
+    <>
+      <button>設定</button>
+
+      <style jsx>{settingsButtonStyle}</style>
+    </>
+  );
+}
+
 export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
 
@@ -70,6 +80,8 @@ export default function Navbar() {
 
           <CategoriesList categoriesChecked={categoriesChecked} />
         </div>
+
+        <SettingsButton />
       </div>
 
       {navbarStyle(checked)}
@@ -98,7 +110,7 @@ const navbarStyle = (checked: boolean) => {
       }
 
       .categories {
-        margin-top: 2rem;
+        margin: 2rem 0;
       }
     `}</style>
   );
@@ -138,3 +150,10 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
     </style>
   );
 };
+
+const settingsButtonStyle = css`
+  button {
+    margin-left: 2rem;
+    font-size: 2rem;
+  }
+`;
