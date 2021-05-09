@@ -39,7 +39,7 @@ const memo = [
   },
   {
     title: "sample3",
-    category: "sample1",
+    category: "sample2",
     tags: ["a", "b", "c"],
     star: false,
     creationDate: 2021053,
