@@ -1,14 +1,29 @@
-import Head from "next/head";
-import css from "styled-jsx/css";
+import { atom, useRecoilValue } from "recoil";
 
-export default function SettingsItem() {
-  return (
-    <>
-      <Head>
-        <title>Fast Note</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      SettingsItem
-    </>
-  );
+import EditorSettings from "./settingsContent/editorSettings";
+import UserSettings from "./settingsContent/userSettings";
+import AboutApp from "./settingsContent/aboutApp";
+
+export const settingsContentState = atom({
+  key: "settingsContentState",
+  default: "",
+});
+
+function Default() {
+  return <>設定する項目を選んでください。</>;
+}
+
+export default function SettingsContent() {
+  const contentValue = useRecoilValue(settingsContentState);
+
+  switch (contentValue) {
+    case "editor":
+      return <EditorSettings />;
+    case "user":
+      return <UserSettings />;
+    case "about":
+      return <AboutApp />;
+    default:
+      return <Default />;
+  }
 }
