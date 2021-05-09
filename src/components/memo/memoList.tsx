@@ -1,5 +1,5 @@
 import css from "styled-jsx/css";
-import getMemo from "../../lib/getMemo";
+import { getMemo } from "../../lib/getMemo";
 
 export default function MemoList() {
   const memo = getMemo();
