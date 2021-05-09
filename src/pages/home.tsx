@@ -51,6 +51,8 @@ export default function HomeCampus() {
   );
 }
 
+const TOP_BAR_HEIGHT = "5rem";
+
 const homeCampusStyle = css`
   .home-campus {
     width: 100vw;
@@ -58,8 +60,8 @@ const homeCampusStyle = css`
   }
 
   .separator {
-    position: relative;
     width: 100%;
+    height: calc(100vh - ${TOP_BAR_HEIGHT});
   }
 `;
 
@@ -67,8 +69,8 @@ const topBarStyle = css`
   .top-bar {
     position: relative;
     width: 100%;
-    height: 5rem;
-    background-color: #BCD955;
+    height: ${TOP_BAR_HEIGHT};
+    background-color: #bcd955;
   }
 
   input#open-navbar {
