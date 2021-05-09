@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import css from "styled-jsx/css";
 
 import MemoList from "../components/memo/memoList";
@@ -46,6 +46,17 @@ function TopBar() {
   );
 }
 
+function BlackCover() {
+  const checked = useRecoilValue(openNavbarState);
+
+  return (
+    <>
+      <div className="black-cover" />
+      {blackCoverStyle(checked)}
+    </>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -53,6 +64,8 @@ export default function Home() {
         <title>Fast Note</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <BlackCover />
 
       <div className="home">
         <TopBar />
@@ -135,3 +148,30 @@ const topBarStyle = css`
     height: 3rem;
   }
 `;
+
+const blackCoverStyle = (checked: boolean) => {
+  const whenOpenNavbar = (bool: boolean) => {
+    if (bool) return ["0.5", "visible"];
+    else return ["0", "hidden"];
+  };
+
+  const [opacity, visibility] = whenOpenNavbar(checked);
+
+  return (
+    <style jsx>{`
+      .black-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s;
+        z-index: 100;
+
+        opacity: ${opacity};
+        visibility: ${visibility};
+      }
+    `}</style>
+  );
+};
