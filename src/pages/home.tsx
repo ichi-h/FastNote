@@ -39,7 +39,7 @@ function TopBar() {
   );
 }
 
-export default function HomeCampus() {
+export default function Home() {
   return (
     <>
       <Head>
@@ -47,33 +47,42 @@ export default function HomeCampus() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="home-campus">
+      <div className="home">
         <TopBar />
+
         <BrowserRouter>
-          <div className="separator">
-            <div>
-              <Route path="/home" exact component={MemoList} />
-              <Route path="/home/settings" exact component={SettingsList} />
-            </div>
-            <div>
-              <Route path="/home" exact component={Editor} />
-              <Route path="/home/settings" exact component={SettingsItem} />
+          <div className="home-canvas">
+            <div className="separator">
+              <div>
+                <Route path="/home" exact component={MemoList} />
+                <Route path="/home/settings" exact component={SettingsList} />
+              </div>
+              <div>
+                <Route path="/home" exact component={Editor} />
+                <Route path="/home/settings" exact component={SettingsItem} />
+              </div>
             </div>
           </div>
+
+          <Navbar />
         </BrowserRouter>
       </div>
 
-      <style jsx>{homeCampusStyle}</style>
+      <style jsx>{homeStyle}</style>
     </>
   );
 }
 
 const TOP_BAR_HEIGHT = "5rem";
 
-const homeCampusStyle = css`
-  .home-campus {
+const homeStyle = css`
+  .home {
     width: 100vw;
     height: 100vh;
+  }
+
+  .home-canvas {
+    position: relative;
   }
 
   .separator {
@@ -105,7 +114,7 @@ const topBarStyle = css`
     background-color: #bcd955;
   }
 
-  input#open-navbar {
+  .open-navbar {
     display: none;
   }
 
