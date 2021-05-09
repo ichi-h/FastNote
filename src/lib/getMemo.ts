@@ -2,7 +2,7 @@ export function getMemo() {
   return memo;
 }
 
-export function getCategories() {
+export function getCategories(): [string[], number[]] {
   const categoriesSet = memo.map((value) => value.category);
 
   const categories = categoriesSet.filter(
