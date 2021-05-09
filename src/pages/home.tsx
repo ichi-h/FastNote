@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import css from "styled-jsx/css";
+
+import MemoList from "../components/memo/memoList";
+import Editor from "../components/memo/editor";
+import SettingsList from "../components/settings/settingsList";
+import SettingsItem from "../components/settings/settingsItem";
 
 function TopBar() {
   const [checked, toggleCheck] = useState(false);
@@ -40,10 +46,21 @@ export default function HomeCampus() {
         <title>Fast Note</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
+
       <div className="home-campus">
         <TopBar />
-        <div className="separator"></div>
+        <BrowserRouter>
+          <div className="separator">
+            <div>
+              <Route path="/home" exact component={MemoList} />
+              <Route path="/home/settings" exact component={SettingsList} />
+            </div>
+            <div>
+              <Route path="/home" exact component={Editor} />
+              <Route path="/home/settings" exact component={SettingsItem} />
+            </div>
+          </div>
+        </BrowserRouter>
       </div>
 
       <style jsx>{homeCampusStyle}</style>
