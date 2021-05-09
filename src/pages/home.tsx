@@ -82,7 +82,11 @@ export default function Home() {
               </div>
               <div>
                 <Route path="/home" exact component={Editor} />
-                <Route path="/home/settings" exact component={SettingsContent} />
+                <Route
+                  path="/home/settings"
+                  exact
+                  component={SettingsContent}
+                />
               </div>
             </div>
           </div>
