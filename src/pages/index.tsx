@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Router from "next/router";
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
 
 export const StartButton = () => {
   const moveToHome = () => Router.push("/home");

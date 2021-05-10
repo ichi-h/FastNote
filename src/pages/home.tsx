@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, useLocation } from "react-router-dom";
 import Head from "next/head";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
 
 import MemoList, { currentCategoryState } from "../components/memo/memoList";
 import Editor from "../components/memo/editor";

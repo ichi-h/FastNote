@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getCategories } from "../lib/getMemo";

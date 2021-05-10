@@ -1,5 +1,5 @@
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/base16-light.css";
