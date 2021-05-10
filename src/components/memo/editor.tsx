@@ -3,6 +3,7 @@ import { css } from "styled-jsx/css";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/base16-light.css";
+import "codemirror/mode/markdown/markdown";
 
 export default function Editor() {
   return (
@@ -11,7 +12,7 @@ export default function Editor() {
         <CodeMirror
           value={""}
           options={{
-            mode: "gfm",
+            mode: "markdown",
             theme: "base16-light",
             lineNumbers: false,
           }}
