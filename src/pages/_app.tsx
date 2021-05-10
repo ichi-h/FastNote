@@ -6,7 +6,7 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
+      {typeof window === "undefined" ? null : <Component {...pageProps} />}
     </RecoilRoot>
   );
 }
