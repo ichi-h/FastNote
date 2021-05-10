@@ -9,14 +9,16 @@ export default function Editor() {
   return (
     <>
       <div className="editor">
-        <CodeMirror
-          value={""}
-          options={{
-            mode: "markdown",
-            theme: "base16-light",
-            lineNumbers: false,
-          }}
-        />
+        <div className="codemirror-wrap">
+          <CodeMirror
+            value={""}
+            options={{
+              mode: "markdown",
+              theme: "base16-light",
+              lineNumbers: false,
+            }}
+          />
+        </div>
       </div>
 
       <style jsx>{editorStyle}</style>
@@ -27,5 +29,9 @@ export default function Editor() {
 const editorStyle = css`
   .editor {
     height: 100%;
+  }
+
+  .codemirror-wrap {
+    font-size: 20px;
   }
 `;
