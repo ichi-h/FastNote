@@ -4,7 +4,7 @@ import { css } from "styled-jsx/css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/base16-light.css";
 
-export default function Home() {
+export default function Editor() {
   return (
     <>
       <div className="editor">
