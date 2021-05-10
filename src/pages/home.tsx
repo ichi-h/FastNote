@@ -1,12 +1,14 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useLocation } from "react-router-dom";
 import Head from "next/head";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import css from "styled-jsx/css";
 
-import MemoList from "../components/memo/memoList";
+import MemoList, { currentCategoryState } from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
-import SettingsContent from "../components/settings/settingsContent";
+import SettingsContent, {
+  settingsContentState,
+} from "../components/settings/settingsContent";
 import Navbar from "../components/navbar";
 
 export const openNavbarState = atom({
@@ -16,6 +18,40 @@ export const openNavbarState = atom({
 
 function TopBar() {
   const [checked, toggleCheck] = useRecoilState(openNavbarState);
+  const currentCategory = useRecoilValue(currentCategoryState);
+  const settingsContent = useRecoilValue(settingsContentState);
+
+  const displayText = (currentCategory: string) => {
+    const getURL = () => {
+      try {
+        return useLocation().pathname;
+      } catch (e) {
+        return "error";
+      }
+    };
+
+    switch (getURL()) {
+      case "/home":
+        if (currentCategory === "all") return "すべてのカテゴリー";
+        else return currentCategory;
+
+      case "/home/settings":
+        switch (settingsContent) {
+          case "":
+            return "設定";
+          case "editor":
+            return "efitor";
+          case "user":
+            return "user";
+          case "about":
+            return "このアプリについて";
+        }
+
+      case "error":
+        return "Fast Note";
+    }
+  };
+
   const checkHandle = () => {
     toggleCheck(!checked);
   };
@@ -38,6 +74,8 @@ function TopBar() {
             <div className="bar3" />
           </div>
         </label>
+
+        <div className="current-category">{displayText(currentCategory)}</div>
       </div>
 
       <style jsx>{topBarStyle}</style>
@@ -153,6 +191,16 @@ const topBarStyle = css`
     border: 1px solid white;
     width: 3rem;
     height: 3rem;
+  }
+
+  .current-category {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    font-size: 3rem;
+    color: white;
   }
 `;
 
