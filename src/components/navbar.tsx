@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getCategories } from "../lib/getMemo";
 import { openNavbarState } from "../pages/home";
+import { currentCategoryState } from "../components/memo/memoList";
 
 function CategoriesCheckbox(props: {
   categoriesChecked: boolean;
@@ -32,20 +33,34 @@ function CategoriesCheckbox(props: {
 function CategoriesList(props: { categoriesChecked: boolean }) {
   const [categories, count] = getCategories();
   const toggle = useSetRecoilState(openNavbarState);
+  const setCategory = useSetRecoilState(currentCategoryState);
 
-  const clickHandle = () => {
+  const total = count.reduce((sum, value) => sum + value);
+
+  const clickHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     toggle(false);
+    setCategory(e.currentTarget.classList[1]);
   };
 
   return (
     <>
       <div className="categories-list">
         <ul>
+          <li className="category">
+            <Link to="/home">
+              <div className="category-button all" onClick={clickHandle}>
+                すべてのカテゴリー ({total})
+              </div>
+            </Link>
+          </li>
           {categories.map((category, i) => {
             return (
               <li className="category">
                 <Link to="/home">
-                  <div className="category-button" onClick={clickHandle}>
+                  <div
+                    className={`category-button ${category}`}
+                    onClick={clickHandle}
+                  >
                     {category} ({count[i]})
                   </div>
                 </Link>

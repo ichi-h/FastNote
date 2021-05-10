@@ -1,5 +1,9 @@
-export function getMemo() {
-  return memo;
+export function getMemo(category: string) {
+  if (category === "all") return memo;
+
+  const memo_selected = memo.filter((value) => value.category === category);
+
+  return memo_selected;
 }
 
 export function getCategories(): [string[], number[]] {
