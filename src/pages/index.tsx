@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Router from "next/router";
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
+
+import theme from "../lib/theme";
 
 export const StartButton = () => {
   const moveToHome = () => Router.push("/home");
@@ -60,7 +62,7 @@ const homeStyle = css`
   }
 
   .bg {
-    background-color: #bcd955;
+    background-color: ${theme.mainColor};
     width: 100vw;
     height: 100vh;
   }
@@ -98,7 +100,7 @@ const homeStyle = css`
 
 const buttonStyle = css`
   button {
-    background-color: #f2b950;
+    background-color: ${theme.subColor};
     border-radius: 3px;
     padding: 1rem;
     font-size: 2rem;

@@ -1,4 +1,4 @@
-import css from "styled-jsx/css";
+import { css } from "styled-jsx/css";
 import { atom, useRecoilValue } from "recoil";
 import { getMemo } from "../../lib/getMemo";
 
