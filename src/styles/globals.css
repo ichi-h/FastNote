@@ -22,3 +22,7 @@ button {
   background: none;
   font-size: 62.5%;
 }
+
+.CodeMirror {
+  height: 80vh !important;
+}

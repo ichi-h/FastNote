@@ -45,11 +45,15 @@ export default function Editor() {
 
 const editorStyle = css`
   .editor {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     height: 100%;
   }
 
   .memo-info {
     padding: 1rem;
+    height: 10vh;
   }
 
   .memo-info > div:first-child {
