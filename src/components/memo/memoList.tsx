@@ -1,11 +1,8 @@
 import { css } from "styled-jsx/css";
-import { atom, useRecoilValue } from "recoil";
-import { getMemo } from "../../lib/getMemo";
+import { useRecoilValue } from "recoil";
 
-export const currentCategoryState = atom({
-  key: "currentCategoryState",
-  default: "all",
-});
+import { getMemo } from "../../lib/getMemo";
+import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);

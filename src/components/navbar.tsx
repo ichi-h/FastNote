@@ -4,8 +4,7 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getCategories } from "../lib/getMemo";
-import { openNavbarState } from "../pages/home";
-import { currentCategoryState } from "../components/memo/memoList";
+import { openNavbarState, currentCategoryState } from "../lib/atoms/uiAtoms";
 
 function CategoriesCheckbox(props: {
   categoriesChecked: boolean;

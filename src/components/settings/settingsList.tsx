@@ -1,8 +1,7 @@
 import { css } from "styled-jsx/css";
 import { useSetRecoilState } from "recoil";
 
-import { settingsContentState } from "./settingsContent";
-import React from "react";
+import { settingsContentState } from "../../lib/atoms/uiAtoms";
 
 export default function SettingsList() {
   const switchContent = useSetRecoilState(settingsContentState);
