@@ -3,6 +3,8 @@ import Head from "next/head";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
 
+import theme from "../lib/theme";
+
 import MemoList, { currentCategoryState } from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
@@ -138,8 +140,6 @@ export default function Home() {
   );
 }
 
-const TOP_BAR_HEIGHT = "5rem";
-
 const homeStyle = css`
   .home {
     width: 100vw;
@@ -153,7 +153,7 @@ const homeStyle = css`
   .separator {
     display: flex;
     width: 100%;
-    height: calc(100vh - ${TOP_BAR_HEIGHT});
+    height: calc(100vh - ${theme.topBarHeight});
   }
 
   .separator > div:first-child,
@@ -175,8 +175,8 @@ const topBarStyle = css`
   .top-bar {
     position: relative;
     width: 100%;
-    height: ${TOP_BAR_HEIGHT};
-    background-color: #bcd955;
+    height: ${theme.topBarHeight};
+    background-color: ${theme.mainColor};
   }
 
   .open-navbar {
