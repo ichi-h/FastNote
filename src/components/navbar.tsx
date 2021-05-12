@@ -8,7 +8,7 @@ import { openNavbarState, currentCategoryState } from "../lib/atoms/uiAtoms";
 
 function CategoriesCheckbox(props: {
   categoriesChecked: boolean;
-  clickHandle: () => void;
+  handleClick: () => void;
 }) {
   return (
     <>
@@ -19,7 +19,7 @@ function CategoriesCheckbox(props: {
           name="categories-checkbox"
           id="categories-checkbox"
           defaultChecked={props.categoriesChecked}
-          onClick={props.clickHandle}
+          onClick={props.handleClick}
         />
         カテゴリー
       </label>
@@ -36,7 +36,7 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
 
   const total = count.reduce((sum, value) => sum + value);
 
-  const clickHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     toggle(false);
     setCategory(e.currentTarget.classList[1]);
   };
@@ -47,7 +47,7 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
         <ul>
           <li className="category">
             <Link to="/home">
-              <div className="category-button all" onClick={clickHandle}>
+              <div className="category-button all" onClick={handleClick}>
                 すべてのカテゴリー ({total})
               </div>
             </Link>
@@ -58,7 +58,7 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
                 <Link to="/home">
                   <div
                     className={`category-button ${category}`}
-                    onClick={clickHandle}
+                    onClick={handleClick}
                   >
                     {category} ({count[i]})
                   </div>
@@ -77,14 +77,14 @@ function CategoriesList(props: { categoriesChecked: boolean }) {
 function SettingsButton() {
   const toggle = useSetRecoilState(openNavbarState);
 
-  const clickHandle = () => {
+  const handleClick = () => {
     toggle(false);
   };
 
   return (
     <>
       <Link to="/home/settings">
-        <div className="settings-button" onClick={clickHandle}>
+        <div className="settings-button" onClick={handleClick}>
           設定
         </div>
       </Link>
@@ -99,7 +99,7 @@ export default function Navbar() {
 
   const [categoriesChecked, toggle] = useState(true);
 
-  const clickHandle = () => {
+  const handleClick = () => {
     toggle(!categoriesChecked);
   };
 
@@ -109,7 +109,7 @@ export default function Navbar() {
         <div className="categories">
           <CategoriesCheckbox
             categoriesChecked={categoriesChecked}
-            clickHandle={clickHandle}
+            handleClick={handleClick}
           />
 
           <CategoriesList categoriesChecked={categoriesChecked} />

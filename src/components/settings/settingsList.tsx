@@ -6,7 +6,7 @@ import { settingsContentState } from "../../lib/atoms/uiAtoms";
 export default function SettingsList() {
   const switchContent = useSetRecoilState(settingsContentState);
 
-  const clickHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log(e.currentTarget.classList[2]);
     switchContent(e.currentTarget.classList[2]);
   };
@@ -14,17 +14,17 @@ export default function SettingsList() {
   return (
     <>
       <div className="settings-list">
-        <div className="settings-item editor" onClick={clickHandle}>
+        <div className="settings-item editor" onClick={handleClick}>
           <div className="title">エディター</div>
           <div className="explain">
             フォント等のエディターの設定を行います。
           </div>
         </div>
-        <div className="settings-item user" onClick={clickHandle}>
+        <div className="settings-item user" onClick={handleClick}>
           <div className="title">ユーザー設定</div>
           <div className="explain">ユーザーの管理を行います。</div>
         </div>
-        <div className="settings-item about" onClick={clickHandle}>
+        <div className="settings-item about" onClick={handleClick}>
           <div className="title">このアプリについて</div>
         </div>
       </div>

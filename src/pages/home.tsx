@@ -86,13 +86,13 @@ function TopBar() {
 function BlackCover() {
   const [checked, toggleCheck] = useRecoilState(openNavbarState);
 
-  const clickHandle = () => {
+  const handleClick = () => {
     toggleCheck(!checked);
   };
 
   return (
     <>
-      <div className="black-cover" onClick={clickHandle} />
+      <div className="black-cover" onClick={handleClick} />
       {blackCoverStyle(checked)}
     </>
   );
