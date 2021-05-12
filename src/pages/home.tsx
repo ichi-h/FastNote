@@ -1,6 +1,9 @@
 import { BrowserRouter, Route } from "react-router-dom";
+import { useEffect } from "react";
+import router from "next/router";
 import Head from "next/head";
 import { useRecoilState } from "recoil";
+import firebase from "firebase";
 import { css } from "styled-jsx/css";
 
 import theme from "../lib/theme";
@@ -29,6 +32,14 @@ function BlackCover() {
 }
 
 export default function Home() {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        router.push("/");
+      }
+    });
+  });
+
   return (
     <>
       <Head>
