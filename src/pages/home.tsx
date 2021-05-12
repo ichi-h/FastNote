@@ -9,6 +9,7 @@ import "firebase/auth";
 import "firebase/database";
 
 import theme from "../lib/theme";
+import { DatabaseInfo } from "../lib/databaseInfo";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 
 import TopBar from "../components/topbar/topbar";
@@ -45,23 +46,27 @@ export default function Home() {
             if (snapshot.toJSON()) {
               console.log("既にデータベースがある");
             } else {
-              dbRef.set({
-                memos: {
-                  title: "サンプル",
-                  category: "None",
-                  tags: [],
-                  star: false,
-                  created: "",
-                  updated: "",
-                  content: "# サンプル",
-                },
+              const newDatabase: DatabaseInfo = {
+                memos: [
+                  {
+                    title: "サンプル",
+                    category: "None",
+                    tags: [],
+                    star: false,
+                    created: "",
+                    updated: "",
+                    content: "# サンプル",
+                  },
+                ],
                 categories: ["None"],
                 settings: {
                   theme: "",
                   fontSize: "20px",
                   font: "",
                 },
-              });
+              };
+
+              dbRef.set(newDatabase);
             }
           })
           .catch((e) => {
