@@ -7,7 +7,10 @@ import theme from "../lib/theme";
 import "firebaseui/dist/firebaseui.css";
 
 export default function LandingPage(): JSX.Element {
-  useEffect(() => startUI())
+  useEffect(() => {
+    startUI()
+  });
+
   return (
     <>
       <Head>
