@@ -9,6 +9,7 @@ import "firebase/auth";
 import "firebase/database";
 
 import theme from "../lib/theme";
+import { FastNoteDate } from "../lib/fastNoteDate";
 import { DatabaseInfo } from "../lib/databaseInfo";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 
@@ -44,8 +45,23 @@ export default function Home() {
           .get()
           .then((snapshot) => {
             if (snapshot.toJSON()) {
-              console.log("既にデータベースがある");
+              const jsonStr = localStorage.getItem("database");
+              let localDB = JSON.parse(jsonStr);
+              let remoteDB = snapshot.toJSON();
+
+              const locaUpdated = Number(localDB["lastUpdated"]);
+              const remoteUpdated = Number(remoteDB["lastUpdated"]);
+
+              if (remoteUpdated < locaUpdated) {
+                remoteDB = localDB;
+                dbRef.set(remoteDB);
+              } else {
+                localDB = remoteDB;
+                localStorage.setItem("database", JSON.stringify(localDB));
+              }
             } else {
+              const fnd = new FastNoteDate();
+
               const newDatabase: DatabaseInfo = {
                 memos: [
                   {
@@ -64,9 +80,11 @@ export default function Home() {
                   fontSize: "20px",
                   font: "",
                 },
+                lastUpdated: fnd.getCurrentDate()
               };
 
               dbRef.set(newDatabase);
+              localStorage.setItem("database", JSON.stringify(newDatabase));
             }
           })
           .catch((e) => {
