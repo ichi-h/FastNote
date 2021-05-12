@@ -1,98 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { css } from "styled-jsx/css";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
-import { getCategories } from "../lib/getMemo";
-import { openNavbarState, currentCategoryState } from "../lib/atoms/uiAtoms";
+import { openNavbarState } from "../lib/atoms/uiAtoms";
 
-function CategoriesCheckbox(props: {
-  categoriesChecked: boolean;
-  handleClick: () => void;
-}) {
-  return (
-    <>
-      <label htmlFor="categories-checkbox" className="checkbox-label">
-        <input
-          type="checkbox"
-          className="categories-checkbox"
-          name="categories-checkbox"
-          id="categories-checkbox"
-          defaultChecked={props.categoriesChecked}
-          onClick={props.handleClick}
-        />
-        カテゴリー
-      </label>
-
-      <style jsx>{categoriesCheckboxStyle}</style>
-    </>
-  );
-}
-
-function CategoriesList(props: { categoriesChecked: boolean }) {
-  const [categories, count] = getCategories();
-  const toggle = useSetRecoilState(openNavbarState);
-  const setCategory = useSetRecoilState(currentCategoryState);
-
-  const total = count.reduce((sum, value) => sum + value);
-
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    toggle(false);
-    setCategory(e.currentTarget.classList[1]);
-  };
-
-  return (
-    <>
-      <div className="categories-list">
-        <ul>
-          <li className="category">
-            <Link to="/home">
-              <div className="category-button all" onClick={handleClick}>
-                すべてのカテゴリー ({total})
-              </div>
-            </Link>
-          </li>
-          {categories.map((category, i) => {
-            return (
-              <li className="category">
-                <Link to="/home">
-                  <div
-                    className={`category-button ${category}`}
-                    onClick={handleClick}
-                  >
-                    {category} ({count[i]})
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      {categoriesListStyle(props.categoriesChecked)}
-    </>
-  );
-}
-
-function SettingsButton() {
-  const toggle = useSetRecoilState(openNavbarState);
-
-  const handleClick = () => {
-    toggle(false);
-  };
-
-  return (
-    <>
-      <Link to="/home/settings">
-        <div className="settings-button" onClick={handleClick}>
-          設定
-        </div>
-      </Link>
-
-      <style jsx>{settingsButtonStyle}</style>
-    </>
-  );
-}
+import CategoriesCheckbox from "./navbar/categoriesCheckbox";
+import CategoriesList from "./navbar/categoriesList";
+import SettingsButton from "./navbar/settingsButton";
 
 export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
@@ -149,49 +62,3 @@ const navbarStyle = (checked: boolean) => {
     `}</style>
   );
 };
-
-const categoriesCheckboxStyle = css`
-  .checkbox-label {
-    font-size: 2rem;
-    margin-left: 2rem;
-  }
-
-  .categories-checkbox {
-    display: none;
-  }
-`;
-
-const categoriesListStyle = (categoriesChecked: boolean) => {
-  const showCategories = (bool: boolean) => {
-    if (bool) return "initial";
-    else return "none";
-  };
-
-  return (
-    <style jsx>
-      {`
-        .categories-list {
-          display: ${showCategories(categoriesChecked)};
-          transition: 0.3s;
-        }
-
-        .category {
-          margin-left: 4rem;
-          list-style: none;
-        }
-
-        .category-button {
-          font-size: 2rem;
-        }
-      `}
-    </style>
-  );
-};
-
-const settingsButtonStyle = css`
-  .settings-button {
-    margin-left: 2rem;
-    font-size: 2rem;
-    cursor: pointer;
-  }
-`;
