@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
-import "../lib/firebase";
+import "../lib/firebase/config";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
