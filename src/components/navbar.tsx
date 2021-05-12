@@ -6,6 +6,7 @@ import { openNavbarState } from "../lib/atoms/uiAtoms";
 import CategoriesCheckbox from "./navbar/categoriesCheckbox";
 import CategoriesList from "./navbar/categoriesList";
 import SettingsButton from "./navbar/settingsButton";
+import LogoutButton from "./navbar/logoutButton";
 
 export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
@@ -29,6 +30,7 @@ export default function Navbar() {
         </div>
 
         <SettingsButton />
+        <LogoutButton />
       </div>
 
       {navbarStyle(checked)}
