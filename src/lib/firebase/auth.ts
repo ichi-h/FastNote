@@ -1,32 +1,34 @@
 import firebase from "firebase";
-import "firebase/auth"
+import "firebase/auth";
 
 export async function startUI() {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const firebaseui = await import("firebaseui");
 
     // Initialize the FirebaseUI Widget using Firebase.
-    let ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
+    let ui =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(firebase.auth());
 
     // FirebaseUI config.
     let uiConfig = {
-      signInSuccessUrl: '/home',
+      signInSuccessUrl: "/home",
       signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
       signInFlow: "popup",
       // tosUrl and privacyPolicyUrl accept either url string or a callback
       // function.
       // Terms of service url/callback.
-      tosUrl: '/tos/',
+      tosUrl: "/tos/",
       // Privacy policy url/callback.
-      privacyPolicyUrl: function() {
-          window.location.assign('/pp/');
-      }
+      privacyPolicyUrl: function () {
+        window.location.assign("/pp/");
+      },
     };
 
     // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+    ui.start("#firebaseui-auth-container", uiConfig);
   }
 }

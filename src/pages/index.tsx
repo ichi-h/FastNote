@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { css } from "styled-jsx/css";
 
 import { startUI } from "../lib/firebase/auth";
@@ -8,7 +8,7 @@ import "firebaseui/dist/firebaseui.css";
 
 export default function LandingPage(): JSX.Element {
   useEffect(() => {
-    startUI()
+    startUI();
   });
 
   return (

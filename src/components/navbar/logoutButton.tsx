@@ -4,11 +4,15 @@ import { css } from "styled-jsx/css";
 
 export default function LogoutButton() {
   const handleClick = () => {
-    firebase.auth().signOut().then(() => {
-      router.push("/");
-    }).catch((e) => {
-      alert(`エラー: ${e}`);
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        router.push("/");
+      })
+      .catch((e) => {
+        alert(`エラー: ${e}`);
+      });
   };
 
   return (
