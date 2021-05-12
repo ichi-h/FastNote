@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic"
+import dynamic from "next/dynamic";
 import { css } from "styled-jsx/css";
 
 import MemoTitle from "./editor/memoTitle";
@@ -6,10 +6,13 @@ import MemoCategory from "./editor/memoCategory";
 import MemoTags from "./editor/memoTags";
 import MemoDate from "./editor/memoDate";
 
-const CodeMirrorDyn = dynamic(async () => {
-  const res = await import("./editor/codeMirrorWrap");
-  return res.default;
-}, { ssr: false })
+const CodeMirrorDyn = dynamic(
+  async () => {
+    const res = await import("./editor/codeMirrorWrap");
+    return res.default;
+  },
+  { ssr: false }
+);
 
 export default function Editor() {
   return (

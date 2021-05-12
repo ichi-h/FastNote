@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
 import theme from "../lib/theme";
-import { openNavbarState, } from "../lib/atoms/uiAtoms";
+import { openNavbarState } from "../lib/atoms/uiAtoms";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
