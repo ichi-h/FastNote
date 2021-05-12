@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
@@ -35,7 +36,38 @@ function BlackCover() {
 export default function Home() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
+      if (user) {
+        let dbRef = firebase.database().ref(`users/${user.uid}`);
+
+        dbRef
+          .get()
+          .then((snapshot) => {
+            if (snapshot.toJSON()) {
+              console.log("既にデータベースがある");
+            } else {
+              dbRef.set({
+                memos: {
+                  title: "サンプル",
+                  category: "None",
+                  tags: [],
+                  star: false,
+                  created: "",
+                  updated: "",
+                  content: "# サンプル",
+                },
+                categories: ["None"],
+                settings: {
+                  theme: "",
+                  fontSize: "20px",
+                  font: "",
+                },
+              });
+            }
+          })
+          .catch((e) => {
+            alert(`データベースからデータ取得時にエラーが発生しました。${e}`);
+          });
+      } else {
         router.push("/");
       }
     });
