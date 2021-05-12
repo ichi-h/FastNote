@@ -16,4 +16,5 @@ export interface DatabaseInfo {
     fontSize: string;
     font: string;
   };
+  lastUpdated: number;
 }
