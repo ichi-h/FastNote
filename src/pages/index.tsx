@@ -1,23 +1,13 @@
 import Head from "next/head";
-import Router from "next/router";
+import {useEffect} from "react";
 import { css } from "styled-jsx/css";
 
+import { startUI } from "../lib/firebase/auth";
 import theme from "../lib/theme";
-
-export const StartButton = () => {
-  const moveToHome = () => Router.push("/home");
-
-  return (
-    <div className="login-form">
-      <button data-testid="start-button" onClick={moveToHome}>
-        メモを取る
-      </button>
-      <style jsx>{buttonStyle}</style>
-    </div>
-  );
-};
+import "firebaseui/dist/firebaseui.css";
 
 export default function LandingPage(): JSX.Element {
+  useEffect(() => startUI())
   return (
     <>
       <Head>
@@ -43,7 +33,8 @@ export default function LandingPage(): JSX.Element {
             </p>
           </div>
 
-          <StartButton />
+          <div id="firebaseui-auth-container" />
+          <div id="loader" />
         </div>
 
         <style jsx>{homeStyle}</style>
