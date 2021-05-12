@@ -1,6 +1,7 @@
 import router from "next/router";
-import firebase from "firebase";
 import { css } from "styled-jsx/css";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default function LogoutButton() {
   const handleClick = () => {

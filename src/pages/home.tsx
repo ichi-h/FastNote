@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import router from "next/router";
 import Head from "next/head";
 import { useRecoilState } from "recoil";
-import firebase from "firebase";
 import { css } from "styled-jsx/css";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
