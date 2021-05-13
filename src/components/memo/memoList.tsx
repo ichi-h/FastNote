@@ -2,7 +2,7 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
-import { currentMemoState } from "../../lib/atoms/editorAtoms";
+import { memoIndexState } from "../../lib/atoms/editorAtoms";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -21,16 +21,16 @@ function getSelectedIndex(memos: object, category: string) {
 
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
-  const setCurrentMemo = useSetRecoilState(currentMemoState);
+  const setMemoIndex = useSetRecoilState(memoIndexState);
   const localDB = JSON.parse(localStorage.getItem("database"));
 
   const index = getSelectedIndex(localDB.memos, currentCategory);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const classNeme = e.currentTarget.classList[1];
-    const targetIndex = Number(classNeme.replace("memo-item-", ""));
+    const targetIndex = classNeme.replace("memo-item-", "");
 
-    setCurrentMemo(localDB.memos[targetIndex]);
+    setMemoIndex(targetIndex);
   };
 
   return (
