@@ -1,17 +1,15 @@
-import { BrowserRouter, Route } from "react-router-dom";
 import { useEffect } from "react";
-import router from "next/router";
+import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
+import router from "next/router";
 import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 import "firebase/auth";
-import "firebase/database";
 
 import theme from "../lib/theme";
-import { FastNoteDate } from "../lib/fastNoteDate";
-import { DatabaseInfo } from "../lib/databaseInfo";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
+import { FastNoteDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
@@ -39,57 +37,15 @@ export default function Home() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        let dbRef = firebase.database().ref(`users/${user.uid}`);
-
-        dbRef
-          .get()
-          .then((snapshot) => {
-            if (snapshot.toJSON()) {
-              const jsonStr = localStorage.getItem("database");
-              let localDB = JSON.parse(jsonStr);
-              let remoteDB = snapshot.toJSON();
-
-              const locaUpdated = Number(localDB["lastUpdated"]);
-              const remoteUpdated = Number(remoteDB["lastUpdated"]);
-
-              if (remoteUpdated < locaUpdated) {
-                remoteDB = localDB;
-                dbRef.set(remoteDB);
-              } else {
-                localDB = remoteDB;
-                localStorage.setItem("database", JSON.stringify(localDB));
-              }
-            } else {
-              const fnd = new FastNoteDate();
-
-              const newDatabase: DatabaseInfo = {
-                memos: [
-                  {
-                    title: "サンプル",
-                    category: "None",
-                    tags: [],
-                    star: false,
-                    created: "",
-                    updated: "",
-                    content: "# サンプル",
-                  },
-                ],
-                categories: ["None"],
-                settings: {
-                  theme: "",
-                  fontSize: "20px",
-                  font: "",
-                },
-                lastUpdated: fnd.getCurrentDate()
-              };
-
-              dbRef.set(newDatabase);
-              localStorage.setItem("database", JSON.stringify(newDatabase));
-            }
-          })
-          .catch((e) => {
-            alert(`データベースからデータ取得時にエラーが発生しました。${e}`);
-          });
+        const userDB = new FastNoteDatabase(user.uid);
+        userDB.syncDB().catch((e) => {
+          if (e.message === "NotFoundRemoteDB") {
+            userDB.createNewDB();
+          } else {
+            alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
+            router.reload();
+          }
+        });
       } else {
         router.push("/");
       }
