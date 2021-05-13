@@ -2,13 +2,13 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
 
-import { startUI } from "../lib/firebase/auth";
+import { startUiAuth } from "../lib/firebase/auth";
 import theme from "../lib/theme";
 import "firebaseui/dist/firebaseui.css";
 
 export default function LandingPage(): JSX.Element {
   useEffect(() => {
-    startUI();
+    startUiAuth();
   });
 
   return (

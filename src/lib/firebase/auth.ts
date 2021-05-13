@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
-export async function startUI() {
+export async function startUiAuth() {
   if (typeof window !== "undefined") {
     const firebaseui = await import("firebaseui");
 
