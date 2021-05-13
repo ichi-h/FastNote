@@ -7,7 +7,6 @@ export default function SettingsList() {
   const switchContent = useSetRecoilState(settingsContentState);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log(e.currentTarget.classList[2]);
     switchContent(e.currentTarget.classList[2]);
   };
 
