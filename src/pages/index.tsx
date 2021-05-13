@@ -1,14 +1,23 @@
 import Head from "next/head";
+import router from "next/router";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
+import firebase from "firebase/app";
+
+import "firebase/auth";
+import "firebaseui/dist/firebaseui.css";
 
 import { startUiAuth } from "../lib/firebase/auth";
 import theme from "../lib/theme";
-import "firebaseui/dist/firebaseui.css";
 
 export default function LandingPage(): JSX.Element {
   useEffect(() => {
     startUiAuth();
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        router.push("/home");
+      }
+    });
   });
 
   return (
