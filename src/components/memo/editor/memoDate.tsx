@@ -6,7 +6,7 @@ import { numToStr } from "../../../lib/fastNoteDate";
 
 export default function MemoDate() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
 
   const created = localDB.memos[memoIndex].created;
   const updated = localDB.memos[memoIndex].updated;

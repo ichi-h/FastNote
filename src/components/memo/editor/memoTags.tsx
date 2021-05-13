@@ -7,7 +7,7 @@ import React from "react";
 
 export default function MemoTags() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
   const tagsRef: React.RefObject<HTMLInputElement> = useRef();
   let tags: string[] = [];
 

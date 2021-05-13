@@ -7,7 +7,7 @@ import React from "react";
 
 export default function MemoTitle() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
   const titleRef: React.RefObject<HTMLInputElement> = useRef();
 
   useEffect(() => {

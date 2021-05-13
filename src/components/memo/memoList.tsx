@@ -45,7 +45,7 @@ function getTagsElements(localDB: any, i: number) {
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const setMemoIndex = useSetRecoilState(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
 
   const index = getSelectedIndex(localDB.memos, currentCategory);
 

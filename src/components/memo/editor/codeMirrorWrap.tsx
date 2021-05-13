@@ -11,7 +11,7 @@ import "codemirror/mode/markdown/markdown";
 
 const CodeMirrorWrap = React.memo(() => {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
   let content = localDB.memos[memoIndex].content;
 
   const handleChangeContent = (

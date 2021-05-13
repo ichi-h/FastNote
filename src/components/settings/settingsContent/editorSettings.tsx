@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "styled-jsx/css";
 
 const FontSize = React.memo(() => {
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     localDB.settings.fontSize = e.currentTarget.value;

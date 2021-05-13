@@ -6,7 +6,7 @@ import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 
 export default function MemoCategory() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(localStorage.getItem("database"));
   const selectRef: React.LegacyRef<HTMLSelectElement> = useRef();
 
   useEffect(() => {
