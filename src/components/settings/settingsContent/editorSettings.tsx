@@ -16,8 +16,6 @@ const FontSize = React.memo(() => {
         <p>フォントサイズを変更します（単位: px）。</p>
         <input
           type="number"
-          name=""
-          id=""
           defaultValue={localDB.settings.fontSize}
           onChange={handleChange}
         />
