@@ -1,3 +1,4 @@
+import React from "react";
 import { css } from "styled-jsx/css";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 
@@ -5,7 +6,7 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/theme/base16-light.css";
 import "codemirror/mode/markdown/markdown";
 
-export default function CodeMirrorWrap() {
+const CodeMirrorWrap = React.memo(() => {
   return (
     <>
       <div className="codemirror-wrap">
@@ -22,7 +23,7 @@ export default function CodeMirrorWrap() {
       <style jsx>{codeMirrorWrapStyle}</style>
     </>
   );
-}
+});
 
 const codeMirrorWrapStyle = css`
   .codemirror-wrap {
@@ -31,3 +32,5 @@ const codeMirrorWrapStyle = css`
     font-size: 20px;
   }
 `;
+
+export default CodeMirrorWrap;
