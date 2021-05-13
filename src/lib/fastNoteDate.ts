@@ -19,7 +19,7 @@ export class FastNoteDate {
       this.addZero(date),
       this.addZero(hour),
       this.addZero(minute),
-      this.addZero(second)
+      this.addZero(second),
     ];
 
     const resNumber = Number(resStr.join(""));
@@ -44,7 +44,7 @@ export function numToStr(numDate: number, cutTime: boolean) {
     strDate.slice(6, 8),
     strDate.slice(8, 10),
     strDate.slice(10, 12),
-    strDate.slice(12, 14)
+    strDate.slice(12, 14),
   ];
 
   if (cutTime) {
