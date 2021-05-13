@@ -3,8 +3,8 @@ import { atom } from "recoil";
 import { Memo } from "../databaseInfo";
 
 // 選択中のメモの情報
-export const memoState = atom({
-  key: "memoState",
+export const currentMemoState = atom({
+  key: "currentMemoState",
   default: {
     title: "",
     category: "",
