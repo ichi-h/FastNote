@@ -4,17 +4,23 @@ import { css } from "styled-jsx/css";
 const FontSize = React.memo(() => {
   const localDB = JSON.parse(localStorage.getItem("database"));
 
-  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     localDB.settings.fontSize = e.currentTarget.value;
     localStorage.setItem("database", JSON.stringify(localDB));
   };
 
-  return(
+  return (
     <>
       <div className="font-size">
         <h2>フォントサイズ</h2>
         <p>フォントサイズを変更します（単位: px）。</p>
-        <input type="number" name="" id="" defaultValue={localDB.settings.fontSize} onChange={handleChange} />
+        <input
+          type="number"
+          name=""
+          id=""
+          defaultValue={localDB.settings.fontSize}
+          onChange={handleChange}
+        />
       </div>
 
       <style jsx>{generalStyle}</style>

@@ -1,4 +1,4 @@
-import router from "next/router"
+import router from "next/router";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -13,17 +13,23 @@ const RemoveAccout = () => {
       const user = firebase.auth().currentUser;
       const remoteDB = firebase.database().ref(`users/${user.uid}`);
 
-      remoteDB.remove().then(() => {
-        localStorage.setItem("database", undefined);
+      remoteDB
+        .remove()
+        .then(() => {
+          localStorage.setItem("database", undefined);
 
-        user.delete().then(() => {
-          router.push("/");
-        }).catch((e) => {
-          alert(`アカウント削除に失敗しました。 \n${e}`);
+          user
+            .delete()
+            .then(() => {
+              router.push("/");
+            })
+            .catch((e) => {
+              alert(`アカウント削除に失敗しました。 \n${e}`);
+            });
+        })
+        .catch((e) => {
+          alert(`データベースの削除に失敗しました。 \n${e}`);
         });
-      }).catch((e) => {
-        alert(`データベースの削除に失敗しました。 \n${e}`);
-      });
     }
   };
 
@@ -31,7 +37,10 @@ const RemoveAccout = () => {
     <>
       <div className="remove-accout">
         <h2>アカウントの削除</h2>
-        <p>アカウントを削除した場合、保存したメモ、設定等のFast Noteに関連する全てのデータが削除されます。</p>
+        <p>
+          アカウントを削除した場合、保存したメモ、設定等のFast
+          Noteに関連する全てのデータが削除されます。
+        </p>
         <button onClick={handleClick}>アカウントを削除する</button>
       </div>
 
