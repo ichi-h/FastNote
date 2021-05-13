@@ -13,7 +13,7 @@ function getCategories(memos: object): [string[], number[]] {
     (category, i, self) => self.indexOf(category) === i
   );
 
-  const count = categoriesSet.map((category) => {
+  const count = categories.map((category) => {
     return categoriesSet.filter((value) => value === category).length;
   });
 
