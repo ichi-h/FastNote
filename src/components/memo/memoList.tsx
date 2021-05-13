@@ -44,7 +44,7 @@ export default function MemoList() {
             >
               <div className="item-top">
                 <p className="title">{localDB.memos[i].title}</p>
-                <p className="update-date">{localDB.memos[i].updateDate}</p>
+                <p className="update-date">{localDB.memos[i].updated}</p>
               </div>
 
               <div className="item-mid">
