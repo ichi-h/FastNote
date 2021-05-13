@@ -22,5 +22,5 @@ export const uidState = selector({
       return uid;
     }
   },
-  set: ({ set }, uid) => set(uidOriginState, uid),
+  set: ({ set }, uid: string) => set(uidOriginState, uid),
 });
