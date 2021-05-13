@@ -1,18 +1,30 @@
 import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { getMemo } from "../../lib/getMemo";
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 import { currentMemoState } from "../../lib/atoms/editorAtoms";
+import { Memo } from "../../lib/databaseInfo";
+
+function getSelectedIndex(memos: Memo[], category: string) {
+  if (category === "all") {
+    return new Array(memos.length).fill(0).map((_, i) => i);
+  }
+
+  const index = memos.map((memo, i) => {
+    if (memo.category === category) return i;
+  });
+
+  return index;
+}
 
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const setCurrentMemo = useSetRecoilState(currentMemoState);
+  const localDB = JSON.parse(localStorage.getItem("database"));
 
-  const memo = getMemo(currentCategory);
+  const index = getSelectedIndex(localDB.memos, currentCategory);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const localDB = JSON.parse(localStorage.getItem("database"));
     const classNeme = e.currentTarget.classList[1];
     const targetIndex = Number(classNeme.replace("memo-item-", ""));
 
@@ -22,7 +34,7 @@ export default function MemoList() {
   return (
     <>
       <div className="memo-list">
-        {memo.map((value, i) => {
+        {index.map((i) => {
           return (
             <div
               className={`memo-item-${i}`}
@@ -31,19 +43,23 @@ export default function MemoList() {
               onClick={handleClick}
             >
               <div className="item-top">
-                <p className="title">{value.title}</p>
-                <p className="update-date">{value.updateDate}</p>
+                <p className="title">{localDB.memos[i].title}</p>
+                <p className="update-date">{localDB.memos[i].updateDate}</p>
               </div>
 
               <div className="item-mid">
-                <p className="content">{value.content}</p>
+                <p className="content">{localDB.memos[i].content}</p>
               </div>
 
               <div className="item-bottom">
                 <div className="tags">
-                  {value.tags.map((tag) => {
-                    return <span className="tag-item">{tag}</span>;
-                  })}
+                  {
+                    Object.fromEntries(
+                      Object.entries(localDB.memos[i].tags).map(([_, tag]) => {
+                        return [_, <span className="tag-item">{tag}</span>];
+                      })
+                    )[i]
+                  }
                 </div>
 
                 <div className="buttons">
