@@ -19,6 +19,31 @@ function getSelectedIndex(memos: object, category: string) {
   return index;
 }
 
+function getTagsElements(localDB: any, i: number) {
+  const options = Object.fromEntries(
+    Object.entries(localDB.memos[i].tags).map(([_, tag]) => {
+      return [
+        _,
+        <>
+          <span className="tag-item">{tag}</span>
+          <style jsx>{tagItemStyle}</style>
+        </>,
+      ];
+    })
+  );
+
+  const tagsSize = Object.keys(options).length;
+  let res: JSX.Element[] = [];
+  for (let j = 0; j < tagsSize; j++) {
+    res.push(options[j]);
+  }
+
+  console.log(options);
+  console.log(res);
+
+  return res;
+}
+
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const setMemoIndex = useSetRecoilState(memoIndexState);
@@ -54,15 +79,7 @@ export default function MemoList() {
               </div>
 
               <div className="item-bottom">
-                <div className="tags">
-                  {
-                    Object.fromEntries(
-                      Object.entries(localDB.memos[i].tags).map(([_, tag]) => {
-                        return [_, <span className="tag-item">{tag}</span>];
-                      })
-                    )[i]
-                  }
-                </div>
+                <div className="tags">{getTagsElements(localDB, i)}</div>
 
                 <div className="buttons">
                   <div>
@@ -154,13 +171,6 @@ const memoListStyle = css`
     transform: translateY(-50%);
   }
 
-  .tag-item {
-    border: 1px solid black;
-    padding: 0 1rem;
-    margin-right: 1rem;
-    border-radius: 1rem;
-  }
-
   .buttons {
     display: flex;
     top: 50%;
@@ -175,5 +185,14 @@ const memoListStyle = css`
 
   input[class*="star-"] {
     display: none;
+  }
+`;
+
+const tagItemStyle = css`
+  .tag-item {
+    border: 1px solid black;
+    padding: 0 1rem;
+    margin-right: 1rem;
+    border-radius: 1rem;
   }
 `;
