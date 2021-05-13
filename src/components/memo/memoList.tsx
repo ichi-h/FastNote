@@ -3,6 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
+import { numToStr } from "../../lib/fastNoteDate";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -71,7 +72,9 @@ export default function MemoList() {
             >
               <div className="item-top">
                 <p className="title">{localDB.memos[i].title}</p>
-                <p className="update-date">{localDB.memos[i].updated}</p>
+                <p className="update-date">
+                  {numToStr(localDB.memos[i].updated, false)}
+                </p>
               </div>
 
               <div className="item-mid">
