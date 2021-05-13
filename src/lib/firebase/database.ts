@@ -101,13 +101,13 @@ export class FastNoteDatabase {
           target = newValue;
           this.updateRemoteDB();
         },
-        configurable: true
+        configurable: true,
       });
     };
 
     Object.getOwnPropertyNames(obj).forEach((prop) => {
       const target = obj[prop];
-      if ((target instanceof Object) && !Array.isArray(target)) {
+      if (target instanceof Object && !Array.isArray(target)) {
         this.implObservers(target);
       } else {
         implObserver(target, prop);
@@ -144,17 +144,22 @@ export class FastNoteDatabase {
       console.log("データベースの更新止まった");
 
       return new Promise((resolve, reject) => {
-        this.dbRef.set(this.localDB)
-        .then(() => resolve("データベースを更新"))
-        .catch((e) => reject(e));
-      })
+        this.dbRef
+          .set(this.localDB)
+          .then(() => resolve("データベースを更新"))
+          .catch((e) => reject(e));
+      });
     };
 
     const ms = 2000;
 
     sleep(ms)
-      .then(() => { checkDifference(ms); })
-      .then(() => { update(); })
+      .then(() => {
+        checkDifference(ms);
+      })
+      .then(() => {
+        update();
+      })
       .catch((e) => {
         if (e.message !== "データベースの更新は続行") {
           alert(`データベース更新中にエラーが発生しました。 \n${e}`);
