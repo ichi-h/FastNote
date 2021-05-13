@@ -1,19 +1,35 @@
 import { css } from "styled-jsx/css";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getMemo } from "../../lib/getMemo";
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
+import { currentMemoState } from "../../lib/atoms/editorAtoms";
 
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
+  const setCurrentMemo = useSetRecoilState(currentMemoState);
+
   const memo = getMemo(currentCategory);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const localDB = JSON.parse(localStorage.getItem("database"));
+    const classNeme = e.currentTarget.classList[1];
+    const targetIndex = Number(classNeme.replace("memo-item-", ""));
+
+    setCurrentMemo(localDB.memos[targetIndex]);
+  };
 
   return (
     <>
       <div className="memo-list">
         {memo.map((value, i) => {
           return (
-            <div className={`memo-item-${i}`} id={`memo-item-${i}`}>
+            <div
+              className={`memo-item-${i}`}
+              id={`memo-item-${i}`}
+              key={i}
+              onClick={handleClick}
+            >
               <div className="item-top">
                 <p className="title">{value.title}</p>
                 <p className="update-date">{value.updateDate}</p>
@@ -66,6 +82,7 @@ const memoListStyle = css`
   div[class*="memo-item-"] {
     height: 15vh;
     border: 1px solid black;
+    cursor: pointer;
   }
 
   .item-top,
