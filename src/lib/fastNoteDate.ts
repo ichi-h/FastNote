@@ -38,22 +38,23 @@ export class FastNoteDate {
 export function numToStr(numDate: number, cutTime: boolean) {
   const strDate = String(numDate);
 
-  let slicedStrDate = [
+  const slicedStrDate = [
     strDate.slice(0, 4),
     strDate.slice(4, 6),
     strDate.slice(6, 8),
+  ];
+
+  const slicedStrTime = [
     strDate.slice(8, 10),
     strDate.slice(10, 12),
     strDate.slice(12, 14),
   ];
 
-  if (cutTime) {
-    for (let _i = 0; _i < 3; _i++) {
-      slicedStrDate.pop();
-    }
-  }
+  const gluedStrDate = slicedStrDate.reduce((pre, cur) => `${pre}/${cur}`);
+  const gluedStrTime = slicedStrTime.reduce((pre, cur) => `${pre}:${cur}`);
 
-  return slicedStrDate.reduce((pre, cur) => `${pre}/${cur}`);
+  if (cutTime) return gluedStrDate;
+  else return `${gluedStrDate} - ${gluedStrTime}`;
 }
 
 export function strToNum(strDate: string) {
