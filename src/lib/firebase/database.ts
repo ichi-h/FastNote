@@ -79,7 +79,7 @@ export class FastNoteDatabase {
       categories: ["None", "sample"],
       settings: {
         theme: "",
-        fontSize: "20px",
+        fontSize: "20",
         font: "",
       },
       lastUpdated: fnd.getCurrentDate(),
