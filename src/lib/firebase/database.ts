@@ -51,7 +51,7 @@ export class FastNoteDatabase {
         {
           title: "サンプル",
           category: "None",
-          tags: [],
+          tags: [""],
           star: false,
           created: "",
           updated: "",
