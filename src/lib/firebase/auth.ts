@@ -1,5 +1,28 @@
+import router from "next/router";
 import firebase from "firebase/app";
 import "firebase/auth";
+
+import { FastNoteDatabase } from "./database";
+
+function successCallBack(authResult: any, redirectUrl?: string): boolean {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const userDB = new FastNoteDatabase(user.uid);
+      userDB.syncDB().catch((e) => {
+        if (e.message === "NotFoundRemoteDB") {
+          userDB.createNewDB();
+        } else {
+          alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
+          router.reload();
+        }
+      });
+    } else {
+      router.push("/");
+    }
+  });
+
+  return true;
+}
 
 export async function startUiAuth() {
   if (typeof window !== "undefined") {
@@ -12,6 +35,9 @@ export async function startUiAuth() {
 
     // FirebaseUI config.
     let uiConfig = {
+      callbacks: {
+        signInSuccessWithAuthResult: successCallBack,
+      },
       signInSuccessUrl: "/home",
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.

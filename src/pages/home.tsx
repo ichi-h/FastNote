@@ -1,15 +1,11 @@
-import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
-import router from "next/router";
 import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
-import firebase from "firebase/app";
 import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
-import { FastNoteDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
@@ -34,24 +30,6 @@ function BlackCover() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const userDB = new FastNoteDatabase(user.uid);
-        userDB.syncDB().catch((e) => {
-          if (e.message === "NotFoundRemoteDB") {
-            userDB.createNewDB();
-          } else {
-            alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
-            router.reload();
-          }
-        });
-      } else {
-        router.push("/");
-      }
-    });
-  });
-
   return (
     <>
       <Head>
