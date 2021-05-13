@@ -100,18 +100,3 @@ const homeStyle = css`
     font-size: 2rem;
   }
 `;
-
-const buttonStyle = css`
-  button {
-    background-color: ${theme.subColor};
-    border-radius: 3px;
-    padding: 1rem;
-    font-size: 2rem;
-    transition: 0.1s;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #ddaa4b;
-  }
-`;
