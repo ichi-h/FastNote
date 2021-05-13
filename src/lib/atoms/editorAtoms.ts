@@ -15,3 +15,9 @@ export const currentMemoState = atom({
     content: "",
   } as Memo,
 });
+
+// 現在選択中のメモのインデックス
+export const memoIndexState = atom({
+  key: "memoIndexState",
+  default: "0"
+});
