@@ -3,16 +3,18 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 import { currentMemoState } from "../../lib/atoms/editorAtoms";
-import { Memo } from "../../lib/databaseInfo";
 
-function getSelectedIndex(memos: Memo[], category: string) {
+function getSelectedIndex(memos: object, category: string) {
+  const memosLen = Object.keys(memos).length;
+
   if (category === "all") {
-    return new Array(memos.length).fill(0).map((_, i) => i);
+    return new Array(memosLen).fill(0).map((_, i) => i);
   }
 
-  const index = memos.map((memo, i) => {
-    if (memo.category === category) return i;
-  });
+  let index: number[] = [];
+  for (let i = 0; i < memosLen; i++) {
+    if (memos[i].category === category) index.push(i);
+  }
 
   return index;
 }
