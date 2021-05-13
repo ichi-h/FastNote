@@ -6,9 +6,12 @@ import { DatabaseInfo } from "../databaseInfo";
 
 export class FastNoteDatabase {
   private dbRef: firebase.database.Reference;
+  private localDB: any;
 
   public constructor(uid: string) {
     this.dbRef = firebase.database().ref(`users/${uid}`);
+    this.localDB = JSON.parse(localStorage.getItem("database"));
+    this.implObservers(this.localDB);
   }
 
   public syncDB() {
@@ -17,20 +20,16 @@ export class FastNoteDatabase {
         .get()
         .then((snapshot) => {
           if (snapshot.toJSON()) {
-            const jsonStr = localStorage.getItem("database");
-            let localDB = JSON.parse(jsonStr);
             let remoteDB = snapshot.toJSON();
 
-            const locaUpdated = Number(localDB["lastUpdated"]);
+            const locaUpdated = Number(this.localDB["lastUpdated"]);
             const remoteUpdated = Number(remoteDB["lastUpdated"]);
 
             if (remoteUpdated < locaUpdated) {
-              remoteDB = localDB;
-              this.dbRef.set(remoteDB);
+              this.dbRef.set(this.localDB);
               resolve("remoteDBをlocalDBに同期");
             } else {
-              localDB = remoteDB;
-              localStorage.setItem("database", JSON.stringify(localDB));
+              localStorage.setItem("database", JSON.stringify(remoteDB));
               resolve("localDBをremoteDBに同期");
             }
           } else {
@@ -87,5 +86,79 @@ export class FastNoteDatabase {
 
     this.dbRef.set(newDatabase);
     localStorage.setItem("database", JSON.stringify(newDatabase));
+  }
+
+  public getLocalDB() {
+    return this.localDB;
+  }
+
+  private implObservers(obj: object) {
+    const implObserver = (obj_: object, prop: string) => {
+      let target = obj_[prop];
+      Object.defineProperty(target, prop, {
+        get: () => target,
+        set: (newValue) => {
+          target = newValue;
+          this.updateRemoteDB();
+        },
+        configurable: true
+      });
+    };
+
+    Object.getOwnPropertyNames(obj).forEach((prop) => {
+      const target = obj[prop];
+      if ((target instanceof Object) && !Array.isArray(target)) {
+        this.implObservers(target);
+      } else {
+        implObserver(target, prop);
+      }
+    });
+  }
+
+  private updateRemoteDB() {
+    const sleep = (ms: number) => {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    };
+
+    const checkDifference = (ms: number) => {
+      console.log("2秒経った");
+
+      return new Promise((resolve, reject) => {
+        const oldDB = JSON.stringify(this.localDB);
+
+        sleep(ms).then(() => {
+          const newDB = JSON.stringify(this.localDB);
+
+          if (oldDB === newDB) {
+            resolve("データベースの更新が停止");
+          } else {
+            reject(new Error("データベースの更新は続行"));
+          }
+        });
+      });
+    };
+
+    const update = () => {
+      console.log("データベースの更新止まった");
+
+      return new Promise((resolve, reject) => {
+        this.dbRef.set(this.localDB)
+        .then(() => resolve("データベースを更新"))
+        .catch((e) => reject(e));
+      })
+    };
+
+    const ms = 2000;
+
+    sleep(ms)
+      .then(() => { checkDifference(ms); })
+      .then(() => { update(); })
+      .catch((e) => {
+        if (e.message !== "データベースの更新は続行") {
+          alert(`データベース更新中にエラーが発生しました。 \n${e}`);
+        }
+      });
   }
 }
