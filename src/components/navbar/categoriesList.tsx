@@ -1,13 +1,31 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
-import { getCategories } from "../../lib/getMemo";
 import { openNavbarState, currentCategoryState } from "../../lib/atoms/uiAtoms";
 
+function getCategories(memos: object): [string[], number[]] {
+  let categoriesSet: string[] = [];
+  for (let i = 0; i < Object.keys(memos).length; i++) {
+    categoriesSet.push(memos[i].category);
+  }
+
+  const categories = categoriesSet.filter(
+    (category, i, self) => self.indexOf(category) === i
+  );
+
+  const count = categoriesSet.map((category) => {
+    return categoriesSet.filter((value) => value === category).length;
+  });
+
+  return [categories, count];
+}
+
 export default function CategoriesList(props: { categoriesChecked: boolean }) {
-  const [categories, count] = getCategories();
   const toggle = useSetRecoilState(openNavbarState);
   const setCategory = useSetRecoilState(currentCategoryState);
+  const localDB = JSON.parse(localStorage.getItem("database"));
+  
+  const [categories, count] = getCategories(localDB.memos);
 
   const total = count.reduce((sum, value) => sum + value);
 
