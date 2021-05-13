@@ -14,7 +14,11 @@ const CodeMirrorWrap = React.memo(() => {
   const localDB = JSON.parse(localStorage.getItem("database"));
   let content = localDB.memos[memoIndex].content;
 
-  const handleChangeContent = (_editor: CodeMirror.Editor, _editorChange: CodeMirror.EditorChange, newContent: string) => {
+  const handleChangeContent = (
+    _editor: CodeMirror.Editor,
+    _editorChange: CodeMirror.EditorChange,
+    newContent: string
+  ) => {
     localDB.memos[memoIndex].content = newContent;
     localStorage.setItem("database", JSON.stringify(localDB));
   };
