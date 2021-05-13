@@ -1,12 +1,17 @@
 import router from "next/router";
+import { useSetRecoilState } from "recoil";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 import { FastNoteDatabase } from "./database";
+import { uidState } from "../atoms/UserIdAtoms";
 
 function successCallBack(authResult: any, redirectUrl?: string): boolean {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      const setUid = useSetRecoilState(uidState);
+      setUid(user.uid);
+
       const userDB = new FastNoteDatabase(user.uid);
       userDB.syncDB().catch((e) => {
         if (e.message === "NotFoundRemoteDB") {
