@@ -4,7 +4,6 @@ import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 
-
 export default function MemoCategory() {
   const memoIndex = useRecoilValue(memoIndexState);
   const localDB = JSON.parse(localStorage.getItem("database"));
@@ -22,7 +21,7 @@ export default function MemoCategory() {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     localDB.memos[memoIndex].category = e.currentTarget.value;
     localStorage.setItem("database", JSON.stringify(localDB));
-  }
+  };
 
   return (
     <>
@@ -35,11 +34,13 @@ export default function MemoCategory() {
           defaultValue={localDB.memos[memoIndex].category}
           onChange={handleChange}
         >
-          {
-            categories.map((category, i) => {
-              return <option value={category} key={i}>{category}</option>;
-            })
-          }
+          {categories.map((category, i) => {
+            return (
+              <option value={category} key={i}>
+                {category}
+              </option>
+            );
+          })}
         </select>
       </div>
 

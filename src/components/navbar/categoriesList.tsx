@@ -24,7 +24,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const toggle = useSetRecoilState(openNavbarState);
   const setCategory = useSetRecoilState(currentCategoryState);
   const localDB = JSON.parse(localStorage.getItem("database"));
-  
+
   const [categories, count] = getCategories(localDB.memos);
 
   const total = count.reduce((sum, value) => sum + value);
