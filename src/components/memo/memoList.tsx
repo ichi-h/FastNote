@@ -39,9 +39,6 @@ function getTagsElements(localDB: any, i: number) {
     res.push(options[j]);
   }
 
-  console.log(options);
-  console.log(res);
-
   return res;
 }
 
