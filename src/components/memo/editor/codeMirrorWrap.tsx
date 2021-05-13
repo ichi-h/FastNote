@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/base16-light.css";
+import "codemirror/theme/neat.css";
 import "codemirror/mode/markdown/markdown";
 
 const CodeMirrorWrap = React.memo(() => {
@@ -30,7 +30,7 @@ const CodeMirrorWrap = React.memo(() => {
           value={content}
           options={{
             mode: "markdown",
-            theme: "base16-light",
+            theme: "neat",
             lineNumbers: false,
           }}
           onChange={handleChangeContent}
