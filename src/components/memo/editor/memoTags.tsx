@@ -12,8 +12,9 @@ export default function MemoTags() {
   let tags: string[] = [];
 
   const updateTags = () => {
-    let newTags : string[] = [];
-    for (let i = 0; i < Object.keys(localDB.memos[memoIndex].tags).length; i++) {
+    let newTags: string[] = [];
+    const tagsSize = Object.keys(localDB.memos[memoIndex].tags).length;
+    for (let i = 0; i < tagsSize; i++) {
       newTags.push(localDB.memos[memoIndex].tags[i]);
     }
     tags = newTags;
