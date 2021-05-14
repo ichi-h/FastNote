@@ -1,5 +1,3 @@
-import router from "next/router";
-import { SetterOrUpdater } from "recoil";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
