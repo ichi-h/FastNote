@@ -140,6 +140,9 @@ export class FastNoteDatabase {
 
     const update = () => {
       return new Promise((resolve, reject) => {
+        const fnd = new FastNoteDate();
+        this.localDB.lastUpdated = fnd.getCurrentDate();
+
         this.dbRef
           .set(this.localDB)
           .then(() => resolve("データベースを更新"))
