@@ -9,7 +9,7 @@ import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
 import { startUiAuth } from "../lib/firebase/auth";
-import { uidState } from "../lib/atoms/UserIdAtoms";
+import { uidState } from "../lib/atoms/userIdAtoms";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {

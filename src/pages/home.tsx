@@ -10,7 +10,7 @@ import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
-import { uidState } from "../lib/atoms/UserIdAtoms";
+import { uidState } from "../lib/atoms/userIdAtoms";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";

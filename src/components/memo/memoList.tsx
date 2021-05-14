@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
-import { uidState } from "../../lib/atoms/UserIdAtoms";
+import { uidState } from "../../lib/atoms/userIdAtoms";
 import { numToStr } from "../../lib/fastNoteDate";
 import { FastNoteDatabase } from "../../lib/firebase/database";
 
