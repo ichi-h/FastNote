@@ -15,16 +15,18 @@ export class FastNoteDatabase {
   }
 
   public remoteIsExit() {
-    let res = false;
-
-    this.dbRef.get().then((snapshot) => {
-      if (snapshot.toJSON) {
-        res = true;
-      }
-    }).catch((e) => {
-      alert(`データベース取得時にエラーが発生しました。 \n${e}`);
-      throw new Error(e);
+    return new Promise((resolve, reject) => {
+      this.dbRef.get().then((snapshot) => {
+        if (snapshot.toJSON) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
     });
+  }
 
     return res;
   }
