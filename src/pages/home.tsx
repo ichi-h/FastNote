@@ -44,11 +44,12 @@ export default function Home() {
         setUid(user.uid);
 
         const setupDB = new SetupDatabase(user.uid);
-        setupDB.run()
-          .catch((e) => {
-            alert(`以下の理由によりデータベースのセットアップができませんでした。 \n${e}`);
-            router.reload();
-          });
+        setupDB.run().catch((e) => {
+          alert(
+            `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+          );
+          router.reload();
+        });
       } else {
         router.push("/");
       }

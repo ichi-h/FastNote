@@ -15,12 +15,11 @@ export class SetupDatabase {
   public run() {
     return new Promise((resolve, reject) => {
       const checkRemoteDB = async () => {
-        await this.remoteIsExit()
-          .then(async (bool) => {
-            if (!bool) {
-              await this.createRemoteDB();
-            }
-          });
+        await this.remoteIsExit().then(async (bool) => {
+          if (!bool) {
+            await this.createRemoteDB();
+          }
+        });
       };
 
       const process = async () => {
@@ -36,15 +35,18 @@ export class SetupDatabase {
 
   private remoteIsExit() {
     return new Promise((resolve, reject) => {
-      this.dbRef.get().then((snapshot) => {
-        if (snapshot.toJSON) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }).catch((e) => {
-        reject(e);
-      });
+      this.dbRef
+        .get()
+        .then((snapshot) => {
+          if (snapshot.toJSON) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
   }
 
@@ -91,11 +93,14 @@ export class SetupDatabase {
         lastUpdated: fnd.getCurrentDate(),
       };
 
-      this.dbRef.set(newDatabase).then(() => {
-        resolve("remoteDB作成完了");
-      }).catch((e) => {
-        reject(e);
-      });
+      this.dbRef
+        .set(newDatabase)
+        .then(() => {
+          resolve("remoteDB作成完了");
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
   }
 
