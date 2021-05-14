@@ -123,8 +123,6 @@ export class FastNoteDatabase {
     };
 
     const checkDifference = (ms: number) => {
-      console.log("2秒経った");
-
       return new Promise((resolve, reject) => {
         const oldDB = JSON.stringify(this.localDB);
 
@@ -141,8 +139,6 @@ export class FastNoteDatabase {
     };
 
     const update = () => {
-      console.log("データベースの更新止まった");
-
       return new Promise((resolve, reject) => {
         this.dbRef
           .set(this.localDB)
@@ -153,10 +149,7 @@ export class FastNoteDatabase {
 
     const ms = 2000;
 
-    sleep(ms)
-      .then(() => {
-        checkDifference(ms);
-      })
+    checkDifference(ms)
       .then(() => {
         update();
       })
