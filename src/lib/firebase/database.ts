@@ -153,12 +153,12 @@ export class ObservedLocalDB {
 
   private implObservers(obj: object) {
     const implObserver = (obj_: object, prop: string) => {
-      if (prop !== "updated") {
+      if (prop !== "updated" && prop !== "lastUpdated") {
         let target = obj_[prop];
         Object.defineProperty(obj_, prop, {
           get: () => target,
           set: () => {
-            this.updateRemoteDB();
+            return this.updateRemoteDB();
           },
           configurable: true,
         });
@@ -182,7 +182,6 @@ export class ObservedLocalDB {
     const getOldDB = () => {
       return new Promise((resolve) => {
         oldDB = JSON.stringify(this.localDB);
-        console.log("oldDB取得");
         resolve("oldDBを取得");
       });
     };
@@ -195,7 +194,6 @@ export class ObservedLocalDB {
 
     const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        console.log("2秒立った");
         newDB = JSON.stringify(this.localDB);
         if (oldDB === newDB) {
           resolve("データベースの更新が停止");
@@ -209,8 +207,6 @@ export class ObservedLocalDB {
       return new Promise((resolve, reject) => {
         const fnd = new FastNoteDate();
         this.localDB.lastUpdated = fnd.getCurrentDate();
-
-        console.log("更新したぞい");
 
         this.dbRef
           .set(this.localDB)
