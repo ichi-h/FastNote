@@ -45,13 +45,14 @@ export class FastNoteDatabase {
   public createNewDB() {
     return new Promise((resolve, reject) => {
       const localDB = localStorage.getItem("database");
-      this.dbRef.set(localDB)
+      this.dbRef
+        .set(localDB)
         .then(() => {
           resolve("データベース作成完了");
         })
         .catch((e) => {
           reject(e);
-        })
+        });
     });
   }
 
@@ -90,7 +91,7 @@ export class FastNoteDatabase {
     const getOldDB = () => {
       return new Promise((resolve) => {
         oldDB = JSON.stringify(this.localDB);
-        console.log("oldDB取得")
+        console.log("oldDB取得");
         resolve("oldDBを取得");
       });
     };
@@ -103,7 +104,7 @@ export class FastNoteDatabase {
 
     const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        console.log("2秒立った")
+        console.log("2秒立った");
         newDB = JSON.stringify(this.localDB);
         if (oldDB === newDB) {
           resolve("データベースの更新が停止");
@@ -134,12 +135,11 @@ export class FastNoteDatabase {
       await update();
     };
 
-    process()
-      .catch((e) => {
-        if (e.message !== "データベースの更新は続行") {
-          alert(`データベース更新中にエラーが発生しました。 \n${e}`);
-        }
-      });
+    process().catch((e) => {
+      if (e.message !== "データベースの更新は続行") {
+        alert(`データベース更新中にエラーが発生しました。 \n${e}`);
+      }
+    });
   }
 }
 

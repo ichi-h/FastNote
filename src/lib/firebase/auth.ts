@@ -49,23 +49,28 @@ export function checkUserState(setUid: SetterOrUpdater<string>) {
       }
 
       const userDB = new FastNoteDatabase(user.uid);
-      userDB.syncDB()
+      userDB
+        .syncDB()
         .then(() => {
           router.push("/home");
         })
         .catch((e) => {
           if (e.message === "NotFoundRemoteDB") {
-            userDB.createNewDB()
+            userDB
+              .createNewDB()
               .then(() => {
                 router.push("/home");
-              }).catch((e) => {
-                alert(`データベース作成中にエラーが発生しました。 \n${e.message}`);
+              })
+              .catch((e) => {
+                alert(
+                  `データベース作成中にエラーが発生しました。 \n${e.message}`
+                );
               });
           } else {
             alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
             router.reload();
           }
-      });
+        });
     } else {
       router.push("/");
     }
