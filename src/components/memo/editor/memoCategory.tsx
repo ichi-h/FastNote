@@ -3,11 +3,16 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
+import { uidState } from "../../../lib/atoms/userIdAtoms";
+import { FastNoteDatabase } from "../../../lib/firebase/database";
 
 export default function MemoCategory() {
   const memoIndex = useRecoilValue(memoIndexState);
-  let localDB = JSON.parse(localStorage.getItem("database"));
+  const uid = useRecoilValue(uidState);
   const selectRef: React.LegacyRef<HTMLSelectElement> = useRef();
+
+  let fndb = new FastNoteDatabase(uid);
+  let localDB = fndb.getLocalDB();
 
   useEffect(() => {
     selectRef.current.value = localDB.memos[memoIndex].category;

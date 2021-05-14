@@ -2,11 +2,16 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
+import { uidState } from "../../../lib/atoms/userIdAtoms";
+import { FastNoteDatabase } from "../../../lib/firebase/database";
 import { numToStr } from "../../../lib/fastNoteDate";
 
 export default function MemoDate() {
   const memoIndex = useRecoilValue(memoIndexState);
-  let localDB = JSON.parse(localStorage.getItem("database"));
+  const uid = useRecoilValue(uidState);
+
+  let fndb = new FastNoteDatabase(uid);
+  let localDB = fndb.getLocalDB();
 
   const created = localDB.memos[memoIndex].created;
   const updated = localDB.memos[memoIndex].updated;

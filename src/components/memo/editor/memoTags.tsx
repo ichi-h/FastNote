@@ -3,12 +3,17 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
-import React from "react";
+import { uidState } from "../../../lib/atoms/userIdAtoms";
+import { FastNoteDatabase } from "../../../lib/firebase/database";
 
 export default function MemoTags() {
   const memoIndex = useRecoilValue(memoIndexState);
-  let localDB = JSON.parse(localStorage.getItem("database"));
+  const uid = useRecoilValue(uidState);
   const tagsRef: React.RefObject<HTMLInputElement> = useRef();
+
+  let fndb = new FastNoteDatabase(uid);
+  let localDB = fndb.getLocalDB();
+
   let tags: string[] = [];
 
   const updateTags = () => {
