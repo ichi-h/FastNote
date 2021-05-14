@@ -14,39 +14,29 @@ export class SetupDatabase {
     this.dbRef = firebase.database().ref(`users/${uid}`);
   }
 
-  public run(setUid: SetterOrUpdater<string>, url: string) {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUid(user.uid);
-
-        const checkRemoteDB = async () => {
-          await this.remoteIsExit()
-            .then((bool) => {
-              if (!bool) {
-                this.createRemoteDB();
-              }
-            });
-        };
+  public run() {
+    return new Promise((resolve, reject) => {
+      const checkRemoteDB = async () => {
+        await this.remoteIsExit()
+          .then((bool) => {
+            if (!bool) {
+              this.createRemoteDB();
+            }
+          });
+      };
   
-        const syncRemoteAndLocal = async () => {
-          this.syncDB();
-        };
+      const syncRemoteAndLocal = async () => {
+        this.syncDB();
+      };
   
-        const process = async () => {
-          await checkRemoteDB();
-          await syncRemoteAndLocal();
-        };
+      const process = async () => {
+        await checkRemoteDB();
+        await syncRemoteAndLocal();
+      };
   
-        process().then(() => {
-          if (url === "/") {
-            router.push("/home");
-          }
-        });
-      } else {
-        if (url === "/home") {
-          router.push("/");
-        }
-      }
+      process()
+        .then(() => resolve("セットアップ完了"))
+        .catch((e) => reject(e));
     });
   }
 
