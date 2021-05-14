@@ -28,7 +28,55 @@ export class FastNoteDatabase {
     });
   }
 
-    return res;
+  public createRemoteDB() {
+    return new Promise((resolve, reject) => {
+      const fnd = new FastNoteDate();
+
+      const newDatabase: DatabaseInfo = {
+        memos: [
+          {
+            title: "サンプル1",
+            category: "sample",
+            tags: ["abc", "def", "ghi"],
+            star: false,
+            created: "20210501124512",
+            updated: "20210501124512",
+            content: "# サンプル1",
+          },
+          {
+            title: "サンプル2",
+            category: "None",
+            tags: ["def"],
+            star: false,
+            created: "20210501124513",
+            updated: "20210501124519",
+            content: "# サンプル2",
+          },
+          {
+            title: "サンプル3",
+            category: "None",
+            tags: ["ghi"],
+            star: false,
+            created: "20210501124534",
+            updated: "20210501124555",
+            content: "# サンプル3",
+          },
+        ],
+        categories: ["None", "sample"],
+        settings: {
+          theme: "",
+          fontSize: "20",
+          font: "",
+        },
+        lastUpdated: fnd.getCurrentDate(),
+      };
+
+      this.dbRef.set(newDatabase).then(() => {
+        resolve("remoteDB作成完了");
+      }).catch((e) => {
+        reject(e);
+      });
+    });
   }
 
   public syncDB() {
@@ -158,49 +206,4 @@ export class FastNoteDatabase {
       }
     });
   }
-}
-
-export function createNewLocalDB() {
-  const fnd = new FastNoteDate();
-
-  const newDatabase: DatabaseInfo = {
-    memos: [
-      {
-        title: "サンプル1",
-        category: "sample",
-        tags: ["abc", "def", "ghi"],
-        star: false,
-        created: "20210501124512",
-        updated: "20210501124512",
-        content: "# サンプル1",
-      },
-      {
-        title: "サンプル2",
-        category: "None",
-        tags: ["def"],
-        star: false,
-        created: "20210501124513",
-        updated: "20210501124519",
-        content: "# サンプル2",
-      },
-      {
-        title: "サンプル3",
-        category: "None",
-        tags: ["ghi"],
-        star: false,
-        created: "20210501124534",
-        updated: "20210501124555",
-        content: "# サンプル3",
-      },
-    ],
-    categories: ["None", "sample"],
-    settings: {
-      theme: "",
-      fontSize: "20",
-      font: "",
-    },
-    lastUpdated: fnd.getCurrentDate(),
-  };
-
-  localStorage.setItem("database", JSON.stringify(newDatabase));
 }
