@@ -28,7 +28,9 @@ function getTagsElements(localDB: any, i: number) {
       return [
         _,
         <>
-          <span className="tag-item" key={`tag-item-${j}`}>{tag}</span>
+          <span className="tag-item" key={`tag-item-${j}`}>
+            {tag}
+          </span>
           <style jsx>{tagItemStyle}</style>
         </>,
       ];
