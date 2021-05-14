@@ -135,7 +135,7 @@ export class SetupDatabase {
   }
 }
 
-export class ObserveLocalDB {
+export class ObservedLocalDB {
   private dbRef: firebase.database.Reference;
   private localDB: any;
 
