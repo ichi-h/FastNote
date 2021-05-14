@@ -109,13 +109,14 @@ export class SetupDatabase {
         .get()
         .then((snapshot) => {
           const localDBStr = localStorage.getItem("database");
-          const localDB = JSON.parse(localDBStr);
           const remoteDB = snapshot.toJSON();
 
           if (localDBStr === "undefined") {
             localStorage.setItem("database", JSON.stringify(remoteDB));
             resolve("localDBをremoteDBに同期");
           } else {
+            const localDB = JSON.parse(localDBStr);
+
             const locaUpdated = Number(localDB["lastUpdated"]);
             const remoteUpdated = Number(remoteDB["lastUpdated"]);
 
