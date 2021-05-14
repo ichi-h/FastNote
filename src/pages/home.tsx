@@ -4,7 +4,7 @@ import Head from "next/head";
 import router from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 import "firebase/auth";
 
