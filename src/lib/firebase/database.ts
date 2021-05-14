@@ -110,20 +110,6 @@ export class FastNoteDatabase {
     });
   }
 
-  public createNewDB() {
-    return new Promise((resolve, reject) => {
-      const localDB = localStorage.getItem("database");
-      this.dbRef
-        .set(localDB)
-        .then(() => {
-          resolve("データベース作成完了");
-        })
-        .catch((e) => {
-          reject(e);
-        });
-    });
-  }
-
   public getLocalDB() {
     return this.localDB;
   }
