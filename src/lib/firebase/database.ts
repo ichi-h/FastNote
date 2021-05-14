@@ -43,49 +43,16 @@ export class FastNoteDatabase {
   }
 
   public createNewDB() {
-    const fnd = new FastNoteDate();
-
-    const newDatabase: DatabaseInfo = {
-      memos: [
-        {
-          title: "サンプル1",
-          category: "sample",
-          tags: ["abc", "def", "ghi"],
-          star: false,
-          created: "20210501124512",
-          updated: "20210501124512",
-          content: "# サンプル1",
-        },
-        {
-          title: "サンプル2",
-          category: "None",
-          tags: ["def"],
-          star: false,
-          created: "20210501124513",
-          updated: "20210501124519",
-          content: "# サンプル2",
-        },
-        {
-          title: "サンプル3",
-          category: "None",
-          tags: ["ghi"],
-          star: false,
-          created: "20210501124534",
-          updated: "20210501124555",
-          content: "# サンプル3",
-        },
-      ],
-      categories: ["None", "sample"],
-      settings: {
-        theme: "",
-        fontSize: "20",
-        font: "",
-      },
-      lastUpdated: fnd.getCurrentDate(),
-    };
-
-    this.dbRef.set(newDatabase);
-    localStorage.setItem("database", JSON.stringify(newDatabase));
+    return new Promise((resolve, reject) => {
+      const localDB = localStorage.getItem("database");
+      this.dbRef.set(localDB)
+        .then(() => {
+          resolve("データベース作成完了");
+        })
+        .catch((e) => {
+          reject(e);
+        })
+    });
   }
 
   public getLocalDB() {
@@ -94,15 +61,16 @@ export class FastNoteDatabase {
 
   private implObservers(obj: object) {
     const implObserver = (obj_: object, prop: string) => {
-      let target = obj_[prop];
-      Object.defineProperty(obj_, prop, {
-        get: () => target,
-        set: (newValue) => {
-          target = newValue;
-          this.updateRemoteDB();
-        },
-        configurable: true,
-      });
+      if (prop !== "updated") {
+        let target = obj_[prop];
+        Object.defineProperty(obj_, prop, {
+          get: () => target,
+          set: () => {
+            this.updateRemoteDB();
+          },
+          configurable: true,
+        });
+      }
     };
 
     Object.getOwnPropertyNames(obj).forEach((prop) => {
@@ -116,25 +84,32 @@ export class FastNoteDatabase {
   }
 
   private updateRemoteDB() {
+    let oldDB: string;
+    let newDB: string;
+
+    const getOldDB = () => {
+      return new Promise((resolve) => {
+        oldDB = JSON.stringify(this.localDB);
+        console.log("oldDB取得")
+        resolve("oldDBを取得");
+      });
+    };
+
     const sleep = (ms: number) => {
       return new Promise((resolve) => {
         setTimeout(resolve, ms);
       });
     };
 
-    const checkDifference = (ms: number) => {
+    const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        const oldDB = JSON.stringify(this.localDB);
-
-        sleep(ms).then(() => {
-          const newDB = JSON.stringify(this.localDB);
-
-          if (oldDB === newDB) {
-            resolve("データベースの更新が停止");
-          } else {
-            reject(new Error("データベースの更新は続行"));
-          }
-        });
+        console.log("2秒立った")
+        newDB = JSON.stringify(this.localDB);
+        if (oldDB === newDB) {
+          resolve("データベースの更新が停止");
+        } else {
+          reject(new Error("データベースの更新は続行"));
+        }
       });
     };
 
@@ -143,6 +118,8 @@ export class FastNoteDatabase {
         const fnd = new FastNoteDate();
         this.localDB.lastUpdated = fnd.getCurrentDate();
 
+        console.log("更新したぞい");
+
         this.dbRef
           .set(this.localDB)
           .then(() => resolve("データベースを更新"))
@@ -150,16 +127,63 @@ export class FastNoteDatabase {
       });
     };
 
-    const ms = 2000;
+    const process = async () => {
+      await getOldDB();
+      await sleep(2000);
+      await checkDifference();
+      await update();
+    };
 
-    checkDifference(ms)
-      .then(() => {
-        update();
-      })
+    process()
       .catch((e) => {
         if (e.message !== "データベースの更新は続行") {
           alert(`データベース更新中にエラーが発生しました。 \n${e}`);
         }
       });
   }
+}
+
+export function createNewLocalDB() {
+  const fnd = new FastNoteDate();
+
+  const newDatabase: DatabaseInfo = {
+    memos: [
+      {
+        title: "サンプル1",
+        category: "sample",
+        tags: ["abc", "def", "ghi"],
+        star: false,
+        created: "20210501124512",
+        updated: "20210501124512",
+        content: "# サンプル1",
+      },
+      {
+        title: "サンプル2",
+        category: "None",
+        tags: ["def"],
+        star: false,
+        created: "20210501124513",
+        updated: "20210501124519",
+        content: "# サンプル2",
+      },
+      {
+        title: "サンプル3",
+        category: "None",
+        tags: ["ghi"],
+        star: false,
+        created: "20210501124534",
+        updated: "20210501124555",
+        content: "# サンプル3",
+      },
+    ],
+    categories: ["None", "sample"],
+    settings: {
+      theme: "",
+      fontSize: "20",
+      font: "",
+    },
+    lastUpdated: fnd.getCurrentDate(),
+  };
+
+  localStorage.setItem("database", JSON.stringify(newDatabase));
 }

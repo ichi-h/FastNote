@@ -1,16 +1,13 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
-import router from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
-import firebase from "firebase/app";
-
-import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { uidState } from "../lib/atoms/userIdAtoms";
+import { checkUserState } from "../lib/firebase/auth";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
@@ -38,13 +35,7 @@ export default function Home() {
   const setUid = useSetRecoilState(uidState);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUid(user.uid);
-      } else {
-        router.push("/");
-      }
-    });
+    checkUserState(setUid);
   });
 
   return (

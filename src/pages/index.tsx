@@ -1,15 +1,13 @@
 import Head from "next/head";
-import router from "next/router";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
 import { useSetRecoilState } from "recoil";
-import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
-import { startUiAuth } from "../lib/firebase/auth";
 import { uidState } from "../lib/atoms/userIdAtoms";
+import { startUiAuth, checkUserState } from "../lib/firebase/auth";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
@@ -17,13 +15,7 @@ export default function LandingPage(): JSX.Element {
 
   useEffect(() => {
     startUiAuth();
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUid(user.uid);
-        router.push("/home");
-      }
-    });
+    checkUserState(setUid);
   });
 
   return (
