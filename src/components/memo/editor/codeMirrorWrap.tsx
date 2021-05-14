@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { uidState } from "../../../lib/atoms/userIdAtoms";
-import { FastNoteDatabase } from "../../../lib/firebase/database";
+import { ObservedLocalDB } from "../../../lib/firebase/database";
 import { FastNoteDate } from "../../../lib/fastNoteDate";
 
 import "codemirror/lib/codemirror.css";
@@ -16,8 +16,8 @@ const CodeMirrorWrap = React.memo(() => {
   const memoIndex = useRecoilValue(memoIndexState);
   const uid = useRecoilValue(uidState);
 
-  let fndb = new FastNoteDatabase(uid);
-  let localDB = fndb.getLocalDB();
+  let observedDB = new ObservedLocalDB(uid);
+  let localDB = observedDB.getLocalDB();
 
   const [currentTitle, setTitle] = useState(localDB.memos[memoIndex].title);
 

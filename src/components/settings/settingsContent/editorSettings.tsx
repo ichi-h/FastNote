@@ -3,13 +3,13 @@ import { css } from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
 import { uidState } from "../../../lib/atoms/userIdAtoms";
-import { FastNoteDatabase } from "../../../lib/firebase/database";
+import { ObservedLocalDB } from "../../../lib/firebase/database";
 
 const FontSize = React.memo(() => {
   const uid = useRecoilValue(uidState);
 
-  let fndb = new FastNoteDatabase(uid);
-  let localDB = fndb.getLocalDB();
+  let observedDB = new ObservedLocalDB(uid);
+  let localDB = observedDB.getLocalDB();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     localDB.settings.fontSize = e.currentTarget.value;
