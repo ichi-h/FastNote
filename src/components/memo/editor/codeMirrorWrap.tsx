@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { uidState } from "../../../lib/atoms/userIdAtoms";
 import { FastNoteDatabase } from "../../../lib/firebase/database";
+import { FastNoteDate } from "../../../lib/fastNoteDate";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neat.css";
@@ -31,6 +32,9 @@ const CodeMirrorWrap = React.memo(() => {
       // 選択中のメモが変更された場合
       setTitle(localDB.memos[memoIndex].title);
     } else {
+      console.log("エディターの中身変更");
+      const fnd = new FastNoteDate();
+      localDB.memos[memoIndex].updated = fnd.getCurrentDate();
       localDB.memos[memoIndex].content = newContent;
       localStorage.setItem("database", JSON.stringify(localDB));
     }

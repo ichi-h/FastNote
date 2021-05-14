@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { uidState } from "../../../lib/atoms/userIdAtoms";
 import { FastNoteDatabase } from "../../../lib/firebase/database";
+import { FastNoteDate } from "../../../lib/fastNoteDate";
 
 export default function MemoCategory() {
   const memoIndex = useRecoilValue(memoIndexState);
@@ -24,6 +25,8 @@ export default function MemoCategory() {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const fnd = new FastNoteDate();
+    localDB.memos[memoIndex].updated = fnd.getCurrentDate();
     localDB.memos[memoIndex].category = e.currentTarget.value;
     localStorage.setItem("database", JSON.stringify(localDB));
   };
