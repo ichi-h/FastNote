@@ -84,10 +84,15 @@ export class FastNoteDatabase {
       this.dbRef
         .get()
         .then((snapshot) => {
-          if (snapshot.toJSON()) {
-            let remoteDB = snapshot.toJSON();
+          const localDBStr = localStorage.getItem("database");
+          const localDB = JSON.parse(localDBStr);
+          const remoteDB = snapshot.toJSON();
 
-            const locaUpdated = Number(this.localDB["lastUpdated"]);
+          if (localDBStr === "undefined") {
+            localStorage.setItem("database", JSON.stringify(remoteDB));
+            resolve("localDBをremoteDBに同期");
+          } else {
+            const locaUpdated = Number(localDB["lastUpdated"]);
             const remoteUpdated = Number(remoteDB["lastUpdated"]);
 
             if (remoteUpdated < locaUpdated) {
@@ -97,8 +102,6 @@ export class FastNoteDatabase {
               localStorage.setItem("database", JSON.stringify(remoteDB));
               resolve("localDBをremoteDBに同期");
             }
-          } else {
-            reject(new Error("NotFoundRemoteDB"));
           }
         })
         .catch((e) => {
