@@ -95,7 +95,7 @@ export class FastNoteDatabase {
   private implObservers(obj: object) {
     const implObserver = (obj_: object, prop: string) => {
       let target = obj_[prop];
-      Object.defineProperty(target, prop, {
+      Object.defineProperty(obj_, prop, {
         get: () => target,
         set: (newValue) => {
           target = newValue;
@@ -106,11 +106,11 @@ export class FastNoteDatabase {
     };
 
     Object.getOwnPropertyNames(obj).forEach((prop) => {
-      const target = obj[prop];
+      let target = obj[prop];
       if (target instanceof Object && !Array.isArray(target)) {
         this.implObservers(target);
       } else {
-        implObserver(target, prop);
+        implObserver(obj, prop);
       }
     });
   }
