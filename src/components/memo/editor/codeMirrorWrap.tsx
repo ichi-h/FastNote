@@ -27,7 +27,8 @@ const CodeMirrorWrap = React.memo(() => {
     _editorChange: CodeMirror.EditorChange,
     newContent: string
   ) => {
-    if (currentTitle !== localDB.memos[memoIndex].title) { // 選択中のメモが変更された場合
+    if (currentTitle !== localDB.memos[memoIndex].title) {
+      // 選択中のメモが変更された場合
       setTitle(localDB.memos[memoIndex].title);
     } else {
       localDB.memos[memoIndex].content = newContent;

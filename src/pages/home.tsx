@@ -1,4 +1,4 @@
-import { useEffect }from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
@@ -38,7 +38,7 @@ export default function Home() {
   const setUid = useSetRecoilState(uidState);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUid(user.uid);
       } else {

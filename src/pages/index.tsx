@@ -18,7 +18,7 @@ export default function LandingPage(): JSX.Element {
   useEffect(() => {
     startUiAuth();
 
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUid(user.uid);
         router.push("/home");
