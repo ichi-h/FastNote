@@ -1,28 +1,18 @@
 import router from "next/router";
-import { useSetRecoilState } from "recoil";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 import { FastNoteDatabase } from "./database";
-import { uidState } from "../atoms/UserIdAtoms";
 
 function successCallBack(authResult: any, redirectUrl?: string): boolean {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      const setUid = useSetRecoilState(uidState);
-      setUid(user.uid);
-
-      const userDB = new FastNoteDatabase(user.uid);
-      userDB.syncDB().catch((e) => {
-        if (e.message === "NotFoundRemoteDB") {
-          userDB.createNewDB();
-        } else {
-          alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
-          router.reload();
-        }
-      });
+  const user = firebase.auth().currentUser;
+  const userDB = new FastNoteDatabase(user.uid);
+  userDB.syncDB().catch((e) => {
+    if (e.message === "NotFoundRemoteDB") {
+      userDB.createNewDB();
     } else {
-      router.push("/");
+      alert(`データ取得中に下記のエラーが発生しました。 \n${e.message}`);
+      router.reload();
     }
   });
 
@@ -43,7 +33,6 @@ export async function startUiAuth() {
       callbacks: {
         signInSuccessWithAuthResult: successCallBack,
       },
-      signInSuccessUrl: "/home",
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,

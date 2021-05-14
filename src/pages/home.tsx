@@ -1,11 +1,16 @@
+import { useEffect }from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
-import { useRecoilState } from "recoil";
+import router from "next/router";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
+import firebase from "firebase";
+
 import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
+import { uidState } from "../lib/atoms/UserIdAtoms";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
@@ -30,6 +35,18 @@ function BlackCover() {
 }
 
 export default function Home() {
+  const setUid = useSetRecoilState(uidState);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setUid(user.uid);
+      } else {
+        router.push("/");
+      }
+    });
+  });
+
   return (
     <>
       <Head>
