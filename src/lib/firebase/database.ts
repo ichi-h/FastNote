@@ -14,6 +14,13 @@ export class FastNoteDatabase {
     this.implObservers(this.localDB);
   }
 
+  public remoteIsExit() {
+    this.dbRef.get().then((snapshot) => {
+      if (snapshot.toJSON) return true;
+      else return false;
+    });
+  }
+
   public syncDB() {
     return new Promise((resolve, reject) => {
       this.dbRef
