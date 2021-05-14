@@ -6,12 +6,9 @@ import { DatabaseInfo } from "../databaseInfo";
 
 export class FastNoteDatabase {
   private dbRef: firebase.database.Reference;
-  private localDB: any;
 
   public constructor(uid: string) {
     this.dbRef = firebase.database().ref(`users/${uid}`);
-    this.localDB = JSON.parse(localStorage.getItem("database"));
-    this.implObservers(this.localDB);
   }
 
   public remoteIsExit() {
@@ -96,7 +93,7 @@ export class FastNoteDatabase {
             const remoteUpdated = Number(remoteDB["lastUpdated"]);
 
             if (remoteUpdated < locaUpdated) {
-              this.dbRef.set(this.localDB);
+              this.dbRef.set(localDB);
               resolve("remoteDBをlocalDBに同期");
             } else {
               localStorage.setItem("database", JSON.stringify(remoteDB));
@@ -108,6 +105,17 @@ export class FastNoteDatabase {
           reject(e);
         });
     });
+  }
+}
+
+export class ObserveLocalDB {
+  private dbRef: firebase.database.Reference;
+  private localDB: any;
+
+  public constructor(uid: string) {
+    this.dbRef = firebase.database().ref(`users/${uid}`);
+    this.localDB = JSON.parse(localStorage.getItem("database"));
+    this.implObservers(this.localDB);
   }
 
   public getLocalDB() {
