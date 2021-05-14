@@ -1,4 +1,7 @@
+import router from "next/router";
+import { SetterOrUpdater } from "recoil";
 import firebase from "firebase/app";
+import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
@@ -11,7 +14,43 @@ export class FastNoteDatabase {
     this.dbRef = firebase.database().ref(`users/${uid}`);
   }
 
-  public remoteIsExit() {
+  public setupDatabase(setUid: SetterOrUpdater<string>, url: string) {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUid(user.uid);
+
+        const checkRemoteDB = async () => {
+          await this.remoteIsExit()
+            .then((bool) => {
+              if (!bool) {
+                this.createRemoteDB();
+              }
+            });
+        };
+  
+        const syncRemoteAndLocal = async () => {
+          this.syncDB();
+        };
+  
+        const process = async () => {
+          await checkRemoteDB();
+          await syncRemoteAndLocal();
+        };
+  
+        process().then(() => {
+          if (url === "/") {
+            router.push("/home");
+          }
+        });
+      } else {
+        if (url === "/home") {
+          router.push("/");
+        }
+      }
+    });
+  }
+
+  private remoteIsExit() {
     return new Promise((resolve, reject) => {
       this.dbRef.get().then((snapshot) => {
         if (snapshot.toJSON) {
@@ -25,7 +64,7 @@ export class FastNoteDatabase {
     });
   }
 
-  public createRemoteDB() {
+  private createRemoteDB() {
     return new Promise((resolve, reject) => {
       const fnd = new FastNoteDate();
 
@@ -76,7 +115,7 @@ export class FastNoteDatabase {
     });
   }
 
-  public syncDB() {
+  private syncDB() {
     return new Promise((resolve, reject) => {
       this.dbRef
         .get()
