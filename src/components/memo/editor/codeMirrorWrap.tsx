@@ -32,7 +32,6 @@ const CodeMirrorWrap = React.memo(() => {
       // 選択中のメモが変更された場合
       setTitle(localDB.memos[memoIndex].title);
     } else {
-      console.log("エディターの中身変更");
       const fnd = new FastNoteDate();
       localDB.memos[memoIndex].updated = fnd.getCurrentDate();
       localDB.memos[memoIndex].content = newContent;

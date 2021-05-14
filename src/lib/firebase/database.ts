@@ -158,7 +158,7 @@ export class ObservedLocalDB {
         Object.defineProperty(obj_, prop, {
           get: () => target,
           set: () => {
-            return this.updateRemoteDB();
+            this.updateRemoteDB();
           },
           configurable: true,
         });
