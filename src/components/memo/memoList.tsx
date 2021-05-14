@@ -3,7 +3,9 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { currentCategoryState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
+import { uidState } from "../../lib/atoms/UserIdAtoms";
 import { numToStr } from "../../lib/fastNoteDate";
+import { FastNoteDatabase } from "../../lib/firebase/database";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -45,7 +47,10 @@ function getTagsElements(localDB: any, i: number) {
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const setMemoIndex = useSetRecoilState(memoIndexState);
-  let localDB = JSON.parse(localStorage.getItem("database"));
+  const uid = useRecoilValue(uidState);
+
+  let fndb = new FastNoteDatabase(uid);
+  let localDB = fndb.getLocalDB();
 
   const index = getSelectedIndex(localDB.memos, currentCategory);
 
