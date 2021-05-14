@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
+import router from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
+import firebase from "firebase/app";
+
+import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { uidState } from "../lib/atoms/userIdAtoms";
-import { checkUserState } from "../lib/firebase/auth";
+import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar/topbar";
 import MemoList from "../components/memo/memoList";
@@ -35,7 +39,20 @@ export default function Home() {
   const setUid = useSetRecoilState(uidState);
 
   useEffect(() => {
-    checkUserState(setUid);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUid(user.uid);
+
+        const setupDB = new SetupDatabase(user.uid);
+        setupDB.run()
+          .catch((e) => {
+            alert(`以下の理由によりデータベースのセットアップができませんでした。 \n${e}`);
+            router.reload();
+          });
+      } else {
+        router.push("/");
+      }
+    });
   });
 
   return (
