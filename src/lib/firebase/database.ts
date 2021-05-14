@@ -7,14 +7,14 @@ import "firebase/database";
 import { FastNoteDate } from "../fastNoteDate";
 import { DatabaseInfo } from "../databaseInfo";
 
-export class FastNoteDatabase {
+export class SetupDatabase {
   private dbRef: firebase.database.Reference;
 
   public constructor(uid: string) {
     this.dbRef = firebase.database().ref(`users/${uid}`);
   }
 
-  public setupDatabase(setUid: SetterOrUpdater<string>, url: string) {
+  public run(setUid: SetterOrUpdater<string>, url: string) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUid(user.uid);
