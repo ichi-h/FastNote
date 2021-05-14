@@ -47,7 +47,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
           </li>
           {categories.map((category, i) => {
             return (
-              <li className="category">
+              <li className="category" key={`category-${i}`}>
                 <Link to="/home">
                   <div
                     className={`category-button ${category}`}

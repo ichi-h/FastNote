@@ -24,11 +24,11 @@ function getSelectedIndex(memos: object, category: string) {
 
 function getTagsElements(localDB: any, i: number) {
   const options = Object.fromEntries(
-    Object.entries(localDB.memos[i].tags).map(([_, tag]) => {
+    Object.entries(localDB.memos[i].tags).map(([_, tag], j) => {
       return [
         _,
         <>
-          <span className="tag-item">{tag}</span>
+          <span className="tag-item" key={`tag-item-${j}`}>{tag}</span>
           <style jsx>{tagItemStyle}</style>
         </>,
       ];
@@ -67,9 +67,9 @@ export default function MemoList() {
         {index.map((i) => {
           return (
             <div
-              className={`memo-item-${i}`}
+              className={`memo-item`}
               id={`memo-item-${i}`}
-              key={i}
+              key={`memo-item-${i}`}
               onClick={handleClick}
             >
               <div className="item-top">
@@ -94,7 +94,7 @@ export default function MemoList() {
                     <label htmlFor="">
                       <input
                         type="checkbox"
-                        className={`star-${i}`}
+                        className={`star`}
                         name="star"
                         id={`star-${i}`}
                       />
@@ -119,7 +119,7 @@ const memoListStyle = css`
     overflow-y: scroll;
   }
 
-  div[class*="memo-item-"] {
+  .memo-item {
     height: 15vh;
     border: 1px solid black;
     cursor: pointer;
@@ -188,7 +188,7 @@ const memoListStyle = css`
     margin-left: 1rem;
   }
 
-  input[class*="star-"] {
+  .star {
     display: none;
   }
 `;

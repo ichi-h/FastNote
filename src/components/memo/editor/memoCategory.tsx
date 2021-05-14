@@ -41,7 +41,7 @@ export default function MemoCategory() {
         >
           {categories.map((category, i) => {
             return (
-              <option value={category} key={i}>
+              <option value={category} key={`option-category-${i}`}>
                 {category}
               </option>
             );
