@@ -57,8 +57,8 @@ export default function MemoList() {
   const index = getSelectedIndex(localDB.memos, currentCategory);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const classNeme = e.currentTarget.classList[1];
-    const targetIndex = classNeme.replace("memo-item-", "");
+    const idName = e.currentTarget.id;
+    const targetIndex = idName.replace("memo-item-", "");
 
     setMemoIndex(targetIndex);
   };
