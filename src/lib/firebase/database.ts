@@ -16,22 +16,18 @@ export class SetupDatabase {
     return new Promise((resolve, reject) => {
       const checkRemoteDB = async () => {
         await this.remoteIsExit()
-          .then((bool) => {
+          .then(async (bool) => {
             if (!bool) {
-              this.createRemoteDB();
+              await this.createRemoteDB();
             }
           });
       };
-  
-      const syncRemoteAndLocal = async () => {
-        this.syncDB();
-      };
-  
+
       const process = async () => {
         await checkRemoteDB();
-        await syncRemoteAndLocal();
+        await this.syncDB();
       };
-  
+
       process()
         .then(() => resolve("セットアップ完了"))
         .catch((e) => reject(e));
