@@ -15,10 +15,18 @@ export class FastNoteDatabase {
   }
 
   public remoteIsExit() {
+    let res = false;
+
     this.dbRef.get().then((snapshot) => {
-      if (snapshot.toJSON) return true;
-      else return false;
+      if (snapshot.toJSON) {
+        res = true;
+      }
+    }).catch((e) => {
+      alert(`データベース取得時にエラーが発生しました。 \n${e}`);
+      throw new Error(e);
     });
+
+    return res;
   }
 
   public syncDB() {
