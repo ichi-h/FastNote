@@ -15,7 +15,7 @@ export class SetupDatabase {
   public run() {
     return new Promise((resolve, reject) => {
       const checkRemoteDB = async () => {
-        await this.remoteIsExit().then(async (bool) => {
+        await this.remoteIsExist().then(async (bool) => {
           if (!bool) {
             await this.createRemoteDB();
           }
@@ -33,7 +33,7 @@ export class SetupDatabase {
     });
   }
 
-  private remoteIsExit() {
+  private remoteIsExist() {
     return new Promise((resolve, reject) => {
       this.dbRef
         .get()
