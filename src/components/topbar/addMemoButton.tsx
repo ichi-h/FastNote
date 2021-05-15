@@ -1,17 +1,17 @@
 import { css } from "styled-jsx/css";
 
-export default function AddButton() {
+export default function AddMemoButton() {
   const handleClick = () => {
 
   };
 
   return (
     <>
-      <label className="add-button-label" htmlFor="add-memo">
+      <label className="add-memo-label" htmlFor="add-memo-button">
         <button
-          className="add-memo"
-          name="add-memo"
-          id="add-memo"
+          className="add-memo-button"
+          name="add-memo-button"
+          id="add-memo-button"
           onClick={handleClick}
         />
         <div className="add-button">
@@ -26,5 +26,5 @@ export default function AddButton() {
 }
 
 const addButtonStyle = css`
-  .add-button-label {}
+  .add-memo-label {}
 `;
