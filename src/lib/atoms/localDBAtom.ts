@@ -19,8 +19,10 @@ export const localDBState = selector({
     return get(localDBOriginState);
   },
   set: ({ set }, inputValue: string) => {
-    set(localDBOriginState, inputValue);
-    localStorage.setItem("database", inputValue);
+    const updateLocalDB = async () => {
+      localStorage.setItem("database", inputValue);
+      set(localDBOriginState, inputValue);
+    };
 
     const sleep = (ms: number) => {
       return new Promise((resolve) => {
@@ -53,6 +55,7 @@ export const localDBState = selector({
     };
 
     const process = async () => {
+      await updateLocalDB();
       await sleep(2000);
       await checkDifference();
       await update();
