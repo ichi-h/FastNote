@@ -24,6 +24,10 @@ function getSelectedIndex(memos: object, category: string) {
 function getTagsElements(localDB: any, i: number) {
   const options = Object.fromEntries(
     Object.entries(localDB.memos[i].tags).map(([_, tag], j) => {
+      if (tag === "") {
+        return [_, <></>];
+      }
+
       return [
         _,
         <>
