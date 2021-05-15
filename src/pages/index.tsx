@@ -2,19 +2,21 @@ import Head from "next/head";
 import router from "next/router";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useResetRecoilState } from "recoil";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
 import { uidState } from "../lib/atoms/userIdAtoms";
+import { localDBState } from "../lib/atoms/localDBAtom";
 import { startUiAuth } from "../lib/firebase/auth";
 import { SetupDatabase } from "../lib/firebase/database";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
   const setUid = useSetRecoilState(uidState);
+  const setupLocalDBState = useResetRecoilState(localDBState);
 
   useEffect(() => {
     startUiAuth();
@@ -26,7 +28,10 @@ export default function LandingPage(): JSX.Element {
         const setupDB = new SetupDatabase(user.uid);
         setupDB
           .run()
-          .then(() => router.push("/home"))
+          .then(() => {
+            setupLocalDBState();
+            router.push("/home");
+          })
           .catch((e) => {
             alert(
               `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`

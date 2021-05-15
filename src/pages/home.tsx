@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -11,6 +11,7 @@ import "firebase/auth";
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { uidState } from "../lib/atoms/userIdAtoms";
+import { localDBState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar";
@@ -37,6 +38,7 @@ function BlackCover() {
 
 export default function Home() {
   const setUid = useSetRecoilState(uidState);
+  const setupLocalDBState = useResetRecoilState(localDBState);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -44,12 +46,17 @@ export default function Home() {
         setUid(user.uid);
 
         const setupDB = new SetupDatabase(user.uid);
-        setupDB.run().catch((e) => {
-          alert(
-            `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-          );
-          router.reload();
-        });
+        setupDB.run()
+          .then(() => {
+            setupLocalDBState();
+            router.push("/home");
+          })
+          .catch((e) => {
+            alert(
+              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+            );
+            router.reload();
+          });
       } else {
         router.push("/");
       }
