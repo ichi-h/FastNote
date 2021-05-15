@@ -8,6 +8,9 @@ import {
   currentCategoryState,
 } from "../lib/atoms/uiAtoms";
 
+import OpenNavButton from "./topbar/openNavButton";
+import AddMemoButton from "./topbar/addMemoButton";
+
 export default function TopBar() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const settingsContent = useRecoilValue(settingsContentState);
@@ -46,6 +49,8 @@ export default function TopBar() {
   return (
     <>
       <div className="top-bar">
+        <OpenNavButton />
+        <AddMemoButton />
         <div className="current-category">{displayText(currentCategory)}</div>
       </div>
 
