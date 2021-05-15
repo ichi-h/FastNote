@@ -28,6 +28,10 @@ export default function AddMemoButton() {
 }
 
 const addButtonStyle = css`
+  .add-memo-label {
+    cursor: pointer;
+  }
+
   .add-memo-button {
     display: none;
   }
@@ -35,12 +39,17 @@ const addButtonStyle = css`
   .add-button {
     position: absolute;
     top: 50%;
-    right: 1rem;
+    right: 2rem;
     transform: translateY(-50%);
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
+  }
+
+  .add-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.2s;
   }
 
   .cross {
@@ -60,11 +69,11 @@ const addButtonStyle = css`
 
   .cross > .bar:first-child {
     width: 2rem;
-    height: 1px;
+    height: 2px;
   }
 
   .cross > .bar:last-child {
-    width: 1px;
+    width: 2px;
     height: 2rem;
   }
 `;

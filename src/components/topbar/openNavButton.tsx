@@ -22,9 +22,9 @@ export default function OpenNavButton() {
           onChange={handleChange}
         />
         <div className="open-button">
-          <div className="bar1" />
-          <div className="bar2" />
-          <div className="bar3" />
+          <div className="bar" />
+          <div className="bar" />
+          <div className="bar" />
         </div>
       </label>
 
@@ -38,13 +38,35 @@ const openNavButtonStyle = css`
     display: none;
   }
 
+  .open-nav-label {
+    cursor: pointer;
+  }
+
   .open-button {
     position: absolute;
     top: 50%;
-    left: 1rem;
+    left: 2rem;
     transform: translateY(-50%);
-    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 3rem;
     height: 3rem;
+  }
+
+  .bar {
+    background-color: white;
+    width: 3rem;
+    height: 2px;
+    transition: 0.2s;
+  }
+
+  .bar ~ .bar {
+    margin-top: 0.8rem;
+  }
+
+  .open-button:hover > .bar ~ .bar {
+    margin-top: 1rem;
   }
 `;
