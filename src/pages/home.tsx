@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -10,7 +10,6 @@ import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
-import { uidState } from "../lib/atoms/userIdAtoms";
 import { localDBState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
@@ -37,14 +36,11 @@ function BlackCover() {
 }
 
 export default function Home() {
-  const setUid = useSetRecoilState(uidState);
   const setupLocalDBState = useResetRecoilState(localDBState);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUid(user.uid);
-
         const setupDB = new SetupDatabase(user.uid);
         setupDB.run()
           .then(() => {

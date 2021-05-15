@@ -1,19 +1,16 @@
 import React from "react";
 import { css } from "styled-jsx/css";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
-import { uidState } from "../../../lib/atoms/userIdAtoms";
-import { ObservedLocalDB } from "../../../lib/firebase/database";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 const FontSize = React.memo(() => {
-  const uid = useRecoilValue(uidState);
-
-  let observedDB = new ObservedLocalDB(uid);
-  let localDB = observedDB.getLocalDB();
+  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
+  let localDB = JSON.parse(localDBStr);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     localDB.settings.fontSize = e.currentTarget.value;
-    localStorage.setItem("database", JSON.stringify(localDB));
+    setLocalDB(JSON.stringify(localDB));
   };
 
   return (

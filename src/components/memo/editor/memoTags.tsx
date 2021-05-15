@@ -1,19 +1,17 @@
 import { useRef, useEffect } from "react";
 import { css } from "styled-jsx/css";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
-import { uidState } from "../../../lib/atoms/userIdAtoms";
-import { ObservedLocalDB } from "../../../lib/firebase/database";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { FastNoteDate } from "../../../lib/fastNoteDate";
 
 export default function MemoTags() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const uid = useRecoilValue(uidState);
   const tagsRef: React.RefObject<HTMLInputElement> = useRef();
 
-  let observedDB = new ObservedLocalDB(uid);
-  let localDB = observedDB.getLocalDB();
+  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
+  let localDB = JSON.parse(localDBStr);
 
   let tags: string[] = [];
 
@@ -35,7 +33,7 @@ export default function MemoTags() {
     const fnd = new FastNoteDate();
     localDB.memos[memoIndex].updated = fnd.getCurrentDate();
     localDB.memos[memoIndex].tags = e.currentTarget.value.split(", ");
-    localStorage.setItem("database", JSON.stringify(localDB));
+    setLocalDB(JSON.stringify(localDB));
   };
 
   return (

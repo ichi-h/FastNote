@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { css } from "styled-jsx/css";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
-import { uidState } from "../../../lib/atoms/userIdAtoms";
-import { ObservedLocalDB } from "../../../lib/firebase/database";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { FastNoteDate } from "../../../lib/fastNoteDate";
 
 import "codemirror/lib/codemirror.css";
@@ -14,10 +13,9 @@ import "codemirror/mode/markdown/markdown";
 
 const CodeMirrorWrap = React.memo(() => {
   const memoIndex = useRecoilValue(memoIndexState);
-  const uid = useRecoilValue(uidState);
 
-  let observedDB = new ObservedLocalDB(uid);
-  let localDB = observedDB.getLocalDB();
+  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
+  let localDB = JSON.parse(localDBStr);
 
   const [currentTitle, setTitle] = useState(localDB.memos[memoIndex].title);
 
@@ -35,7 +33,7 @@ const CodeMirrorWrap = React.memo(() => {
       const fnd = new FastNoteDate();
       localDB.memos[memoIndex].updated = fnd.getCurrentDate();
       localDB.memos[memoIndex].content = newContent;
-      localStorage.setItem("database", JSON.stringify(localDB));
+      setLocalDB(JSON.stringify(localDB));
     }
   };
 
