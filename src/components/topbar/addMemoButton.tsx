@@ -49,14 +49,20 @@ export default function AddMemoButton() {
 
     const pushToRemoteDB = (localDB: object) => {
       return new Promise((_, reject) => {
-        firebase.database().ref(`users/${userUid}`).set(localDB).catch((e) => reject(e));
+        firebase
+          .database()
+          .ref(`users/${userUid}`)
+          .set(localDB)
+          .catch((e) => reject(e));
       });
     };
 
     addNewMemo().then(async (res) => {
       await changeTarget(res["nextIndex"]);
       await pushToRemoteDB(res["localDB"]).catch((e) => {
-        alert(`下記の理由によりクラウド上にメモをアップロードできませんでした。 \n${e}`);
+        alert(
+          `下記の理由によりクラウド上にメモをアップロードできませんでした。 \n${e}`
+        );
       });
     });
   };
