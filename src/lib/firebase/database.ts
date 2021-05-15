@@ -112,7 +112,7 @@ export class SetupDatabase {
           const localDBStr = localStorage.getItem("database");
           const remoteDB = snapshot.toJSON();
 
-          if (localDBStr === "undefined") {
+          if (localDBStr === "undefined" || localDBStr === "null") {
             localStorage.setItem("database", JSON.stringify(remoteDB));
             resolve("localDBをremoteDBに同期");
           } else {
