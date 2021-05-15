@@ -2,20 +2,16 @@ import Head from "next/head";
 import router from "next/router";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
-import { useResetRecoilState } from "recoil";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
-import { localDBState } from "../lib/atoms/localDBAtom";
 import { startUiAuth } from "../lib/firebase/auth";
 import { SetupDatabase } from "../lib/firebase/database";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
-  const setupLocalDBState = useResetRecoilState(localDBState);
-
   useEffect(() => {
     startUiAuth();
 
@@ -25,7 +21,6 @@ export default function LandingPage(): JSX.Element {
         setupDB
           .run()
           .then(() => {
-            setupLocalDBState();
             router.push("/home");
           })
           .catch((e) => {
