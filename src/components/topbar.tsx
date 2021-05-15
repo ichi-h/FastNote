@@ -2,11 +2,11 @@ import { useLocation } from "react-router-dom";
 import { css } from "styled-jsx/css";
 import { useRecoilValue } from "recoil";
 
-import theme from "../../lib/theme";
+import theme from "../lib/theme";
 import {
   settingsContentState,
   currentCategoryState,
-} from "../../lib/atoms/uiAtoms";
+} from "../lib/atoms/uiAtoms";
 
 export default function TopBar() {
   const currentCategory = useRecoilValue(currentCategoryState);

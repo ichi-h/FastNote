@@ -13,7 +13,7 @@ import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { uidState } from "../lib/atoms/userIdAtoms";
 import { SetupDatabase } from "../lib/firebase/database";
 
-import TopBar from "../components/topbar/topbar";
+import TopBar from "../components/topbar";
 import MemoList from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
