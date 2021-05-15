@@ -6,7 +6,7 @@ import "firebase/database";
 
 const localDBOriginState = atom({
   key: "localDBOriginState",
-  default: "",
+  default: localStorage.getItem("database"),
 });
 
 export const localDBState = selector({
