@@ -38,7 +38,7 @@ export class SetupDatabase {
       this.dbRef
         .get()
         .then((snapshot) => {
-          if (snapshot.toJSON) {
+          if (snapshot.exists()) {
             resolve(true);
           } else {
             resolve(false);
