@@ -36,7 +36,7 @@ export const localDBState = selector({
         if (inputValue === currentValue) {
           resolve("データベースの更新が停止");
         } else {
-          reject(new Error("データベースの更新は続行"));
+          reject("データベースの更新は続行");
         }
       });
     };
@@ -62,7 +62,7 @@ export const localDBState = selector({
     };
 
     process().catch((e) => {
-      if (e.message !== "データベースの更新は続行") {
+      if (e !== "データベースの更新は続行") {
         alert(`データベース更新中にエラーが発生しました。 \n${e}`);
       }
     });
