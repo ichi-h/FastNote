@@ -40,9 +40,6 @@ export default function Home() {
       if (user) {
         const setupDB = new SetupDatabase(user.uid);
         setupDB.run()
-          .then(() => {
-            router.push("/home");
-          })
           .catch((e) => {
             alert(
               `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
