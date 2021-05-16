@@ -8,6 +8,7 @@ import { numToStr } from "../../lib/fastNoteDate";
 
 import Tags from "./memoList/tags";
 import TrashButton from "./memoList/trashButton";
+import StarButton from "./memoList/starButton";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -71,15 +72,7 @@ export default function MemoList() {
                       <TrashButton index={i} />
                     </div>
                     <div>
-                      <label htmlFor="">
-                        <input
-                          type="checkbox"
-                          className={`star`}
-                          name="star"
-                          id={`star-${i}`}
-                        />
-                        ☆
-                      </label>
+                      <StarButton index={i} />
                     </div>
                   </div>
                 </div>
@@ -167,9 +160,5 @@ const memoListStyle = css`
   .buttons > div:first-child,
   .buttons > div:last-child {
     margin-left: 1rem;
-  }
-
-  .star {
-    display: none;
   }
 `;
