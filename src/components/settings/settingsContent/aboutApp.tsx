@@ -14,8 +14,8 @@ export default function AboutApp() {
             rel="noopener noreferrer"
           >
             Mozilla Public License 2.0
-          </a>
-          {" "}の下で公開されています。
+          </a>{" "}
+          の下で公開されています。
         </p>
         <p>
           GitHub:{" "}

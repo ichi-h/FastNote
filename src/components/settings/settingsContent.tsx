@@ -29,9 +29,7 @@ export default function SettingsContent() {
 
   return (
     <>
-      <div className="settings-content">
-        {content()}
-      </div>
+      <div className="settings-content">{content()}</div>
 
       <style jsx>{settingsContentStyle}</style>
     </>

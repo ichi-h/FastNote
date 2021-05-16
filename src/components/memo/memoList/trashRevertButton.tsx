@@ -4,7 +4,10 @@ import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 export type FuncType = "trash" | "revert";
 
-export default function TrashRevertButton(props: { func: FuncType, index: number }) {
+export default function TrashRevertButton(props: {
+  func: FuncType;
+  index: number;
+}) {
   const trashAtr = (func: FuncType) => {
     switch (func) {
       case "trash":

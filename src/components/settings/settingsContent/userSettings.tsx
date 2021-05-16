@@ -9,13 +9,15 @@ import { generalStyle } from "../settingsContent";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 const UserID = () => {
-  const userID  = firebase.auth().currentUser.uid;
+  const userID = firebase.auth().currentUser.uid;
 
   return (
     <>
       <div className="settings-item">
         <h2>ユーザーID</h2>
-        <p>あなたの ID は、<b>{userID}</b> です。</p>
+        <p>
+          あなたの ID は、<b>{userID}</b> です。
+        </p>
       </div>
 
       <style jsx>{generalStyle}</style>
@@ -27,7 +29,9 @@ const RemoveAccout = () => {
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
   const handleClick = () => {
-    const res = confirm("本当によろしいですか？ \n（アカウントを削除するためには、再度ログインを行う必要があります。）");
+    const res = confirm(
+      "本当によろしいですか？ \n（アカウントを削除するためには、再度ログインを行う必要があります。）"
+    );
 
     if (res) {
       const user = firebase.auth().currentUser;
@@ -70,7 +74,7 @@ const RemoveAccout = () => {
           alert(`下記の理由によりアカウント削除に失敗しました。 \n${e}`);
         });
     }
-  }
+  };
 
   return (
     <>
