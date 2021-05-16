@@ -8,12 +8,8 @@ import {
 } from "../../lib/atoms/uiAtoms";
 
 function getCategories(memos: object): [string[], number[]] {
-  let categoriesSet: string[] = [];
-  for (let i = 0; i < Object.keys(memos).length; i++) {
-    if (memos[i].trash === false) {
-      categoriesSet.push(memos[i].category);
-    }
-  }
+  const selectedKeys = Object.keys(memos).filter((key) => memos[key].trash === false);
+  const categoriesSet = selectedKeys.map((key) => memos[key].category);
 
   const categories = categoriesSet.filter(
     (category, i, self) => self.indexOf(category) === i
