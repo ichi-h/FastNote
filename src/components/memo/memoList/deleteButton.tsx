@@ -20,7 +20,7 @@ export default function DeleteButton(props: { index: number }) {
           return Math.max(pre, cur);
         });
 
-        setIndex(String(maxValue - 1));
+        setIndex(String(maxValue));
       }
     };
 
