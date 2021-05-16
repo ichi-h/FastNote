@@ -9,16 +9,32 @@ export default function DeleteButton(props: { index: number }) {
   let localDB = JSON.parse(localDBStr);
 
   const handleClick = () => {
-    if (Number(memoIndex) === props.index) {
-      const keys = Object.keys(localDB.memos).map((value) => Number(value));
-      const maxValue = keys.reduce((pre, cur) => {
-        return Math.max(pre, cur);
-      });
-      setIndex(String(maxValue));
-    }
+    const deleteMemo = async () => {
+      delete localDB.memos[props.index];
+    };
 
-    delete localDB.memos[props.index];
-    setLocalDB(JSON.stringify(localDB));
+    const shiftIndex = async () => {
+      if (Number(memoIndex) === props.index) {
+        const keys = Object.keys(localDB.memos).map((value) => Number(value));
+        const maxValue = keys.reduce((pre, cur) => {
+          return Math.max(pre, cur);
+        });
+
+        setIndex(String(maxValue - 1));
+      }
+    };
+
+    const updateLocalDB = async () => {
+      setLocalDB(JSON.stringify(localDB));
+    };
+
+    const process = async () => {
+      await deleteMemo();
+      await shiftIndex();
+      await updateLocalDB();
+    };
+
+    process();
   };
 
   return (
