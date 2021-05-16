@@ -6,7 +6,9 @@ import { openNavbarState, currentCategoryState, trashboxState } from "../../lib/
 function getCategories(memos: object): [string[], number[]] {
   let categoriesSet: string[] = [];
   for (let i = 0; i < Object.keys(memos).length; i++) {
-    categoriesSet.push(memos[i].category);
+    if (memos[i].trash === false) {
+      categoriesSet.push(memos[i].category);
+    }
   }
 
   const categories = categoriesSet.filter(
