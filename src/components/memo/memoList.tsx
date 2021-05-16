@@ -67,7 +67,9 @@ export default function MemoList() {
                   <Tags localDB={localDB} index={i} />
   
                   <div className="buttons">
-                    <TrashButton index={i} />
+                    <div>
+                      <TrashButton index={i} />
+                    </div>
                     <div>
                       <label htmlFor="">
                         <input
