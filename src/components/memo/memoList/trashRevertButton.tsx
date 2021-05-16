@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 
-type FuncType = "trash" | "revert";
+export type FuncType = "trash" | "revert";
 
 export default function TrashRevertButton(props: { func: FuncType, index: number }) {
   const trashAtr = (func: FuncType) => {

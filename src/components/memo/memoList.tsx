@@ -7,7 +7,7 @@ import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
 
 import Tags from "./memoList/tags";
-import TrashButton from "./memoList/trashButton";
+import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
 
 function getSelectedIndex(memos: object, category: string) {
@@ -33,6 +33,15 @@ export default function MemoList() {
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
   const index = getSelectedIndex(localDB.memos, currentCategory);
+
+  const funcType: (trashbox: boolean) => FuncType = () => {
+    switch (trashbox) {
+      case false:
+        return "trash";
+      case true:
+        return "revert";
+    }
+  };
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const idName = e.currentTarget.id;
@@ -69,7 +78,7 @@ export default function MemoList() {
 
                   <div className="buttons">
                     <div>
-                      <TrashButton index={i} />
+                      <TrashRevertButton func={funcType(trashbox)} index={i} />
                     </div>
                     <div>
                       <StarButton index={i} />
