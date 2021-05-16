@@ -1,10 +1,14 @@
 import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { currentCategoryState } from "../../lib/atoms/uiAtoms";
+import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
+
+import Tags from "./memoList/tags";
+import TrashButton from "./memoList/trashButton";
+import StarButton from "./memoList/starButton";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -21,36 +25,9 @@ function getSelectedIndex(memos: object, category: string) {
   return index;
 }
 
-function getTagsElements(localDB: any, i: number) {
-  const options = Object.fromEntries(
-    Object.entries(localDB.memos[i].tags).map(([_, tag], j) => {
-      if (tag === "") {
-        return [_, <></>];
-      }
-
-      return [
-        _,
-        <>
-          <span className="tag-item" key={`tag-item-${j}`}>
-            {tag}
-          </span>
-          <style jsx>{tagItemStyle}</style>
-        </>,
-      ];
-    })
-  );
-
-  const tagsSize = Object.keys(options).length;
-  let res: JSX.Element[] = [];
-  for (let j = 0; j < tagsSize; j++) {
-    res.push(options[j]);
-  }
-
-  return res;
-}
-
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
+  const trashbox = useRecoilValue(trashboxState);
   const setMemoIndex = useSetRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
@@ -68,46 +45,40 @@ export default function MemoList() {
     <>
       <div className="memo-list">
         {index.map((i) => {
-          return (
-            <div
-              className={`memo-item`}
-              id={`memo-item-${i}`}
-              key={`memo-item-${i}`}
-              onClick={handleClick}
-            >
-              <div className="item-top">
-                <p className="title">{localDB.memos[i].title}</p>
-                <p className="update-date">
-                  {numToStr(localDB.memos[i].updated, false)}
-                </p>
-              </div>
-
-              <div className="item-mid">
-                <p className="content">{localDB.memos[i].content}</p>
-              </div>
-
-              <div className="item-bottom">
-                <div className="tags">{getTagsElements(localDB, i)}</div>
-
-                <div className="buttons">
-                  <div>
-                    <button>箱</button>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      <input
-                        type="checkbox"
-                        className={`star`}
-                        name="star"
-                        id={`star-${i}`}
-                      />
-                      ☆
-                    </label>
+          if (localDB.memos[i].trash === trashbox) {
+            return (
+              <div
+                className={`memo-item`}
+                id={`memo-item-${i}`}
+                key={`memo-item-${i}`}
+                onClick={handleClick}
+              >
+                <div className="item-top">
+                  <p className="title">{localDB.memos[i].title}</p>
+                  <p className="update-date">
+                    {numToStr(localDB.memos[i].updated, false)}
+                  </p>
+                </div>
+  
+                <div className="item-mid">
+                  <p className="content">{localDB.memos[i].content}</p>
+                </div>
+  
+                <div className="item-bottom">
+                  <Tags localDB={localDB} index={i} />
+  
+                  <div className="buttons">
+                    <div>
+                      <TrashButton index={i} />
+                    </div>
+                    <div>
+                      <StarButton index={i} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          }
         })}
       </div>
 
@@ -189,18 +160,5 @@ const memoListStyle = css`
   .buttons > div:first-child,
   .buttons > div:last-child {
     margin-left: 1rem;
-  }
-
-  .star {
-    display: none;
-  }
-`;
-
-const tagItemStyle = css`
-  .tag-item {
-    border: 1px solid black;
-    padding: 0 1rem;
-    margin-right: 1rem;
-    border-radius: 1rem;
   }
 `;

@@ -3,8 +3,9 @@ export interface Memo {
   category: string;
   tags: string[];
   star: boolean;
-  created: string;
-  updated: string;
+  trash: boolean;
+  created: number;
+  updated: number;
   content: string;
 }
 
