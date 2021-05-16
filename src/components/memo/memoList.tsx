@@ -9,6 +9,7 @@ import { numToStr } from "../../lib/fastNoteDate";
 import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
+import DeleteButton from "./memoList/deleteButton";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -23,6 +24,14 @@ function getSelectedIndex(memos: object, category: string) {
   }
 
   return index;
+}
+
+function starOrDel(trashbox: boolean, index: number) {
+  if (trashbox) {
+    return <DeleteButton index={index} />;
+  } else {
+    return <StarButton index={index} />;
+  }
 }
 
 export default function MemoList() {
@@ -81,7 +90,7 @@ export default function MemoList() {
                       <TrashRevertButton func={funcType(trashbox)} index={i} />
                     </div>
                     <div>
-                      <StarButton index={i} />
+                      {starOrDel(trashbox, i)}
                     </div>
                   </div>
                 </div>
