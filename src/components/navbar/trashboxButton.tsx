@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { css } from "styled-jsx/css";
 import { useSetRecoilState } from "recoil";
 
-import { openNavbarState } from "../../lib/atoms/uiAtoms";
+import { currentCategoryState, openNavbarState, trashboxState } from "../../lib/atoms/uiAtoms";
 
 export default function TrashboxButton() {
-  const toggle = useSetRecoilState(openNavbarState);
+  const toggleNav = useSetRecoilState(openNavbarState);
+  const toggleTrash = useSetRecoilState(trashboxState);
+  const setCategory = useSetRecoilState(currentCategoryState);
 
   const handleClick = () => {
-    toggle(false);
+    toggleNav(false);
+    toggleTrash(true);
+    setCategory("all");
   };
 
   return (

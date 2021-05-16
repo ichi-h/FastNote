@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
-import { openNavbarState, currentCategoryState } from "../../lib/atoms/uiAtoms";
+import { openNavbarState, currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 
 function getCategories(memos: object): [string[], number[]] {
   let categoriesSet: string[] = [];
@@ -21,16 +21,17 @@ function getCategories(memos: object): [string[], number[]] {
 }
 
 export default function CategoriesList(props: { categoriesChecked: boolean }) {
-  const toggle = useSetRecoilState(openNavbarState);
+  const toggleNav = useSetRecoilState(openNavbarState);
+  const toggleTrash = useSetRecoilState(trashboxState);
   const setCategory = useSetRecoilState(currentCategoryState);
+
   let localDB = JSON.parse(localStorage.getItem("database"));
-
   const [categories, count] = getCategories(localDB.memos);
-
   const total = count.reduce((sum, value) => sum + value);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    toggle(false);
+    toggleNav(false);
+    toggleTrash(false);
     setCategory(e.currentTarget.classList[1]);
   };
 
