@@ -7,6 +7,7 @@ import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
 
 import Tags from "./memoList/tags";
+import TrashButton from "./memoList/trashButton";
 
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
@@ -66,9 +67,7 @@ export default function MemoList() {
                   <Tags localDB={localDB} index={i} />
   
                   <div className="buttons">
-                    <div>
-                      <button>箱</button>
-                    </div>
+                    <TrashButton localDB={localDB} />
                     <div>
                       <label htmlFor="">
                         <input
