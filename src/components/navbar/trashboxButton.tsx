@@ -17,8 +17,8 @@ export default function TrashboxButton() {
 
   return (
     <>
-      <Link to="/home/">
-        <div className="trashbox" onClick={handleClick}>
+      <Link to="/home">
+        <div className="trashbox-button" onClick={handleClick}>
           ごみ箱
         </div>
       </Link>
