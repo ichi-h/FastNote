@@ -20,7 +20,6 @@ export async function startUiAuth() {
       signInFlow: "popup",
       // tosUrl and privacyPolicyUrl accept either url string or a callback
       // function.
-      signInSuccessUrl: "/home",
       // Terms of service url/callback.
       tosUrl: "/tos/",
       // Privacy policy url/callback.
