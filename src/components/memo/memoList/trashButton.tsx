@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil"
+import { useRecoilState } from "recoil";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
-import { openNavbarState, currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
+import {
+  openNavbarState,
+  currentCategoryState,
+  trashboxState,
+} from "../../lib/atoms/uiAtoms";
 
 function getCategories(memos: object): [string[], number[]] {
   let categoriesSet: string[] = [];

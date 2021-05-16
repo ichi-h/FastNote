@@ -1,6 +1,6 @@
 import { css } from "styled-jsx/css";
 
-export default function Tags(props: { localDB: any, index: number }) {
+export default function Tags(props: { localDB: any; index: number }) {
   const tagItems = Object.fromEntries(
     Object.entries(props.localDB.memos[props.index].tags).map(([_, tag], j) => {
       if (tag === "") {
@@ -19,9 +19,7 @@ export default function Tags(props: { localDB: any, index: number }) {
     })
   );
 
-  return (
-    <div className="tags">{Object.values(tagItems)}</div>
-  );
+  return <div className="tags">{Object.values(tagItems)}</div>;
 }
 
 const tagItemStyle = css`

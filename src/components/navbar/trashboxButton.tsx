@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { css } from "styled-jsx/css";
 import { useSetRecoilState } from "recoil";
 
-import { currentCategoryState, openNavbarState, trashboxState } from "../../lib/atoms/uiAtoms";
+import {
+  currentCategoryState,
+  openNavbarState,
+  trashboxState,
+} from "../../lib/atoms/uiAtoms";
 
 export default function TrashboxButton() {
   const toggleNav = useSetRecoilState(openNavbarState);

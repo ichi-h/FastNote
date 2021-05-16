@@ -59,14 +59,14 @@ export default function MemoList() {
                     {numToStr(localDB.memos[i].updated, false)}
                   </p>
                 </div>
-  
+
                 <div className="item-mid">
                   <p className="content">{localDB.memos[i].content}</p>
                 </div>
-  
+
                 <div className="item-bottom">
                   <Tags localDB={localDB} index={i} />
-  
+
                   <div className="buttons">
                     <div>
                       <TrashButton index={i} />
