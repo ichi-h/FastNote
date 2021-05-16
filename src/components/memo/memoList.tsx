@@ -1,7 +1,7 @@
 import { css } from "styled-jsx/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { currentCategoryState } from "../../lib/atoms/uiAtoms";
+import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
@@ -51,6 +51,7 @@ function getTagsElements(localDB: any, i: number) {
 
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
+  const trashbox = useRecoilValue(trashboxState);
   const setMemoIndex = useSetRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
@@ -68,46 +69,48 @@ export default function MemoList() {
     <>
       <div className="memo-list">
         {index.map((i) => {
-          return (
-            <div
-              className={`memo-item`}
-              id={`memo-item-${i}`}
-              key={`memo-item-${i}`}
-              onClick={handleClick}
-            >
-              <div className="item-top">
-                <p className="title">{localDB.memos[i].title}</p>
-                <p className="update-date">
-                  {numToStr(localDB.memos[i].updated, false)}
-                </p>
-              </div>
-
-              <div className="item-mid">
-                <p className="content">{localDB.memos[i].content}</p>
-              </div>
-
-              <div className="item-bottom">
-                <div className="tags">{getTagsElements(localDB, i)}</div>
-
-                <div className="buttons">
-                  <div>
-                    <button>箱</button>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      <input
-                        type="checkbox"
-                        className={`star`}
-                        name="star"
-                        id={`star-${i}`}
-                      />
-                      ☆
-                    </label>
+          if (localDB.memos[i].trash === trashbox) {
+            return (
+              <div
+                className={`memo-item`}
+                id={`memo-item-${i}`}
+                key={`memo-item-${i}`}
+                onClick={handleClick}
+              >
+                <div className="item-top">
+                  <p className="title">{localDB.memos[i].title}</p>
+                  <p className="update-date">
+                    {numToStr(localDB.memos[i].updated, false)}
+                  </p>
+                </div>
+  
+                <div className="item-mid">
+                  <p className="content">{localDB.memos[i].content}</p>
+                </div>
+  
+                <div className="item-bottom">
+                  <div className="tags">{getTagsElements(localDB, i)}</div>
+  
+                  <div className="buttons">
+                    <div>
+                      <button>箱</button>
+                    </div>
+                    <div>
+                      <label htmlFor="">
+                        <input
+                          type="checkbox"
+                          className={`star`}
+                          name="star"
+                          id={`star-${i}`}
+                        />
+                        ☆
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          }
         })}
       </div>
 
