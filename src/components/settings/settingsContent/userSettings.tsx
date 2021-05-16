@@ -5,6 +5,23 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 
+import { generalStyle } from "../settingsContent";
+
+const UserID = () => {
+  const userID  = firebase.auth().currentUser.uid;
+
+  return (
+    <>
+      <div className="settings-item">
+        <h2>ユーザーID</h2>
+        <p>あなたの ID は、<b>{userID}</b> です。</p>
+      </div>
+
+      <style jsx>{generalStyle}</style>
+    </>
+  );
+};
+
 const RemoveAccout = () => {
   const handleClick = () => {
     const res = confirm("本当によろしいですか？");
@@ -53,6 +70,7 @@ export default function UserSettings() {
   return (
     <>
       <div className="user-settings">
+      <UserID />
         <RemoveAccout />
       </div>
 
