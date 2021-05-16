@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 
 import theme from "../lib/theme";
+import { memoIndexState } from "../lib/atoms/editorAtoms";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { SetupDatabase } from "../lib/firebase/database";
 
@@ -35,11 +36,15 @@ function BlackCover() {
 }
 
 export default function Home() {
+  const setIndex = useSetRecoilState(memoIndexState);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const setupDB = new SetupDatabase(user.uid);
-        setupDB.run().catch((e) => {
+        setupDB.run().then(() => {
+          setIndex("0");
+        }).catch((e) => {
           alert(
             `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
           );
