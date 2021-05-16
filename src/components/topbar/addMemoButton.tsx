@@ -1,9 +1,7 @@
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
-import firebase from "firebase/app";
 
-import "firebase/database";
-
+import { Memo } from "../../lib/databaseInfo";
 import { FastNoteDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
@@ -16,11 +14,12 @@ export default function AddMemoButton() {
   const handleClick = () => {
     const fnd = new FastNoteDate();
 
-    const newMemo = {
+    const newMemo: Memo = {
       title: "新しいメモ",
       category: "None",
       tags: [""],
       star: false,
+      trash: false,
       created: fnd.getCurrentDate(),
       updated: fnd.getCurrentDate(),
       content: "",
