@@ -6,6 +6,7 @@ import { openNavbarState } from "../lib/atoms/uiAtoms";
 import CategoriesCheckbox from "./navbar/categoriesCheckbox";
 import CategoriesList from "./navbar/categoriesList";
 import SettingsButton from "./navbar/settingsButton";
+import TrashboxButton from "./navbar/trashboxButton";
 import LogoutButton from "./navbar/logoutButton";
 
 export default function Navbar() {
@@ -29,6 +30,7 @@ export default function Navbar() {
           <CategoriesList categoriesChecked={categoriesChecked} />
         </div>
 
+        <TrashboxButton />
         <SettingsButton />
         <LogoutButton />
       </div>
