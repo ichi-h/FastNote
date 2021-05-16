@@ -25,7 +25,12 @@ export default function AddMemoButton() {
       content: "",
     };
 
-    const nextIndex = String(Object.keys(localDB.memos).length);
+    const keys = Object.keys(localDB.memos).map((value) => Number(value));
+    const maxIndex = keys.reduce((pre, cur) => {
+      return Math.max(pre, cur);
+    });
+
+    const nextIndex = String(maxIndex + 1);
 
     localDB.memos[nextIndex] = newMemo;
     setLocalDB(JSON.stringify(localDB));
