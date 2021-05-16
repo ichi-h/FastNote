@@ -21,13 +21,12 @@ export const localDBState = selector({
     return get(localDBOriginState);
   },
   set: ({ set }, inputValue: string) => {
-    const updateLocalDB = async () => {
-      const fnd = new FastNoteDate();
+    const updateLocalDB = async (currentDate: number) => {
+      localStorage.setItem("database", inputValue);
 
       let localDB = JSON.parse(inputValue);
-      localDB.lastUpdated = fnd.getCurrentDate();
+      localDB.lastUpdated = currentDate;
 
-      localStorage.setItem("database", JSON.stringify(localDB));
       set(localDBOriginState, JSON.stringify(localDB));
     };
 
@@ -48,24 +47,32 @@ export const localDBState = selector({
       });
     };
 
-    const update = () => {
+    const update = (currentDate: number) => {
       return new Promise((resolve, reject) => {
+        let localDB = JSON.parse(inputValue);
+        localDB.lastUpdated = currentDate;
+
+        localStorage.setItem("database", JSON.stringify(localDB));
+
         const uid = firebase.auth().currentUser.uid;
 
         firebase
           .database()
           .ref(`users/${uid}`)
-          .set(JSON.parse(inputValue))
+          .set(localDB)
           .then(() => resolve("データベースを更新"))
           .catch((e) => reject(e));
       });
     };
 
     const process = async () => {
-      await updateLocalDB();
+      const fnd = new FastNoteDate();
+      const currentDate = fnd.getCurrentDate();
+
+      await updateLocalDB(currentDate);
       await sleep(2000);
       await checkDifference();
-      await update();
+      await update(currentDate);
     };
 
     process().catch((e) => {
