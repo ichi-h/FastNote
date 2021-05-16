@@ -4,6 +4,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
+import { FastNoteDate } from "../fastNoteDate";
+
 const localDBOriginState = atom({
   key: "localDBOriginState",
   default: "",
@@ -20,8 +22,13 @@ export const localDBState = selector({
   },
   set: ({ set }, inputValue: string) => {
     const updateLocalDB = async () => {
-      localStorage.setItem("database", inputValue);
-      set(localDBOriginState, inputValue);
+      const fnd = new FastNoteDate();
+
+      let localDB = JSON.parse(inputValue);
+      localDB.lastUpdated = fnd.getCurrentDate();
+
+      localStorage.setItem("database", JSON.stringify(localDB));
+      set(localDBOriginState, JSON.stringify(localDB));
     };
 
     const sleep = (ms: number) => {
