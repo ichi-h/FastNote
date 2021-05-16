@@ -1,7 +1,7 @@
 import React from "react";
-import { css } from "styled-jsx/css";
 import { useRecoilState } from "recoil";
 
+import { generalStyle } from "../settingsContent";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 const FontSize = React.memo(() => {
@@ -32,28 +32,8 @@ const FontSize = React.memo(() => {
 
 export default function EditorSettings() {
   return (
-    <>
-      <div className="editor-settings">
-        <FontSize />
-      </div>
-
-      <style jsx>{editorSettingsStyle}</style>
-    </>
+    <div className="editor-settings">
+      <FontSize />
+    </div>
   );
 }
-
-const editorSettingsStyle = css`
-  .editor-settings {
-    padding: 3rem;
-  }
-`;
-
-const generalStyle = css`
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    margin: 0.5rem 0;
-  }
-`;

@@ -1,6 +1,4 @@
-import { css } from "styled-jsx/css";
-
-import theme from "../../../lib/theme";
+import { generalStyle } from "../settingsContent";
 
 export default function AboutApp() {
   return (
@@ -9,7 +7,7 @@ export default function AboutApp() {
         <h2>Fast Note</h2>
         <p>Copyright &copy; 2021 Ippee</p>
         <p>
-          このアプリケーションは
+          このアプリケーションは{" "}
           <a
             href="https://www.mozilla.org/en-US/MPL/2.0/"
             target="_blank"
@@ -17,7 +15,7 @@ export default function AboutApp() {
           >
             Mozilla Public License 2.0
           </a>
-          の下で公開されています。
+          {" "}の下で公開されています。
         </p>
         <p>
           GitHub:{" "}
@@ -31,26 +29,7 @@ export default function AboutApp() {
         </p>
       </div>
 
-      <style jsx>{aboutAppStyle}</style>
+      <style jsx>{generalStyle}</style>
     </>
   );
 }
-
-const aboutAppStyle = css`
-  .about-app {
-    padding: 3rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    margin: 0.5rem 0;
-  }
-
-  a {
-    text-decoration: dotted;
-    color: ${theme.subColor};
-  }
-`;

@@ -1,5 +1,4 @@
 import router from "next/router";
-import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/database";
@@ -52,7 +51,7 @@ const RemoveAccout = () => {
 
   return (
     <>
-      <div className="remove-accout">
+      <div className="settings-item">
         <h2>アカウントの削除</h2>
         <p>
           アカウントを削除した場合、保存したメモ、設定等のFast
@@ -68,42 +67,9 @@ const RemoveAccout = () => {
 
 export default function UserSettings() {
   return (
-    <>
-      <div className="user-settings">
+    <div className="user-settings">
       <UserID />
-        <RemoveAccout />
-      </div>
-
-      <style jsx>{userSettingsStyle}</style>
-    </>
+      <RemoveAccout />
+    </div>
   );
 }
-
-const userSettingsStyle = css`
-  .user-settings {
-    padding: 3rem;
-  }
-`;
-
-const generalStyle = css`
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    margin: 0.5rem 0;
-  }
-
-  button {
-    background-color: rgb(255, 96, 57);
-    color: white;
-    border-radius: 3px;
-    padding: 1rem;
-    transition: 0.1s;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: rgb(224, 84, 49);
-  }
-`;
