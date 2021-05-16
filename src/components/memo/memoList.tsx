@@ -12,18 +12,15 @@ import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
 
 function getSelectedIndex(memos: object, category: string) {
-  const memosLen = Object.keys(memos).length;
-
   if (category === "all") {
-    return new Array(memosLen).fill(0).map((_, i) => i);
+    return Object.keys(memos).map((value) => Number(value));
   }
 
-  let index: number[] = [];
-  for (let i = 0; i < memosLen; i++) {
-    if (memos[i].category === category) index.push(i);
-  }
+  const selectedMemos = Object.fromEntries(
+    Object.entries(memos).filter(([_, value]) => value.category === category)
+  );
 
-  return index;
+  return Object.keys(selectedMemos).map((value) => Number(value));
 }
 
 function starOrDel(trashbox: boolean, index: number) {
