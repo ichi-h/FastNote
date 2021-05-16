@@ -1,10 +1,12 @@
 import router from "next/router";
+import { useRecoilValue } from "recoil";
 import firebase from "firebase/app";
 
 import "firebase/database";
 import "firebase/auth";
 
 import { generalStyle } from "../settingsContent";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 const UserID = () => {
   const userID  = firebase.auth().currentUser.uid;
@@ -22,32 +24,53 @@ const UserID = () => {
 };
 
 const RemoveAccout = () => {
+  const localDB = JSON.parse(useRecoilValue(localDBState));
+
   const handleClick = () => {
-    const res = confirm("本当によろしいですか？");
+    const res = confirm("本当によろしいですか？ \n（アカウントを削除するためには、再度ログインを行う必要があります。）");
 
     if (res) {
       const user = firebase.auth().currentUser;
       const remoteDB = firebase.database().ref(`users/${user.uid}`);
 
-      remoteDB
-        .remove()
-        .then(() => {
-          localStorage.setItem("database", undefined);
+      const reautholize = async () => {
+        let provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().languageCode = "jp";
 
-          user
-            .delete()
-            .then(() => {
-              router.push("/");
-            })
-            .catch((e) => {
-              alert(`アカウント削除に失敗しました。 \n${e}`);
-            });
+        await firebase.auth().signInWithPopup(provider);
+      };
+
+      const removeLocalDB = async () => {
+        localStorage.setItem("database", undefined);
+      };
+
+      const removeRemoteDB = async () => {
+        await remoteDB.remove();
+      };
+
+      const removeAccount = async () => {
+        await user.delete();
+      };
+
+      const process = async () => {
+        await reautholize();
+        await removeLocalDB();
+        await removeRemoteDB();
+        await removeAccount();
+      };
+
+      process()
+        .then(() => {
+          alert("アカウントは正常に削除されました。");
+          router.push("/");
         })
         .catch((e) => {
-          alert(`データベースの削除に失敗しました。 \n${e}`);
+          localStorage.setItem("database", JSON.stringify(localDB));
+          remoteDB.set(localDB);
+          alert(`下記の理由によりアカウント削除に失敗しました。 \n${e}`);
         });
     }
-  };
+  }
 
   return (
     <>
