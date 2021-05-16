@@ -17,3 +17,9 @@ export const openNavbarState = atom({
   key: "openNavbarState",
   default: false,
 });
+
+// trashboxを表示するか否か
+export const trashboxState = atom({
+  key: "trashboxState",
+  default: false,
+});
