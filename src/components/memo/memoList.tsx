@@ -16,11 +16,11 @@ function getSelectedIndex(memos: object, category: string) {
     return Object.keys(memos).map((value) => Number(value));
   }
 
-  const selectedMemos = Object.fromEntries(
-    Object.entries(memos).filter(([_, value]) => value.category === category)
-  );
+  const keys = Object.entries(memos).map(([key, _]) => key);
 
-  return Object.keys(selectedMemos).map((value) => Number(value));
+  const memosKeyList = keys.filter((key) => memos[key].category === category);
+
+  return memosKeyList.map((i) => Number(i));
 }
 
 function starOrDel(trashbox: boolean, index: number) {
