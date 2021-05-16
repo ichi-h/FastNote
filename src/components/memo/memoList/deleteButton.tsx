@@ -14,14 +14,12 @@ export default function DeleteButton(props: { index: number }) {
     };
 
     const shiftIndex = async () => {
-      if (Number(memoIndex) === props.index) {
-        const keys = Object.keys(localDB.memos).map((value) => Number(value));
-        const maxValue = keys.reduce((pre, cur) => {
-          return Math.max(pre, cur);
-        });
+      const keys = Object.keys(localDB.memos).map((value) => Number(value));
+      const maxValue = keys.reduce((pre, cur) => {
+        return Math.max(pre, cur);
+      });
 
-        setIndex(String(maxValue));
-      }
+      setIndex(String(maxValue));
     };
 
     const updateLocalDB = async () => {
