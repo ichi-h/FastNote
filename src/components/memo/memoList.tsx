@@ -6,6 +6,8 @@ import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
 
+import Tags from "./memoList/tags";
+
 function getSelectedIndex(memos: object, category: string) {
   const memosLen = Object.keys(memos).length;
 
@@ -19,34 +21,6 @@ function getSelectedIndex(memos: object, category: string) {
   }
 
   return index;
-}
-
-function getTagsElements(localDB: any, i: number) {
-  const options = Object.fromEntries(
-    Object.entries(localDB.memos[i].tags).map(([_, tag], j) => {
-      if (tag === "") {
-        return [_, <></>];
-      }
-
-      return [
-        _,
-        <>
-          <span className="tag-item" key={`tag-item-${j}`}>
-            {tag}
-          </span>
-          <style jsx>{tagItemStyle}</style>
-        </>,
-      ];
-    })
-  );
-
-  const tagsSize = Object.keys(options).length;
-  let res: JSX.Element[] = [];
-  for (let j = 0; j < tagsSize; j++) {
-    res.push(options[j]);
-  }
-
-  return res;
 }
 
 export default function MemoList() {
@@ -89,7 +63,7 @@ export default function MemoList() {
                 </div>
   
                 <div className="item-bottom">
-                  <div className="tags">{getTagsElements(localDB, i)}</div>
+                  <Tags localDB={localDB} index={i} />
   
                   <div className="buttons">
                     <div>
@@ -196,14 +170,5 @@ const memoListStyle = css`
 
   .star {
     display: none;
-  }
-`;
-
-const tagItemStyle = css`
-  .tag-item {
-    border: 1px solid black;
-    padding: 0 1rem;
-    margin-right: 1rem;
-    border-radius: 1rem;
   }
 `;
