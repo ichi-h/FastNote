@@ -10,7 +10,9 @@ export default function AddCategoryButton() {
 
   return (
     <>
-      <button className="add-category-button" onClick={handleClick}>＋</button>
+      <button className="add-category-button" onClick={handleClick}>
+        ＋
+      </button>
 
       <style jsx>{addCategoryButtonStyle}</style>
     </>

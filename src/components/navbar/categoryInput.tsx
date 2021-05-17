@@ -19,7 +19,6 @@ export default function CategoryInput() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-
       const categoryName = e.currentTarget.value;
 
       if (categoryName !== "") {
@@ -47,7 +46,12 @@ export default function CategoryInput() {
     return (
       <>
         <div className="category-input">
-          <input type="text" name="input" onKeyDown={handleKeyDown} ref={inputRef} />
+          <input
+            type="text"
+            name="input"
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
+          />
           <button onClick={handleClick}>×</button>
         </div>
         <style jsx>{categoryInputStyle}</style>

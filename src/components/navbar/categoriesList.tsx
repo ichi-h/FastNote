@@ -9,8 +9,9 @@ import {
 
 // 計算結果をメモ化したい
 function getCategories(localDB: any): [string[], number[]] {
-  const categories = Object.entries(localDB.categories)
-    .map(([_, category]: [string, string]) => category);
+  const categories = Object.entries(localDB.categories).map(
+    ([_, category]: [string, string]) => category
+  );
 
   let count = new Array<number>(categories.length).fill(0);
 
