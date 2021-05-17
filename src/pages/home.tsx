@@ -42,14 +42,17 @@ export default function Home() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const setupDB = new SetupDatabase(user.uid);
-        setupDB.run().then(() => {
-          setIndex("0");
-        }).catch((e) => {
-          alert(
-            `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-          );
-          router.reload();
-        });
+        setupDB
+          .run()
+          .then(() => {
+            setIndex("0");
+          })
+          .catch((e) => {
+            alert(
+              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+            );
+            router.reload();
+          });
       } else {
         router.push("/");
       }

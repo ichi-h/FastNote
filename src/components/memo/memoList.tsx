@@ -86,9 +86,7 @@ export default function MemoList() {
                     <div>
                       <TrashRevertButton func={funcType(trashbox)} index={i} />
                     </div>
-                    <div>
-                      {starOrDel(trashbox, i)}
-                    </div>
+                    <div>{starOrDel(trashbox, i)}</div>
                   </div>
                 </div>
               </div>
