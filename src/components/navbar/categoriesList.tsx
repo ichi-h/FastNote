@@ -112,7 +112,9 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
         }
 
         .category {
+          position: relative;
           margin-left: 2rem;
+          height: 3rem;
           list-style: none;
         }
 
@@ -122,6 +124,10 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
         }
 
         .category-button {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
           font-size: 2rem;
         }
       `}
