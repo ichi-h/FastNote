@@ -103,6 +103,11 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
           list-style: none;
         }
 
+        .category:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+          transition: 0.1s;
+        }
+
         .category-button {
           font-size: 2rem;
         }
