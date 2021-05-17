@@ -7,31 +7,33 @@ import {
   trashboxState,
 } from "../../lib/atoms/uiAtoms";
 
-function getCategories(memos: object): [string[], number[]] {
-  if (memos) {
-    const keys = Object.keys(memos);
+// 計算結果をメモ化したい
+function getCategories(localDB: any): [string[], number[]] {
+  const categories = Object.entries(localDB.categories)
+    .map(([_, category]: [string, string]) => category);
+
+  let count = new Array<number>(categories.length).fill(0);
+
+  if (localDB.memos) {
+    const keys = Object.keys(localDB.memos);
 
     const selectedKeys = keys.filter(
-      (key) => memos[key].trash === false // trash属性がtrue ＝ 捨てられている
+      (key) => localDB.memos[key].trash === false // trash属性がtrue ＝ 捨てられている
     );
 
     if (selectedKeys.length !== 0) {
       // trash属性がfalseのメモが存在しない場合
-      const categoriesSet = selectedKeys.map((key) => memos[key].category);
-
-      const categories = categoriesSet.filter(
-        (category, i, self) => self.indexOf(category) === i
-      );
-
-      const count = categories.map((category) => {
-        return categoriesSet.filter((value) => value === category).length;
-      });
-
-      return [categories, count];
+      count = selectedKeys.reduce((pre, key) => {
+        const index = categories.indexOf(localDB.memos[key].category);
+        if (index !== -1) {
+          pre[index] += 1;
+        }
+        return pre;
+      }, count);
     }
   }
 
-  return [["None"], [0]];
+  return [categories, count];
 }
 
 export default function CategoriesList(props: { categoriesChecked: boolean }) {
@@ -40,7 +42,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const setCategory = useSetRecoilState(currentCategoryState);
 
   let localDB = JSON.parse(localStorage.getItem("database"));
-  const [categories, count] = getCategories(localDB.memos);
+  const [categories, count] = getCategories(localDB);
   const total = count.reduce((sum, value) => sum + value);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
