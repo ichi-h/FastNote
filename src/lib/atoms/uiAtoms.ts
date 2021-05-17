@@ -23,3 +23,9 @@ export const trashboxState = atom({
   key: "trashboxState",
   default: false,
 });
+
+// 新規カテゴリーが追加状態であるか否か
+export const categoryInputState = atom({
+  key: "categoryInputState",
+  default: false,
+});
