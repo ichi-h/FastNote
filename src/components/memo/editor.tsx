@@ -28,17 +28,17 @@ export default function Editor() {
             <div>
               <MemoTitle />
             </div>
-  
+
             <div>
               <MemoCategory />
               <MemoTags />
               <MemoDate />
             </div>
           </div>
-  
+
           <CodeMirrorDyn />
         </div>
-  
+
         <style jsx>{editorStyle}</style>
       </>
     );

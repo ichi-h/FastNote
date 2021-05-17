@@ -24,11 +24,15 @@ export default function Navbar() {
       <div className="navbar">
         <div className="categories">
           <div className="buttons">
-            <div><CategoriesCheckbox
-              categoriesChecked={categoriesChecked}
-              handleClick={handleClick}
-            /></div>
-            <div><AddCategoryButton /></div>
+            <div>
+              <CategoriesCheckbox
+                categoriesChecked={categoriesChecked}
+                handleClick={handleClick}
+              />
+            </div>
+            <div>
+              <AddCategoryButton />
+            </div>
           </div>
 
           <CategoriesList categoriesChecked={categoriesChecked} />
