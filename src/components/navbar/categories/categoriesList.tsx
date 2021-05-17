@@ -5,7 +5,7 @@ import {
   openNavbarState,
   currentCategoryState,
   trashboxState,
-} from "../../lib/atoms/uiAtoms";
+} from "../../../lib/atoms/uiAtoms";
 
 import EllipsisButton from "./ellipsisButton";
 

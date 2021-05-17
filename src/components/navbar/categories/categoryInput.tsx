@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
-import { categoryInputState } from "../../lib/atoms/uiAtoms";
-import { localDBState } from "../../lib/atoms/localDBAtom";
+import { categoryInputState } from "../../../lib/atoms/uiAtoms";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 
 export default function CategoryInput() {
   const [inputIsShow, toggleIsShow] = useRecoilState(categoryInputState);

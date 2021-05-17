@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
-import { categoryInputState } from "../../lib/atoms/uiAtoms";
+import { categoryInputState } from "../../../lib/atoms/uiAtoms";
 
 export default function AddCategoryButton() {
   const toggleInputState = useSetRecoilState(categoryInputState);

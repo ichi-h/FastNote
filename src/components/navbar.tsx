@@ -3,10 +3,10 @@ import { useRecoilValue } from "recoil";
 
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 
-import CategoriesCheckbox from "./navbar/categoriesCheckbox";
-import AddCategoryButton from "./navbar/addCategoryButton";
-import CategoryInput from "./navbar/categoryInput";
-import CategoriesList from "./navbar/categoriesList";
+import CategoriesCheckbox from "./navbar/categories/categoriesCheckbox";
+import AddCategoryButton from "./navbar/categories/addCategoryButton";
+import CategoryInput from "./navbar/categories/categoryInput";
+import CategoriesList from "./navbar/categories/categoriesList";
 import SettingsButton from "./navbar/settingsButton";
 import TrashboxButton from "./navbar/trashboxButton";
 import LogoutButton from "./navbar/logoutButton";
