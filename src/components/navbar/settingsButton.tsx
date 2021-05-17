@@ -26,7 +26,6 @@ export default function SettingsButton() {
 
 const settingsButtonStyle = css`
   .settings-button {
-    margin-left: 2rem;
     font-size: 2rem;
     cursor: pointer;
   }

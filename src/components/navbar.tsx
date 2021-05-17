@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 
 import CategoriesCheckbox from "./navbar/categoriesCheckbox";
+import AddCategoryButton from "./navbar/addCategoryButton";
 import CategoriesList from "./navbar/categoriesList";
 import SettingsButton from "./navbar/settingsButton";
 import TrashboxButton from "./navbar/trashboxButton";
@@ -22,10 +23,13 @@ export default function Navbar() {
     <>
       <div className="navbar">
         <div className="categories">
-          <CategoriesCheckbox
-            categoriesChecked={categoriesChecked}
-            handleClick={handleClick}
-          />
+          <div className="buttons">
+            <div><CategoriesCheckbox
+              categoriesChecked={categoriesChecked}
+              handleClick={handleClick}
+            /></div>
+            <div><AddCategoryButton /></div>
+          </div>
 
           <CategoriesList categoriesChecked={categoriesChecked} />
         </div>
@@ -54,6 +58,7 @@ const navbarStyle = (checked: boolean) => {
         left: ${leftPos(checked)};
         width: 20vw;
         height: 100%;
+        padding: 2rem;
         border: 1px solid black;
         background-color: white;
         transition: 0.3s;
@@ -61,7 +66,15 @@ const navbarStyle = (checked: boolean) => {
       }
 
       .categories {
-        margin: 2rem 0;
+        margin-bottom: 2rem;
+      }
+
+      .buttons {
+        display: flex;
+      }
+
+      .buttons > div:last-child {
+        margin-left: 1rem;
       }
     `}</style>
   );

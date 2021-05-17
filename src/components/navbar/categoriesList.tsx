@@ -96,7 +96,7 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
         }
 
         .category {
-          margin-left: 4rem;
+          margin-left: 2rem;
           list-style: none;
         }
 

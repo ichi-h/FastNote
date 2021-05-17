@@ -29,7 +29,6 @@ export default function LogoutButton() {
 
 const logoutButtonStyle = css`
   .logout-button {
-    margin-left: 2rem;
     font-size: 2rem;
     cursor: pointer;
   }

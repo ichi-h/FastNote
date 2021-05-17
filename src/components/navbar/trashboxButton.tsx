@@ -34,7 +34,6 @@ export default function TrashboxButton() {
 
 const trashboxButtonStyle = css`
   .trashbox-button {
-    margin-left: 2rem;
     font-size: 2rem;
     cursor: pointer;
   }
