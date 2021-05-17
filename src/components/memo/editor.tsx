@@ -1,5 +1,8 @@
 import dynamic from "next/dynamic";
+import { useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
+
+import { memoIndexState } from "../../lib/atoms/editorAtoms";
 
 import MemoTitle from "./editor/memoTitle";
 import MemoCategory from "./editor/memoCategory";
@@ -15,27 +18,33 @@ const CodeMirrorDyn = dynamic(
 );
 
 export default function Editor() {
-  return (
-    <>
-      <div className="editor">
-        <div className="memo-info">
-          <div>
-            <MemoTitle />
-          </div>
+  const memoIndex = useRecoilValue(memoIndexState);
 
-          <div>
-            <MemoCategory />
-            <MemoTags />
-            <MemoDate />
+  if (memoIndex !== "-1") {
+    return (
+      <>
+        <div className="editor">
+          <div className="memo-info">
+            <div>
+              <MemoTitle />
+            </div>
+  
+            <div>
+              <MemoCategory />
+              <MemoTags />
+              <MemoDate />
+            </div>
           </div>
+  
+          <CodeMirrorDyn />
         </div>
-
-        <CodeMirrorDyn />
-      </div>
-
-      <style jsx>{editorStyle}</style>
-    </>
-  );
+  
+        <style jsx>{editorStyle}</style>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 const editorStyle = css`
