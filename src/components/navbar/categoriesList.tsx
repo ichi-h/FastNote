@@ -7,7 +7,7 @@ import {
   trashboxState,
 } from "../../lib/atoms/uiAtoms";
 
-import PulldownMenu from "./pulldownMenu";
+import EllipsisButton from "./ellipsisButton";
 
 function getCategories(localDB: any): [string[], number[]] {
   const categories = Object.entries(localDB.categories).map(
@@ -78,7 +78,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                     {category} ({count[i]})
                   </div>
                 </Link>
-                <PulldownMenu />
+                <EllipsisButton />
               </li>
             );
           })}
