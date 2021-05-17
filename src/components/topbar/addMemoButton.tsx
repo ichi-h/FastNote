@@ -46,7 +46,8 @@ export default function AddMemoButton() {
 
     const nextIndex = getNextIndex(keys());
 
-    localDB.memos = { [nextIndex]: newMemo };
+    localDB.memos[nextIndex] = newMemo;
+
     setLocalDB(JSON.stringify(localDB));
     setIndex(nextIndex);
   };
