@@ -7,6 +7,8 @@ import {
   trashboxState,
 } from "../../lib/atoms/uiAtoms";
 
+import PulldownMenu from "./pulldownMenu";
+
 function getCategories(localDB: any): [string[], number[]] {
   const categories = Object.entries(localDB.categories).map(
     ([_, category]: [string, string]) => category
@@ -45,6 +47,9 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const [categories, count] = getCategories(localDB);
   const total = count.reduce((sum, value) => sum + value);
 
+  categories.pop();
+  const numberOfNone = count.pop();
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     toggleNav(false);
     toggleTrash(false);
@@ -73,9 +78,17 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                     {category} ({count[i]})
                   </div>
                 </Link>
+                <PulldownMenu />
               </li>
             );
           })}
+          <li className="category">
+            <Link to="/home">
+              <div className="category-button None" onClick={handleClick}>
+                None ({numberOfNone})
+              </div>
+            </Link>
+          </li>
         </ul>
       </div>
 
