@@ -6,9 +6,11 @@ import { categoryInputState } from "../../lib/atoms/uiAtoms";
 
 export default function CategoryInput() {
   const [inputIsShow, toggleIsShow] = useRecoilState(categoryInputState);
-  const selectRef: React.LegacyRef<HTMLInputElement> = useRef();
+  const inputRef: React.RefObject<HTMLInputElement> = useRef();
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  });
 
   const handleClick = () => toggleIsShow(false);
 
@@ -16,7 +18,7 @@ export default function CategoryInput() {
     return (
       <>
         <div className="category-input">
-          <input type="text" name="" id="" ref={selectRef} />
+          <input type="text" name="" id="" ref={inputRef} />
           <button onClick={handleClick}>×</button>
         </div>
         <style jsx>{categoryInputStyle}</style>
