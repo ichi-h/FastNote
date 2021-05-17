@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { css } from "styled-jsx/css";
 
 export default function EllipsisButton() {
+  const [menuIsShow, toggleIsShow] = useState(false);
+
+  const handleClick = () => toggleIsShow(!menuIsShow);
+
   return (
     <>
-      <div className="ellipsis">3</div>
+      <button className="ellipsis" onClick={handleClick}>3</button>
 
       <style jsx>{ellipsisButtonStyle}</style>
     </>
