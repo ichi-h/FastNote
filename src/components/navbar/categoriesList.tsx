@@ -11,17 +11,22 @@ function getCategories(memos: object): [string[], number[]] {
   const selectedKeys = Object.keys(memos).filter(
     (key) => memos[key].trash === false
   );
-  const categoriesSet = selectedKeys.map((key) => memos[key].category);
 
-  const categories = categoriesSet.filter(
-    (category, i, self) => self.indexOf(category) === i
-  );
+  if (selectedKeys.length !== 0) {
+    const categoriesSet = selectedKeys.map((key) => memos[key].category);
 
-  const count = categories.map((category) => {
-    return categoriesSet.filter((value) => value === category).length;
-  });
+    const categories = categoriesSet.filter(
+      (category, i, self) => self.indexOf(category) === i
+    );
 
-  return [categories, count];
+    const count = categories.map((category) => {
+      return categoriesSet.filter((value) => value === category).length;
+    });
+
+    return [categories, count];
+  } else {
+    return [["None"], [0]];
+  }
 }
 
 export default function CategoriesList(props: { categoriesChecked: boolean }) {
