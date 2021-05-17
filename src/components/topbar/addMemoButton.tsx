@@ -25,7 +25,13 @@ export default function AddMemoButton() {
       content: "",
     };
 
-    const keys = Object.keys(localDB.memos).map((value) => Number(value));
+    const keys = () => {
+      if (localDB.memos) {
+        return Object.keys(localDB.memos).map((value) => Number(value));
+      }
+
+      return [];
+    };
 
     const getNextIndex = (keys: number[]) => {
       if (keys.length !== 0) {
@@ -33,14 +39,14 @@ export default function AddMemoButton() {
           return Math.max(pre, cur);
         });
         return String(maxIndex + 1);
-      } else {
-        return "0";
       }
+
+      return "0";
     };
 
-    const nextIndex = getNextIndex(keys);
+    const nextIndex = getNextIndex(keys());
 
-    localDB.memos[nextIndex] = newMemo;
+    localDB.memos = { [nextIndex]: newMemo };
     setLocalDB(JSON.stringify(localDB));
     setIndex(nextIndex);
   };

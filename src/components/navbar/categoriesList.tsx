@@ -8,25 +8,29 @@ import {
 } from "../../lib/atoms/uiAtoms";
 
 function getCategories(memos: object): [string[], number[]] {
-  const selectedKeys = Object.keys(memos).filter(
-    (key) => memos[key].trash === false
-  );
+  if (memos) {
+    const keys = Object.keys(memos);
 
-  if (selectedKeys.length !== 0) {
-    const categoriesSet = selectedKeys.map((key) => memos[key].category);
-
-    const categories = categoriesSet.filter(
-      (category, i, self) => self.indexOf(category) === i
+    const selectedKeys = keys.filter(
+      (key) => memos[key].trash === false // trash属性がtrue ＝ 捨てられている
     );
-
-    const count = categories.map((category) => {
-      return categoriesSet.filter((value) => value === category).length;
-    });
-
-    return [categories, count];
-  } else {
-    return [["None"], [0]];
+  
+    if (selectedKeys.length !== 0) { // trash属性がfalseのメモが存在しない場合
+      const categoriesSet = selectedKeys.map((key) => memos[key].category);
+  
+      const categories = categoriesSet.filter(
+        (category, i, self) => self.indexOf(category) === i
+      );
+  
+      const count = categories.map((category) => {
+        return categoriesSet.filter((value) => value === category).length;
+      });
+  
+      return [categories, count];
+    }
   }
+
+  return [["None"], [0]];
 }
 
 export default function CategoriesList(props: { categoriesChecked: boolean }) {
