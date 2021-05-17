@@ -7,7 +7,6 @@ import {
   trashboxState,
 } from "../../lib/atoms/uiAtoms";
 
-// 計算結果をメモ化したい
 function getCategories(localDB: any): [string[], number[]] {
   const categories = Object.entries(localDB.categories).map(
     ([_, category]: [string, string]) => category
