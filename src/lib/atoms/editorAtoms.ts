@@ -3,7 +3,7 @@ import { atom, selector } from "recoil";
 // 現在選択中のメモのインデックス
 const memoIndexOriginState = atom({
   key: "memoIndexOriginState",
-  default: "0",
+  default: "-1",
 });
 
 export const memoIndexState = selector<string>({

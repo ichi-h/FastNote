@@ -1,21 +1,17 @@
 import Head from "next/head";
 import router from "next/router";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
-import { memoIndexState } from "../lib/atoms/editorAtoms";
 import { startUiAuth } from "../lib/firebase/auth";
 import { SetupDatabase } from "../lib/firebase/database";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
-  const setIndex = useSetRecoilState(memoIndexState);
-
   useEffect(() => {
     startUiAuth();
 
@@ -25,7 +21,6 @@ export default function LandingPage(): JSX.Element {
         setupDB
           .run()
           .then(() => {
-            setIndex("0");
             router.push("/home");
           })
           .catch((e) => {

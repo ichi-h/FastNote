@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 
 import theme from "../lib/theme";
-import { memoIndexState } from "../lib/atoms/editorAtoms";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
 import { SetupDatabase } from "../lib/firebase/database";
 
@@ -36,7 +35,6 @@ function BlackCover() {
 }
 
 export default function Home() {
-  const setIndex = useSetRecoilState(memoIndexState);
   const [isShow, toggle] = useState(false);
 
   useEffect(() => {
@@ -46,7 +44,6 @@ export default function Home() {
         setupDB
           .run()
           .then(() => {
-            setIndex("0");
             toggle(true);
           })
           .catch((e) => {
