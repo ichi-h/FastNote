@@ -68,12 +68,12 @@ export default function Home() {
           <title>Fast Note</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-  
+
         <BlackCover />
-  
+
         <div className="home">
           <TopBar />
-  
+
           <BrowserRouter>
             <div className="home-canvas">
               <div className="separator">
@@ -91,11 +91,11 @@ export default function Home() {
                 </div>
               </div>
             </div>
-  
+
             <Navbar />
           </BrowserRouter>
         </div>
-  
+
         <style jsx>{homeStyle}</style>
       </>
     );
