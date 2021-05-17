@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Head from "next/head";
 import router from "next/router";
@@ -37,6 +37,7 @@ function BlackCover() {
 
 export default function Home() {
   const setIndex = useSetRecoilState(memoIndexState);
+  const [isShow, toggle] = useState(false);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -46,6 +47,7 @@ export default function Home() {
           .run()
           .then(() => {
             setIndex("0");
+            toggle(true);
           })
           .catch((e) => {
             alert(
@@ -59,43 +61,47 @@ export default function Home() {
     });
   });
 
-  return (
-    <>
-      <Head>
-        <title>Fast Note</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <BlackCover />
-
-      <div className="home">
-        <TopBar />
-
-        <BrowserRouter>
-          <div className="home-canvas">
-            <div className="separator">
-              <div>
-                <Route path="/home" exact component={MemoList} />
-                <Route path="/home/settings" exact component={SettingsList} />
-              </div>
-              <div>
-                <Route path="/home" exact component={Editor} />
-                <Route
-                  path="/home/settings"
-                  exact
-                  component={SettingsContent}
-                />
+  if (isShow) {
+    return (
+      <>
+        <Head>
+          <title>Fast Note</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+  
+        <BlackCover />
+  
+        <div className="home">
+          <TopBar />
+  
+          <BrowserRouter>
+            <div className="home-canvas">
+              <div className="separator">
+                <div>
+                  <Route path="/home" exact component={MemoList} />
+                  <Route path="/home/settings" exact component={SettingsList} />
+                </div>
+                <div>
+                  <Route path="/home" exact component={Editor} />
+                  <Route
+                    path="/home/settings"
+                    exact
+                    component={SettingsContent}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-
-          <Navbar />
-        </BrowserRouter>
-      </div>
-
-      <style jsx>{homeStyle}</style>
-    </>
-  );
+  
+            <Navbar />
+          </BrowserRouter>
+        </div>
+  
+        <style jsx>{homeStyle}</style>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 const homeStyle = css`
