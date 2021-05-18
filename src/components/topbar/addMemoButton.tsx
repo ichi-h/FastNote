@@ -34,7 +34,7 @@ export default function AddMemoButton() {
       return [];
     };
 
-    const getNextIndex = (keys: number[]) => {
+    const getNewIndex = (keys: number[]) => {
       if (keys.length !== 0) {
         const maxIndex = keys.reduce((pre, cur) => {
           return Math.max(pre, cur);
@@ -45,12 +45,12 @@ export default function AddMemoButton() {
       return "0";
     };
 
-    const nextIndex = getNextIndex(keys());
+    const newIndex = getNewIndex(keys());
 
-    localDB.memos[nextIndex] = newMemo;
+    localDB.memos[newIndex] = newMemo;
 
     insertionSort(localDB, setLocalDB);
-    setIndex(nextIndex);
+    setIndex("0");
   };
 
   return (

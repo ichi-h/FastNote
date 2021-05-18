@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { css } from "styled-jsx/css";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
@@ -8,7 +8,7 @@ import { FastNoteDate } from "../../../lib/fastNoteDate";
 import { insertionSort } from "../../../lib/sort";
 
 export default function MemoTags() {
-  const memoIndex = useRecoilValue(memoIndexState);
+  const [memoIndex, setIndex] = useRecoilState(memoIndexState);
   const tagsRef: React.RefObject<HTMLInputElement> = useRef();
 
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
@@ -35,6 +35,7 @@ export default function MemoTags() {
     localDB.memos[memoIndex].updated = fnd.getCurrentDate();
     localDB.memos[memoIndex].tags = e.currentTarget.value.split(", ");
     insertionSort(localDB, setLocalDB);
+    setIndex("0");
   };
 
   return (

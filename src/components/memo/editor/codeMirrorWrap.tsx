@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "styled-jsx/css";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
@@ -13,7 +13,7 @@ import "codemirror/theme/neat.css";
 import "codemirror/mode/markdown/markdown";
 
 const CodeMirrorWrap = React.memo(() => {
-  const memoIndex = useRecoilValue(memoIndexState);
+  const [memoIndex, setIndex] = useRecoilState(memoIndexState);
 
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
   let localDB = JSON.parse(localDBStr);
@@ -35,6 +35,7 @@ const CodeMirrorWrap = React.memo(() => {
       localDB.memos[memoIndex].updated = fnd.getCurrentDate();
       localDB.memos[memoIndex].content = newContent;
       insertionSort(localDB, setLocalDB);
+      setIndex("0");
     }
   };
 
