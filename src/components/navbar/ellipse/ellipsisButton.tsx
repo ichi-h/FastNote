@@ -5,17 +5,13 @@ import { Handler } from "./handler";
 
 import PulldownMenu from "./pulldownMenu";
 
-interface MenuItem {
+export interface MenuItem {
   name: string;
   handler: Handler;
   buttonValue: string;
 }
 
-interface EllipsisButtonProps {
-  items: MenuItem[];
-}
-
-export default function EllipsisButton(props: EllipsisButtonProps) {
+export default function EllipsisButton(props: MenuItem[]) {
   const [menuIsShow, toggleIsShow] = useState(false);
 
   const handleClick = () => {

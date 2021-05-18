@@ -1,6 +1,13 @@
 import { useEffect, useRef } from "react";
 import { css } from "styled-jsx/css";
 
+import { MenuItem } from "./ellipsisButton";
+
+interface PulldownMenuProps {
+  items: MenuItem[];
+  dispatch: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export default function PulldownMenu(props: PulldownMenuProps) {
   const menuRef: React.RefObject<HTMLDivElement> = useRef();
 
