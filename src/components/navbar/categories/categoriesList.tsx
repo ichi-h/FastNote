@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { deleteCategory } from "../ellipse/handler";
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 import {
   openNavbarState,
   currentCategoryState,
@@ -44,7 +45,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const toggleTrash = useSetRecoilState(trashboxState);
   const setCategory = useSetRecoilState(currentCategoryState);
 
-  let localDB = JSON.parse(localStorage.getItem("database"));
+  let localDB = JSON.parse(useRecoilValue(localDBState));
   const [categories, count] = getCategories(localDB);
   const total = count.reduce((sum, value) => sum + value);
 
