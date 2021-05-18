@@ -18,19 +18,11 @@ export default function EllipsisButton(props: MenuItem[]) {
     toggleIsShow(!menuIsShow);
   };
 
-  const removeCategory = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    console.log("削除するぞい" + e.currentTarget.value);
-    toggleIsShow(false);
-  };
-
   const showMenu = () => {
     if (menuIsShow) {
       return (
         <PulldownMenu
-          item={[{ name: "削除", handler: removeCategory, index: 0 }]}
-          isShow={menuIsShow}
+          items={props}
           dispatch={toggleIsShow}
         />
       );

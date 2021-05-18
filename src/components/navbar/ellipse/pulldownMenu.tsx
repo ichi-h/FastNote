@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
+import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { MenuItem } from "./ellipsisButton";
 
 interface PulldownMenuProps {
@@ -10,14 +12,29 @@ interface PulldownMenuProps {
 
 export default function PulldownMenu(props: PulldownMenuProps) {
   const menuRef: React.RefObject<HTMLDivElement> = useRef();
+  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
+  let localDB = JSON.parse(localDBStr);
+
+  useEffect(() => {
+    menuRef.current.focus();
+  });
 
   const handleBlur = () => {
     props.dispatch(false);
   };
 
-  useEffect(() => {
-    menuRef.current.focus();
-  });
+  const handleClick = props.items.reduce((pre, cur) => {
+    pre.push(
+      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        cur.handler({ localDB: localDB, e: e})
+          .then(() => {
+            setLocalDB(JSON.stringify(localDB));
+            props.dispatch(false);
+          });
+      }
+    );
+    return pre;
+  }, []);
 
   return (
     <>
@@ -27,15 +44,15 @@ export default function PulldownMenu(props: PulldownMenuProps) {
         onBlur={handleBlur}
         tabIndex={0}
       >
-        {props.item.map((menuIteml) => {
+        {props.items.map((item, i) => {
           return (
             <button
-              className={`pulldown-item-${menuIteml.index}`}
-              key={`pulldown-item-${menuIteml.index}`}
-              value={menuIteml.index}
-              onClick={menuIteml.handler}
+              className={`pulldown-item-${i}`}
+              key={`pulldown-item-${i}`}
+              value={item.buttonValue}
+              onClick={handleClick[i]}
             >
-              {menuIteml.name}
+              {item.name}
             </button>
           );
         })}
