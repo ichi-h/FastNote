@@ -3,10 +3,9 @@ import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { MenuItem } from "./ellipsisButton";
+import { EllipsisButtonProps } from "./ellipsisButton";
 
-interface PulldownMenuProps {
-  items: MenuItem[];
+interface PulldownMenuProps extends EllipsisButtonProps {
   dispatch: React.Dispatch<React.SetStateAction<boolean>>
 }
 
