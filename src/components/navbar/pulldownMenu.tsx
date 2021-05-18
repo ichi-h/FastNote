@@ -50,13 +50,23 @@ export default function PulldownMenu(props: PulldownMenuProps) {
 const pulldownMenuStyle = css`
   .pulldown-menu {
     position: absolute;
-    bottom: -2rem;
+    bottom: 0;
     right: -8rem;
+
     background-color: white;
-    border: 1px solid #000;
     font-size: 2rem;
+    padding: 0;
     width: 10rem;
-    z-index: 10000;
     text-align: center;
+    z-index: 10000;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+  }
+
+  button[class*="pulldown-item-"] {
+    width: 100%;
+  }
+
+  button[class*="pulldown-item-"]:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
