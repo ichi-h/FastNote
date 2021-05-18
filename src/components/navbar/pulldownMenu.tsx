@@ -26,21 +26,24 @@ export default function PulldownMenu(props: PulldownMenuProps) {
 
   return (
     <>
-      <div className="pulldown-menu" ref={menuRef} onBlur={handleBlur} tabIndex={0}>
-        {
-          props.item.map((menuIteml) => {
-            return (
-              <button
-                className={`pulldown-item-${menuIteml.index}`}
-                key={`pulldown-item-${menuIteml.index}`}
-                value={menuIteml.index}
-                onClick={menuIteml.handler}
-              >
-                {menuIteml.name}
-              </button>
-            );
-          })
-        }
+      <div
+        className="pulldown-menu"
+        ref={menuRef}
+        onBlur={handleBlur}
+        tabIndex={0}
+      >
+        {props.item.map((menuIteml) => {
+          return (
+            <button
+              className={`pulldown-item-${menuIteml.index}`}
+              key={`pulldown-item-${menuIteml.index}`}
+              value={menuIteml.index}
+              onClick={menuIteml.handler}
+            >
+              {menuIteml.name}
+            </button>
+          );
+        })}
       </div>
       <style jsx>{pulldownMenuStyle}</style>
     </>

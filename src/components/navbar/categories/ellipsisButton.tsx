@@ -6,6 +6,17 @@ import PulldownMenu from "../pulldownMenu";
 export default function EllipsisButton() {
   const [menuIsShow, toggleIsShow] = useState(false);
 
+  const handleClick = () => {
+    toggleIsShow(!menuIsShow);
+  };
+
+  const removeCategory = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    console.log("削除するぞい" + e.currentTarget.value);
+    toggleIsShow(false);
+  };
+
   const showMenu = () => {
     if (menuIsShow) {
       return (
@@ -18,19 +29,12 @@ export default function EllipsisButton() {
     }
   };
 
-  const handleClick = () => {
-    toggleIsShow(!menuIsShow);
-  };
-
-  const removeCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log("削除するぞい" + e.currentTarget.value);
-    toggleIsShow(false);
-  }
-
   return (
     <>
       <div className="ellipsis">
-        <button className="ellipsis-button" onClick={handleClick}>3</button>
+        <button className="ellipsis-button" onClick={handleClick}>
+          3
+        </button>
         {showMenu()}
       </div>
 
