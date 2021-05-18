@@ -2,6 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
+import { insertionSort } from "../../../lib/sort";
 
 export default function DeleteButton(props: { index: number }) {
   const setIndex = useSetRecoilState(memoIndexState);
@@ -18,7 +19,7 @@ export default function DeleteButton(props: { index: number }) {
     };
 
     const updateLocalDB = async () => {
-      setLocalDB(JSON.stringify(localDB));
+      insertionSort(localDB, setLocalDB);
     };
 
     const process = async () => {

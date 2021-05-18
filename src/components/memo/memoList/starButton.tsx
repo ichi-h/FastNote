@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
+import { insertionSort } from "../../../lib/sort";
 
 export default function StarButton(props: { index: number }) {
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
@@ -13,7 +14,7 @@ export default function StarButton(props: { index: number }) {
   const handleChange = () => {
     toggle(!checked);
     localDB.memos[props.index].star = !checked;
-    setLocalDB(JSON.stringify(localDB));
+    insertionSort(localDB, setLocalDB);
   };
 
   return (

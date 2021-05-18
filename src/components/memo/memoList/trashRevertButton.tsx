@@ -2,6 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
+import { insertionSort } from "../../../lib/sort";
 
 export type FuncType = "trash" | "revert";
 
@@ -26,7 +27,7 @@ export default function TrashRevertButton(props: {
   const handleClick = () => {
     setIndex("-1");
     localDB.memos[props.index].trash = trashAtr(props.func);
-    setLocalDB(JSON.stringify(localDB));
+    insertionSort(localDB, setLocalDB);
   };
 
   return (

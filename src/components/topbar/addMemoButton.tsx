@@ -5,6 +5,7 @@ import { Memo } from "../../lib/databaseInfo";
 import { FastNoteDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
+import { insertionSort } from "../../lib/sort";
 
 export default function AddMemoButton() {
   const setIndex = useSetRecoilState(memoIndexState);
@@ -48,7 +49,7 @@ export default function AddMemoButton() {
 
     localDB.memos[nextIndex] = newMemo;
 
-    setLocalDB(JSON.stringify(localDB));
+    insertionSort(localDB, setLocalDB);
     setIndex(nextIndex);
   };
 

@@ -4,6 +4,7 @@ import { css } from "styled-jsx/css";
 
 import { categoryInputState } from "../../../lib/atoms/uiAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
+import { insertionSort } from "../../../lib/sort";
 
 export default function CategoryInput() {
   const [inputIsShow, toggleIsShow] = useRecoilState(categoryInputState);
@@ -35,7 +36,7 @@ export default function CategoryInput() {
         }, {});
 
         localDB.categories = categoryObj;
-        setLocalDB(JSON.stringify(localDB));
+        insertionSort(localDB, setLocalDB);
       }
 
       toggleIsShow(false);
