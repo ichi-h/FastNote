@@ -3,7 +3,17 @@ import { css } from "styled-jsx/css";
 
 import PulldownMenu from "./pulldownMenu";
 
-export default function EllipsisButton() {
+interface MenuItem {
+  name: string;
+  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  buttonValue: string;
+}
+
+interface EllipsisButtonProps {
+  items: MenuItem[];
+}
+
+export default function EllipsisButton(props: EllipsisButtonProps) {
   const [menuIsShow, toggleIsShow] = useState(false);
 
   const handleClick = () => {

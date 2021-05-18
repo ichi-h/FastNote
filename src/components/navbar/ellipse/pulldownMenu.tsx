@@ -1,18 +1,6 @@
 import { useEffect, useRef } from "react";
 import { css } from "styled-jsx/css";
 
-interface MenuItem {
-  name: string;
-  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  index: number;
-}
-
-interface PulldownMenuProps {
-  item: MenuItem[];
-  isShow: boolean;
-  dispatch: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export default function PulldownMenu(props: PulldownMenuProps) {
   const menuRef: React.RefObject<HTMLDivElement> = useRef();
 
