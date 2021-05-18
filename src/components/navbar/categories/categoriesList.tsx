@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
+import { deleteCategory } from "../ellipse/handler";
 import {
   openNavbarState,
   currentCategoryState,
@@ -78,7 +79,13 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                     {category} ({count[i]})
                   </div>
                 </Link>
-                <EllipsisButton />
+                <EllipsisButton items={[
+                  {
+                    name: "削除",
+                    handler: deleteCategory,
+                    buttonValue: category
+                  }
+                ]} />
               </li>
             );
           })}
