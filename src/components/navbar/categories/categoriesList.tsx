@@ -7,7 +7,7 @@ import {
   trashboxState,
 } from "../../../lib/atoms/uiAtoms";
 
-import EllipsisButton from "./ellipsisButton";
+import EllipsisButton from "../ellipse/ellipsisButton";
 
 function getCategories(localDB: any): [string[], number[]] {
   const categories = Object.entries(localDB.categories).map(

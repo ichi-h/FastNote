@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { css } from "styled-jsx/css";
 
-import PulldownMenu from "../pulldownMenu";
+import PulldownMenu from "./pulldownMenu";
 
 export default function EllipsisButton() {
   const [menuIsShow, toggleIsShow] = useState(false);
