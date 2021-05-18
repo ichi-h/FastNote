@@ -19,7 +19,7 @@ export default function PulldownMenu(props: PulldownMenuProps) {
   });
 
   const handleBlur = () => {
-    props.dispatch(false);
+    setTimeout(() => props.dispatch(false), 100, false);
   };
 
   const handleClick = props.items.reduce((pre, cur) => {
