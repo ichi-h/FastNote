@@ -55,6 +55,7 @@ const pulldownMenuStyle = css`
     position: absolute;
     bottom: 0;
     right: -8rem;
+    line-height: 0;
 
     background-color: white;
     font-size: 2rem;
