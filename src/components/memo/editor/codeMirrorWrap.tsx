@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { css } from "styled-jsx/css";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { useRecoilState } from "recoil";
 
@@ -56,17 +55,21 @@ const CodeMirrorWrap = React.memo(() => {
         />
       </div>
 
-      <style jsx>{codeMirrorWrapStyle}</style>
+      {codeMirrorWrapStyle(localDB.settings.fontSize)}
     </>
   );
 });
 
-const codeMirrorWrapStyle = css`
-  .codemirror-wrap {
-    border: 1px solid black;
-    margin: 1rem;
-    font-size: 20px;
-  }
-`;
+const codeMirrorWrapStyle = (fontSize: string) => {
+  return (
+    <style jsx>{`
+      .codemirror-wrap {
+        border: 1px solid black;
+        margin: 1rem;
+        font-size: ${fontSize}px;
+      }
+  `}</style>
+  );
+};
 
 export default CodeMirrorWrap;
