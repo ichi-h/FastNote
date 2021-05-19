@@ -10,6 +10,7 @@ import {
   openNavbarState,
   trashboxState,
 } from "../../lib/atoms/uiAtoms";
+import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 
 type TextButtonType = "trash" | "settings" | "logout";
@@ -35,6 +36,7 @@ export default function TextButton(props: { type: TextButtonType }) {
   const toggleNav = useSetRecoilState(openNavbarState);
   const toggleTrash = useSetRecoilState(trashboxState);
   const setCategory = useSetRecoilState(currentCategoryState);
+  const setIndex = useSetRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
@@ -44,6 +46,7 @@ export default function TextButton(props: { type: TextButtonType }) {
         toggleNav(false);
         toggleTrash(true);
         setCategory("all");
+        setIndex("-1");
         break;
 
       case "settings":
