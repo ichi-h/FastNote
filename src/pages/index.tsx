@@ -1,4 +1,3 @@
-import Head from "next/head";
 import router from "next/router";
 import { useEffect } from "react";
 import { css } from "styled-jsx/css";
@@ -35,11 +34,6 @@ export default function LandingPage(): JSX.Element {
 
   return (
     <>
-      <Head>
-        <title>Fast Note</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <div className="bg">
         <div className="login-box">
           <div className="title">

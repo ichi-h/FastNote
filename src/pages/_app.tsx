@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
@@ -7,9 +8,18 @@ import "../../public/assets/fontello/css/fontello.css";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <RecoilRoot>
-      {typeof window === "undefined" ? null : <Component {...pageProps} />}
-    </RecoilRoot>
+    <>
+      <Head>
+        <title>Fast Note</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet" />
+      </Head>
+
+      <RecoilRoot>
+        {typeof window === "undefined" ? null : <Component {...pageProps} />}
+      </RecoilRoot>
+    </>
   );
 }
 

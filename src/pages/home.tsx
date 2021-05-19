@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Head from "next/head";
 import router from "next/router";
 import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
@@ -61,11 +60,6 @@ export default function Home() {
   if (isShow) {
     return (
       <>
-        <Head>
-          <title>Fast Note</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
         <BlackCover />
 
         <div className="home">
