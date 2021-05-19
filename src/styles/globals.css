@@ -23,6 +23,7 @@ button {
   cursor: pointer;
 }
 
+.react-codemirror2,
 .CodeMirror {
-  height: 80vh !important;
+  height: 100% !important;
 }

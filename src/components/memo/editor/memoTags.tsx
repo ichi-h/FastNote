@@ -58,6 +58,10 @@ export default function MemoTags() {
 }
 
 const memoTagsStyle = css`
+  .memo-tags {
+    margin: auto 0;
+  }
+
   .tags-area {
     width: 100%;
   }

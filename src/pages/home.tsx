@@ -117,11 +117,11 @@ const homeStyle = css`
   }
 
   .separator > div:first-child {
-    width: 33%;
+    width: 30%;
   }
 
   .separator > div:last-child {
-    width: 77%;
+    width: 70%;
   }
 `;
 

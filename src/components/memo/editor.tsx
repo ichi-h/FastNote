@@ -1,6 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRecoilValue } from "recoil";
-import { css } from "styled-jsx/css";
 
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 
@@ -19,12 +19,24 @@ const CodeMirrorDyn = dynamic(
 
 export default function Editor() {
   const memoIndex = useRecoilValue(memoIndexState);
+  const memoInfoRef: React.RefObject<HTMLDivElement> = useRef();
+  const [memoInfoY, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (memoInfoRef.current !== undefined) {
+      try {
+        setHeight(memoInfoRef.current.clientHeight);
+      } catch {
+        // do nothing
+      }
+    }
+  });
 
   if (memoIndex !== "-1") {
     return (
       <>
         <div className="editor">
-          <div className="memo-info">
+          <div className="memo-info" ref={memoInfoRef}>
             <div>
               <MemoTitle />
             </div>
@@ -36,10 +48,12 @@ export default function Editor() {
             </div>
           </div>
 
-          <CodeMirrorDyn />
+          <div>
+            <CodeMirrorDyn />
+          </div>
         </div>
 
-        <style jsx>{editorStyle}</style>
+        {editorStyle(memoInfoY)}
       </>
     );
   } else {
@@ -47,26 +61,39 @@ export default function Editor() {
   }
 }
 
-const editorStyle = css`
-  .editor {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
-  }
+const editorStyle = (memoInfoY: number) => {
+  return (
+    <style jsx>{`
+    .editor {
+      position: relative;
+      height: 100%;
+    }
+  
+    .editor > div:first-child {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: auto;
+      padding: 1rem 1rem 0 1rem;
+    }
 
-  .memo-info {
-    padding: 1rem;
-    height: 10vh;
-  }
+    .editor > div:last-child {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: calc(100% - ${memoInfoY}px);
+      padding: 1rem;
+    }
 
-  .memo-info > div:first-child {
-    margin-bottom: 1rem;
-  }
+    .memo-info > div:first-child {
+      margin-bottom: 1rem;
+    }
 
-  .memo-info > div:last-child {
-    display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
-    gap: 1rem;
-  }
-`;
+    .memo-info > div:last-child {
+      display: grid;
+      grid-template-columns: 1fr 6fr 1fr;
+      gap: 1rem;
+    }
+  `}</style>
+  );
+};

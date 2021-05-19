@@ -58,6 +58,10 @@ export default function MemoCategory() {
 }
 
 const memoCategoryStyle = css`
+  .memo-category {
+    margin: auto 0;
+  }
+
   .category-area {
     width: 100%;
   }

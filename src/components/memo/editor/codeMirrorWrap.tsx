@@ -50,6 +50,7 @@ const CodeMirrorWrap = React.memo(() => {
             mode: "markdown",
             theme: "neat",
             lineNumbers: false,
+            lineWrapping: true,
           }}
           onBeforeChange={handleChangeContent}
         />
@@ -65,8 +66,7 @@ const codeMirrorWrapStyle = (fontSize: string) => {
     <style jsx>{`
       .codemirror-wrap {
         border: 1px solid black;
-        margin: 1rem;
-        padding: 1rem;
+        height: 100%;
         font-size: ${fontSize}px;
       }
     `}</style>
