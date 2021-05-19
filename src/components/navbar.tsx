@@ -7,9 +7,7 @@ import CategoriesCheckbox from "./navbar/categories/categoriesCheckbox";
 import AddCategoryButton from "./navbar/categories/addCategoryButton";
 import CategoryInput from "./navbar/categories/categoryInput";
 import CategoriesList from "./navbar/categories/categoriesList";
-import SettingsButton from "./navbar/settingsButton";
-import TrashboxButton from "./navbar/trashboxButton";
-import LogoutButton from "./navbar/logoutButton";
+import TextButton from "./navbar/textButton";
 
 export default function Navbar() {
   const checked = useRecoilValue(openNavbarState);
@@ -41,9 +39,9 @@ export default function Navbar() {
           <CategoriesList categoriesChecked={categoriesChecked} />
         </div>
 
-        <TrashboxButton />
-        <SettingsButton />
-        <LogoutButton />
+        <TextButton type="trash" />
+        <TextButton type="settings" />
+        <TextButton type="logout" />
       </div>
 
       {navbarStyle(checked)}
