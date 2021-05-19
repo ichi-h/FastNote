@@ -24,12 +24,7 @@ export default function EllipsisButton(props: EllipsisButtonProps) {
 
   const showMenu = () => {
     if (menuIsShow) {
-      return (
-        <PulldownMenu
-          items={props.items}
-          dispatch={toggleIsShow}
-        />
-      );
+      return <PulldownMenu items={props.items} dispatch={toggleIsShow} />;
     }
   };
 

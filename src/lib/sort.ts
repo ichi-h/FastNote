@@ -1,8 +1,11 @@
-export async function insertionSort(localDB: any, callback: (localDBStr: string) => void) {
+export async function insertionSort(
+  localDB: any,
+  callback: (localDBStr: string) => void
+) {
   const sort = async () => {
     if (localDB.memos) {
       const keys = Object.keys(localDB.memos);
-  
+
       let tmp = Number.MAX_SAFE_INTEGER;
       const sortedKeyList = keys.reduce((sorted, key) => {
         const updated = Number(localDB.memos[key].updated);
@@ -22,13 +25,15 @@ export async function insertionSort(localDB: any, callback: (localDBStr: string)
         }
         return sorted;
       }, []);
-  
+
       localDB.memos = sortedKeyList.reduce((pre, key, i) => {
         pre[i] = localDB.memos[key];
         return pre;
       }, {});
     }
-  }
+  };
 
-  await sort().then(() => {callback(JSON.stringify(localDB))});
+  await sort().then(() => {
+    callback(JSON.stringify(localDB));
+  });
 }

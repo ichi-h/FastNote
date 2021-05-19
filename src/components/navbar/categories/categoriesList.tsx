@@ -80,13 +80,15 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                     {category} ({count[i]})
                   </div>
                 </Link>
-                <EllipsisButton items={[
-                  {
-                    name: "削除",
-                    handler: deleteCategory,
-                    buttonValue: category
-                  }
-                ]} />
+                <EllipsisButton
+                  items={[
+                    {
+                      name: "削除",
+                      handler: deleteCategory,
+                      buttonValue: category,
+                    },
+                  ]}
+                />
               </li>
             );
           })}

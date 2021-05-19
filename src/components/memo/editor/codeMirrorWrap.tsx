@@ -68,7 +68,7 @@ const codeMirrorWrapStyle = (fontSize: string) => {
         margin: 1rem;
         font-size: ${fontSize}px;
       }
-  `}</style>
+    `}</style>
   );
 };
 

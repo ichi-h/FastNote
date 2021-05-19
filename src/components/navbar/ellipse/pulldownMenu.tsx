@@ -7,7 +7,7 @@ import { EllipsisButtonProps } from "./ellipsisButton";
 import { insertionSort } from "../../../lib/sort";
 
 interface PulldownMenuProps extends EllipsisButtonProps {
-  dispatch: React.Dispatch<React.SetStateAction<boolean>>
+  dispatch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function PulldownMenu(props: PulldownMenuProps) {
@@ -24,15 +24,12 @@ export default function PulldownMenu(props: PulldownMenuProps) {
   };
 
   const handleClick = props.items.reduce((pre, cur) => {
-    pre.push(
-      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        cur.handler({ localDB: localDB, e: e})
-          .then(() => {
-            insertionSort(localDB, setLocalDB);
-            props.dispatch(false);
-          });
-      }
-    );
+    pre.push((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      cur.handler({ localDB: localDB, e: e }).then(() => {
+        insertionSort(localDB, setLocalDB);
+        props.dispatch(false);
+      });
+    });
     return pre;
   }, []);
 

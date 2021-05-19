@@ -1,6 +1,6 @@
 interface HandlerProps {
   localDB: any;
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
 export type Handler = (props: HandlerProps) => Promise<unknown>;
