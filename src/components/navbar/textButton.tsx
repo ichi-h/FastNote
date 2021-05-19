@@ -54,6 +54,7 @@ export default function TextButton(props: { type: TextButtonType }) {
         break;
 
       case "logout":
+        toggleNav(false);
         firebase
           .auth()
           .signOut()
@@ -67,32 +68,40 @@ export default function TextButton(props: { type: TextButtonType }) {
     }
   };
 
-  const Content = () => {
+  const getContent = (): [JSX.Element, string, string] => {
     switch (props.type) {
       case "trash":
-        return (
-          <Link to="/home">
-            ごみ箱 ({countTrashedMemos(localDB.memos)})
-          </Link>
-        );
+        return [
+          <Link to="/home">ごみ箱 ({countTrashedMemos(localDB.memos)})</Link>,
+          "/home",
+          "trash-button",
+        ];
 
       case "settings":
-        return (
-          <Link to="/home/settings">
-            設定
-          </Link>
-        );
+        return [
+          <Link to="/home/settings">設定</Link>,
+          "/home/settings",
+          "settings-button"
+        ];
 
       case "logout":
-        return <>ログアウト</>;
+        return [
+          <>ログアウト</>,
+          "/home",
+          "logout-button"
+        ];
     }
   };
 
+  const [Content, link, className] = getContent();
+
   return (
     <>
-      <div className="text-button" onClick={handleClick}>
-        <Content />
-      </div>
+      <Link to={link}>
+        <div className={className} onClick={handleClick}>
+          {Content}
+        </div>
+      </Link>
 
       <style jsx>{textButtonStyle}</style>
     </>
@@ -100,13 +109,21 @@ export default function TextButton(props: { type: TextButtonType }) {
 }
 
 const textButtonStyle = css`
-  .text-button {
+  .trash-button,
+  .settings-button,
+  .logout-button {
     font-size: 2rem;
     cursor: pointer;
     transition: 0.1s;
   }
 
-  .text-button:hover {
+  .logout-button {
+    margin-top: 2rem;
+  }
+
+  .trash-button:hover,
+  .settings-button:hover,
+  .logout-button:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
 `;
