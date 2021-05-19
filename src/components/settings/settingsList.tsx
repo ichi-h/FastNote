@@ -60,6 +60,14 @@ const memoListStyle = css`
     cursor: pointer;
   }
 
+  .settings-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .settings-item:active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
   .title {
     margin-left: 1rem;
     font-size: 2rem;
