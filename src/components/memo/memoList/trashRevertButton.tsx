@@ -41,7 +41,9 @@ export default function TrashRevertButton(props: {
   return (
     <>
       <div className="trash-revert-button">
-        <button onClick={handleClick}><i className={icon()} /></button>
+        <button onClick={handleClick}>
+          <i className={icon()} />
+        </button>
       </div>
     </>
   );

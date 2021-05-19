@@ -15,8 +15,12 @@ export default function MemoDate() {
   return (
     <>
       <div className="memo-date">
-        <p><i className="icon-calendar" />: {numToStr(Number(created), false)}</p>
-        <p><i className="icon-arrows-cw" />: {numToStr(Number(updated), false)}</p>
+        <p>
+          <i className="icon-calendar" />: {numToStr(Number(created), false)}
+        </p>
+        <p>
+          <i className="icon-arrows-cw" />: {numToStr(Number(updated), false)}
+        </p>
       </div>
 
       <style jsx>{memoDateStyle}</style>

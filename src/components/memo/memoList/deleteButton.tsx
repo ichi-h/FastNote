@@ -34,7 +34,9 @@ export default function DeleteButton(props: { index: number }) {
   return (
     <>
       <div className="delete-button">
-        <button onClick={handleClick}><i className="icon-trash-empty" /></button>
+        <button onClick={handleClick}>
+          <i className="icon-trash-empty" />
+        </button>
       </div>
     </>
   );
