@@ -57,37 +57,17 @@ export class SetupDatabase {
       const newDatabase: DatabaseInfo = {
         memos: [
           {
-            title: "サンプル1",
-            category: "sample",
-            tags: ["abc", "def", "ghi"],
+            title: "ようこそ、Fast Noteへ！",
+            category: "FastNote",
+            tags: ["FastNote", "HowToUse"],
             star: false,
             trash: false,
             created: fnd.getCurrentDate(),
             updated: fnd.getCurrentDate(),
-            content: "# サンプル1",
-          },
-          {
-            title: "サンプル2",
-            category: "None",
-            tags: ["def"],
-            star: false,
-            trash: false,
-            created: fnd.getCurrentDate(),
-            updated: fnd.getCurrentDate(),
-            content: "# サンプル2",
-          },
-          {
-            title: "サンプル3",
-            category: "None",
-            tags: ["ghi"],
-            star: false,
-            trash: false,
-            created: fnd.getCurrentDate(),
-            updated: fnd.getCurrentDate(),
-            content: "# サンプル3",
+            content: memoContent,
           },
         ],
-        categories: ["None", "sample"],
+        categories: ["FastNote", "None"],
         settings: {
           theme: "",
           fontSize: "20",
@@ -139,3 +119,21 @@ export class SetupDatabase {
     });
   }
 }
+
+const memoContent = `# ようこそ、Fast Noteへ！
+
+## Fast Noteとは？
+
+Fast Noteとは、**マークダウン形式で取ったメモをクラウド上に保存し管理できるメモアプリ** です。  
+保存したメモはログインしたどの端末からでもアクセス・更新ができます。
+
+### 簡単な使い方
+
+まずは右上のプラスボタンから、新しいメモを追加してみましょう！
+
+エディター画面の上部でタイトル・カテゴリー・タグといったメモの情報、下部で本文を入力できます。  
+カテゴリーの追加は左上にある三線ボタンからメニューバーを表示し、「カテゴリー」横にあるプラスボタンから行えます。  
+また、タグは ", （カンマ+半角空白）" で区切ることで追加できます。
+
+Fast Noteはオートセーブ機能に対応しており、変更が加わった際には自動的にデータをクラウドにアップロードします。  
+また、データはブラウザ内のストレージにも保存されるため、オフライン時でも使用することができます。`;
