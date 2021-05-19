@@ -84,7 +84,9 @@ const RemoveAccout = () => {
           アカウントを削除した場合、保存したメモ、設定等のFast
           Noteに関連する全てのデータが削除されます。
         </p>
-        <button className="user-del-button" onClick={handleClick}>アカウントを削除する</button>
+        <button className="user-del-button" onClick={handleClick}>
+          アカウントを削除する
+        </button>
       </div>
 
       <style jsx>{generalStyle}</style>

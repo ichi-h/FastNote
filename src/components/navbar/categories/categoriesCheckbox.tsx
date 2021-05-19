@@ -26,7 +26,9 @@ export default function CategoriesCheckbox(props: {
           onClick={props.handleClick}
         />
         <i className={icon()} /> カテゴリー
-        <span><AddCategoryButton /></span>
+        <span>
+          <AddCategoryButton />
+        </span>
       </label>
 
       <style jsx>{categoriesCheckboxStyle}</style>

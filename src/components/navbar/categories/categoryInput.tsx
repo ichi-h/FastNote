@@ -54,7 +54,9 @@ export default function CategoryInput() {
             onKeyDown={handleKeyDown}
             ref={inputRef}
           />
-          <button className="cancel" onClick={handleClick}>×</button>
+          <button className="cancel" onClick={handleClick}>
+            ×
+          </button>
         </div>
         <style jsx>{categoryInputStyle}</style>
       </>
