@@ -4,6 +4,7 @@ import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { insertionSort } from "../../../lib/sort";
+import theme from "../../../lib/theme";
 
 export default function StarButton(props: { index: number }) {
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
@@ -39,9 +40,18 @@ export default function StarButton(props: { index: number }) {
 const starButtonStyle = css`
   .star-button {
     cursor: pointer;
+    font-size: 2rem;
   }
 
   .star {
     display: none;
+  }
+
+  .star ~ .icon-star::before {
+    color: rgba(0, 0, 0, 0.1);
+  }
+
+  .star:checked ~ .icon-star::before {
+    color: ${theme.subColor};
   }
 `;

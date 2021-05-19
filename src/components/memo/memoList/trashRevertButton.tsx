@@ -1,4 +1,5 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
@@ -45,6 +46,13 @@ export default function TrashRevertButton(props: {
           <i className={icon()} />
         </button>
       </div>
+      <style jsx>{tshRevBtnStyle}</style>
     </>
   );
 }
+
+const tshRevBtnStyle = css`
+  .trash-revert-button > button {
+    font-size: 2rem;
+  }
+`;

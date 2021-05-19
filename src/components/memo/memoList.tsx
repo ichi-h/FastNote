@@ -1,5 +1,5 @@
 import { css } from "styled-jsx/css";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
@@ -38,7 +38,7 @@ function starOrDel(trashbox: boolean, index: number) {
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const trashbox = useRecoilValue(trashboxState);
-  const setMemoIndex = useSetRecoilState(memoIndexState);
+  const [memoIndex, setMemoIndex] = useRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
@@ -50,6 +50,12 @@ export default function MemoList() {
         return "trash";
       case true:
         return "revert";
+    }
+  };
+
+  const focused = (i: number) => {
+    if (String(i) === memoIndex) {
+      return "focused";
     }
   };
 
@@ -66,34 +72,37 @@ export default function MemoList() {
         {index.map((i) => {
           if (localDB.memos[i].trash === trashbox) {
             return (
-              <div
-                className={`memo-item`}
-                id={`memo-item-${i}`}
-                key={`memo-item-${i}`}
-                onClick={handleClick}
-              >
-                <div className="item-top">
-                  <p className="title">{localDB.memos[i].title}</p>
-                  <p className="update-date">
-                    {numToStr(localDB.memos[i].updated, false)}
-                  </p>
-                </div>
+              <>
+                <div
+                  className={`memo-item ${focused(i)}`}
+                  id={`memo-item-${i}`}
+                  key={`memo-item-${i}`}
+                  onClick={handleClick}
+                >
+                  <div className="item-top">
+                    <p className="title">{localDB.memos[i].title}</p>
+                    <p className="update-date">
+                      {numToStr(localDB.memos[i].updated, false)}
+                    </p>
+                  </div>
 
-                <div className="item-mid">
-                  <p className="content">{localDB.memos[i].content}</p>
-                </div>
+                  <div className="item-mid">
+                    <p className="content">{localDB.memos[i].content}</p>
+                  </div>
 
-                <div className="item-bottom">
-                  <Tags localDB={localDB} index={i} />
+                  <div className="item-bottom">
+                    <Tags localDB={localDB} index={i} />
 
-                  <div className="buttons">
-                    <div>
-                      <TrashRevertButton func={funcType(trashbox)} index={i} />
+                    <div className="buttons">
+                      <div>
+                        <TrashRevertButton func={funcType(trashbox)} index={i} />
+                      </div>
+                      <div>{starOrDel(trashbox, i)}</div>
                     </div>
-                    <div>{starOrDel(trashbox, i)}</div>
                   </div>
                 </div>
-              </div>
+                <hr />
+              </>
             );
           }
         })}
@@ -108,12 +117,28 @@ const memoListStyle = css`
   .memo-list {
     height: 100%;
     overflow-y: scroll;
+    user-select: none;
   }
 
   .memo-item {
-    height: 15vh;
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 16vh;
+    margin: 1rem;
     cursor: pointer;
+  }
+
+  .memo-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .memo-item:active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .memo-item.focused {
+    outline: 2px solid rgb(150, 150, 150);
+    background-color: rgba(0, 0, 0, 0.03);
   }
 
   .item-top,
@@ -127,6 +152,7 @@ const memoListStyle = css`
   }
   .item-mid {
     height: 50%;
+    margin-bottom: 1rem;
   }
   .item-bottom {
     height: 25%;
