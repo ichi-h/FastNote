@@ -28,7 +28,7 @@ export default function StarButton(props: { index: number }) {
           defaultChecked={checked}
           onChange={handleChange}
         />
-        ☆
+        <i className="icon-star" />
       </label>
 
       <style jsx>{starButtonStyle}</style>

@@ -14,17 +14,17 @@ export default function SettingsList() {
     <>
       <div className="settings-list">
         <div className="settings-item editor" onClick={handleClick}>
-          <div className="title">エディター</div>
+          <div className="title"><i className="icon-pencil" />エディター</div>
           <div className="explain">
             フォント等のエディターの設定を行います。
           </div>
         </div>
         <div className="settings-item user" onClick={handleClick}>
-          <div className="title">ユーザー設定</div>
+          <div className="title"><i className="icon-user" />ユーザー設定</div>
           <div className="explain">ユーザーの管理を行います。</div>
         </div>
         <div className="settings-item about" onClick={handleClick}>
-          <div className="title">このアプリについて</div>
+          <div className="title"><i className="icon-info" />このアプリについて</div>
         </div>
       </div>
 

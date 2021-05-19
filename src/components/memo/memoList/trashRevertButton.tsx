@@ -11,6 +11,8 @@ export default function TrashRevertButton(props: {
   index: number;
 }) {
   const setIndex = useSetRecoilState(memoIndexState);
+  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
+  let localDB = JSON.parse(localDBStr);
 
   const trashAtr = (func: FuncType) => {
     switch (func) {
@@ -21,8 +23,14 @@ export default function TrashRevertButton(props: {
     }
   };
 
-  const [localDBStr, setLocalDB] = useRecoilState(localDBState);
-  let localDB = JSON.parse(localDBStr);
+  const icon = () => {
+    switch (props.func) {
+      case "trash":
+        return "icon-trash-empty";
+      case "revert":
+        return "icon-ccw";
+    }
+  };
 
   const handleClick = () => {
     setIndex("-1");
@@ -33,7 +41,7 @@ export default function TrashRevertButton(props: {
   return (
     <>
       <div className="trash-revert-button">
-        <button onClick={handleClick}>箱</button>
+        <button onClick={handleClick}><i className={icon()} /></button>
       </div>
     </>
   );

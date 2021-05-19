@@ -4,6 +4,14 @@ export default function CategoriesCheckbox(props: {
   categoriesChecked: boolean;
   handleClick: () => void;
 }) {
+  const icon = () => {
+    if (props.categoriesChecked) {
+      return "icon-angle-down";
+    } else {
+      return "icon-angle-right";
+    }
+  };
+
   return (
     <>
       <label htmlFor="categories-checkbox" className="checkbox-label">
@@ -15,7 +23,7 @@ export default function CategoriesCheckbox(props: {
           defaultChecked={props.categoriesChecked}
           onClick={props.handleClick}
         />
-        カテゴリー
+        <i className={icon()} /> カテゴリー
       </label>
 
       <style jsx>{categoriesCheckboxStyle}</style>

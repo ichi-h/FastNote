@@ -15,8 +15,8 @@ export default function MemoDate() {
   return (
     <>
       <div className="memo-date">
-        <p>作成日: {numToStr(Number(created), false)}</p>
-        <p>更新日: {numToStr(Number(updated), false)}</p>
+        <p><i className="icon-calendar" />: {numToStr(Number(created), false)}</p>
+        <p><i className="icon-arrows-cw" />: {numToStr(Number(updated), false)}</p>
       </div>
 
       <style jsx>{memoDateStyle}</style>
@@ -28,5 +28,10 @@ const memoDateStyle = css`
   .memo-date {
     text-align: right;
     margin: auto 0;
+  }
+
+  .icon-calendar,
+  .icon-arrows-cw {
+    margin-right: 0.5rem;
   }
 `;

@@ -19,8 +19,25 @@ export default function Tags(props: { localDB: any; index: number }) {
     })
   );
 
-  return <div className="tags">{Object.values(tagItems)}</div>;
+  return (
+    <>
+      <div className="tags">
+        <i className="icon-tags" /> {Object.values(tagItems)}
+      </div>
+      <style jsx>{tagsStyle}</style>
+    </>
+  );
 }
+
+const tagsStyle = css`
+  .tags {
+    margin-left: 1rem;
+  }
+
+  .icon-tags {
+    margin-right: 1rem;
+  }
+`;
 
 const tagItemStyle = css`
   .tag-item {

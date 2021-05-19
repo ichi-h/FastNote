@@ -72,21 +72,21 @@ export default function TextButton(props: { type: TextButtonType }) {
     switch (props.type) {
       case "trash":
         return [
-          <Link to="/home">ごみ箱 ({countTrashedMemos(localDB.memos)})</Link>,
+          <Link to="/home"><i className="icon-trash-empty" /> ごみ箱 ({countTrashedMemos(localDB.memos)})</Link>,
           "/home",
           "trash-button",
         ];
 
       case "settings":
         return [
-          <Link to="/home/settings">設定</Link>,
+          <Link to="/home/settings"><i className="icon-cog" /> 設定</Link>,
           "/home/settings",
           "settings-button"
         ];
 
       case "logout":
         return [
-          <>ログアウト</>,
+          <><i className="icon-logout" /> ログアウト</>,
           "/home",
           "logout-button"
         ];
