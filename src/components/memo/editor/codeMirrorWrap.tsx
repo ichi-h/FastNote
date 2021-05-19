@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { css } from "styled-jsx/css";
-import { UnControlled as CodeMirror } from "react-codemirror2";
+import { Controlled as CodeMirror } from "react-codemirror2";
 import { useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
@@ -28,14 +28,17 @@ const CodeMirrorWrap = React.memo(() => {
     newContent: string
   ) => {
     if (editIndex !== memoIndex) {
-      // 選択中のメモが変更された場合
+      // 選択中のメモが変更されてCodeMirror内のテキストが変わった場合
       setEditIndex(memoIndex);
     } else {
+      // CodeMirrorのテキストが更新された場合
       const fnd = new FastNoteDate();
       localDB.memos[memoIndex].updated = fnd.getCurrentDate();
       localDB.memos[memoIndex].content = newContent;
       insertionSort(localDB, setLocalDB);
-      setIndex("0");
+      if (memoIndex !== "0") {
+        setIndex("0");
+      }
     }
   };
 
@@ -49,7 +52,7 @@ const CodeMirrorWrap = React.memo(() => {
             theme: "neat",
             lineNumbers: false,
           }}
-          onChange={handleChangeContent}
+          onBeforeChange={handleChangeContent}
         />
       </div>
 
