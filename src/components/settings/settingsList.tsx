@@ -49,6 +49,7 @@ const memoListStyle = css`
   .settings-list {
     height: 100%;
     overflow-y: scroll;
+    user-select: none;
   }
 
   .settings-item {
