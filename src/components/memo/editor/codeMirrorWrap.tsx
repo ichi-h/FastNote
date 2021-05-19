@@ -66,6 +66,7 @@ const codeMirrorWrapStyle = (fontSize: string) => {
       .codemirror-wrap {
         border: 1px solid black;
         margin: 1rem;
+        padding: 1rem;
         font-size: ${fontSize}px;
       }
     `}</style>

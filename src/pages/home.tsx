@@ -114,7 +114,6 @@ const homeStyle = css`
   .separator > div:first-child,
   .separator > div:last-child {
     height: 100%;
-    border: 1px solid black;
   }
 
   .separator > div:first-child {

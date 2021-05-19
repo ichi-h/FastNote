@@ -22,6 +22,7 @@ export default function SettingsList() {
             フォント等のエディターの設定を行います。
           </div>
         </div>
+        <hr />
         <div className="settings-item user" onClick={handleClick}>
           <div className="title">
             <i className="icon-user" />
@@ -29,12 +30,14 @@ export default function SettingsList() {
           </div>
           <div className="explain">ユーザーの管理を行います。</div>
         </div>
+        <hr />
         <div className="settings-item about" onClick={handleClick}>
           <div className="title">
             <i className="icon-info" />
             このアプリについて
           </div>
         </div>
+        <hr />
       </div>
 
       <style jsx>{memoListStyle}</style>
@@ -53,7 +56,6 @@ const memoListStyle = css`
     justify-content: center;
     flex-direction: column;
     height: 7vh;
-    border: 1px solid black;
     cursor: pointer;
   }
 
