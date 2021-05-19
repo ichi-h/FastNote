@@ -6,6 +6,7 @@ import theme from "../lib/theme";
 import {
   settingsContentState,
   currentCategoryState,
+  trashboxState,
 } from "../lib/atoms/uiAtoms";
 
 import OpenNavButton from "./topbar/openNavButton";
@@ -14,6 +15,7 @@ import AddMemoButton from "./topbar/addMemoButton";
 export default function TopBar() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const settingsContent = useRecoilValue(settingsContentState);
+  const trashbox = useRecoilValue(trashboxState);
 
   const displayText = (currentCategory: string) => {
     const getURL = () => {
@@ -26,7 +28,8 @@ export default function TopBar() {
 
     switch (getURL()) {
       case "/home":
-        if (currentCategory === "all") return "すべてのカテゴリー";
+        if (trashbox) return "ごみ箱";
+        else if (currentCategory === "all") return "すべてのカテゴリー";
         else return currentCategory;
 
       case "/home/settings":
@@ -34,9 +37,9 @@ export default function TopBar() {
           case "":
             return "設定";
           case "editor":
-            return "efitor";
+            return "エディター";
           case "user":
-            return "user";
+            return "ユーザー設定";
           case "about":
             return "このアプリについて";
         }
