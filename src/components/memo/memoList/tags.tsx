@@ -4,7 +4,7 @@ export default function Tags(props: { localDB: any; index: number }) {
   const tagItems = Object.fromEntries(
     Object.entries(props.localDB.memos[props.index].tags).map(([_, tag], j) => {
       if (tag === "") {
-        return [_, <></>];
+        return [_, <>―</>];
       }
 
       return [
@@ -31,7 +31,10 @@ export default function Tags(props: { localDB: any; index: number }) {
 
 const tagsStyle = css`
   .tags {
-    margin-left: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
   }
 
   .icon-tags {

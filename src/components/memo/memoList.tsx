@@ -135,7 +135,6 @@ const memoListStyle = css`
   .title,
   .update-date,
   .content,
-  .tags,
   .buttons {
     position: absolute;
   }
@@ -159,12 +158,6 @@ const memoListStyle = css`
     height: 100%;
     width: 100%;
     padding: 1rem;
-  }
-
-  .tags {
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
   }
 
   .buttons {
