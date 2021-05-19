@@ -6,6 +6,7 @@ import { settingsContentState } from "../../lib/atoms/uiAtoms";
 import EditorSettings from "./settingsContent/editorSettings";
 import UserSettings from "./settingsContent/userSettings";
 import AboutApp from "./settingsContent/aboutApp";
+import theme from "../../lib/theme";
 
 function Default() {
   return <>設定する項目を選んでください。</>;
@@ -48,15 +49,21 @@ export const generalStyle = css`
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   p {
     margin: 0.5rem 0;
+    font-size: 1.5rem;
   }
 
-  button {
-    background-color: rgb(255, 96, 57);
+  a {
+    color: ${theme.subColor};
+    text-decoration: underline;
+  }
+
+  .user-del-button {
+    background-color: rgb(255, 63, 63);
     color: white;
     border-radius: 3px;
     padding: 1rem;
@@ -64,7 +71,11 @@ export const generalStyle = css`
     cursor: pointer;
   }
 
-  button:hover {
-    background-color: rgb(224, 84, 49);
+  .user-del-button:hover {
+    background-color: rgb(230, 63, 63);
+  }
+
+  .user-del-button:active {
+    background-color: rgb(210, 63, 63);
   }
 `;
