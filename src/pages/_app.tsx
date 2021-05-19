@@ -3,6 +3,7 @@ import { RecoilRoot } from "recoil";
 
 import "../lib/firebase/config";
 import "../styles/globals.css";
+import "../../public/assets/fontello/css/fontello.css";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
