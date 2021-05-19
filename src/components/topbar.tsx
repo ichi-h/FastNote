@@ -7,6 +7,7 @@ import {
   settingsContentState,
   currentCategoryState,
   trashboxState,
+  urlState,
 } from "../lib/atoms/uiAtoms";
 
 import OpenNavButton from "./topbar/openNavButton";
@@ -16,17 +17,10 @@ export default function TopBar() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const settingsContent = useRecoilValue(settingsContentState);
   const trashbox = useRecoilValue(trashboxState);
+  const currentURL = useRecoilValue(urlState);
 
   const displayText = (currentCategory: string) => {
-    const getURL = () => {
-      try {
-        return useLocation().pathname;
-      } catch (e) {
-        return "error";
-      }
-    };
-
-    switch (getURL()) {
+    switch (currentURL) {
       case "/home":
         if (trashbox) return "ごみ箱";
         else if (currentCategory === "all") return "すべてのカテゴリー";
