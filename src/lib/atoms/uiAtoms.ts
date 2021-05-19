@@ -29,3 +29,9 @@ export const categoryInputState = atom({
   key: "categoryInputState",
   default: false,
 });
+
+// 現在のURL
+export const urlState = atom({
+  key: "urlState",
+  default: "/home",
+});

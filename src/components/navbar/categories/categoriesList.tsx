@@ -7,6 +7,7 @@ import {
   openNavbarState,
   currentCategoryState,
   trashboxState,
+  urlState,
 } from "../../../lib/atoms/uiAtoms";
 
 import EllipsisButton from "../ellipse/ellipsisButton";
@@ -44,6 +45,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const toggleNav = useSetRecoilState(openNavbarState);
   const toggleTrash = useSetRecoilState(trashboxState);
   const setCategory = useSetRecoilState(currentCategoryState);
+  const setURL = useSetRecoilState(urlState);
 
   let localDB = JSON.parse(useRecoilValue(localDBState));
   const [categories, count] = getCategories(localDB);
@@ -55,6 +57,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     toggleNav(false);
     toggleTrash(false);
+    setURL("/home");
     setCategory(e.currentTarget.classList[1]);
   };
 

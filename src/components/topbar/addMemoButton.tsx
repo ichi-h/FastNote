@@ -5,15 +5,16 @@ import { Memo } from "../../lib/databaseInfo";
 import { FastNoteDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
-import { trashboxState } from "../../lib/atoms/uiAtoms";
+import { trashboxState, urlState } from "../../lib/atoms/uiAtoms";
 import { insertionSort } from "../../lib/sort";
 
 export default function AddMemoButton() {
   const trashbox = useRecoilValue(trashboxState);
+  const currentURL = useRecoilValue(urlState);
   const setIndex = useSetRecoilState(memoIndexState);
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
 
-  if (!trashbox) {
+  if (!trashbox && currentURL !== "/home/settings") {
     let localDB = JSON.parse(localDBStr);
 
     const handleClick = () => {

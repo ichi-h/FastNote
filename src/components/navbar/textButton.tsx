@@ -9,6 +9,7 @@ import {
   currentCategoryState,
   openNavbarState,
   trashboxState,
+  urlState,
 } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
@@ -37,6 +38,7 @@ export default function TextButton(props: { type: TextButtonType }) {
   const toggleTrash = useSetRecoilState(trashboxState);
   const setCategory = useSetRecoilState(currentCategoryState);
   const setIndex = useSetRecoilState(memoIndexState);
+  const setURL = useSetRecoilState(urlState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
@@ -47,14 +49,17 @@ export default function TextButton(props: { type: TextButtonType }) {
         toggleTrash(true);
         setCategory("all");
         setIndex("-1");
+        setURL("/home");
         break;
 
       case "settings":
         toggleNav(false);
+        setURL("/home/settings");
         break;
 
       case "logout":
         toggleNav(false);
+        setURL("/home");
         firebase
           .auth()
           .signOut()
