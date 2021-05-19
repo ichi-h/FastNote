@@ -1,5 +1,7 @@
 import { css } from "styled-jsx/css";
 
+import AddCategoryButton from "./addCategoryButton";
+
 export default function CategoriesCheckbox(props: {
   categoriesChecked: boolean;
   handleClick: () => void;
@@ -24,6 +26,7 @@ export default function CategoriesCheckbox(props: {
           onClick={props.handleClick}
         />
         <i className={icon()} /> カテゴリー
+        <span><AddCategoryButton /></span>
       </label>
 
       <style jsx>{categoriesCheckboxStyle}</style>
@@ -34,6 +37,16 @@ export default function CategoriesCheckbox(props: {
 const categoriesCheckboxStyle = css`
   .checkbox-label {
     font-size: 2rem;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .checkbox-label:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .checkbox-label > span:last-child {
+    margin-left: 1rem;
   }
 
   .categories-checkbox {

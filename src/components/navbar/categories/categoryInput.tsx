@@ -50,10 +50,11 @@ export default function CategoryInput() {
           <input
             type="text"
             name="input"
+            placeholder="新しいカテゴリー名"
             onKeyDown={handleKeyDown}
             ref={inputRef}
           />
-          <button onClick={handleClick}>×</button>
+          <button className="cancel" onClick={handleClick}>×</button>
         </div>
         <style jsx>{categoryInputStyle}</style>
       </>
@@ -65,6 +66,17 @@ export default function CategoryInput() {
 
 const categoryInputStyle = css`
   .category-input {
+    height: 3rem;
     margin-left: 2rem;
+  }
+
+  .category-input > input {
+    width: 80%;
+    font-size: 1.5rem;
+  }
+
+  .cancel {
+    font-size: 2rem;
+    margin-left: 0.5rem;
   }
 `;

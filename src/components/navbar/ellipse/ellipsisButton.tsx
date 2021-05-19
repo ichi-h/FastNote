@@ -50,5 +50,6 @@ const ellipsisButtonStyle = css`
     transform: translateY(-50%);
     font-size: 2rem;
     color: rgb(160, 160, 160);
+    z-index: 5000;
   }
 `;
