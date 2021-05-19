@@ -1,78 +1,85 @@
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { Memo } from "../../lib/databaseInfo";
 import { FastNoteDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
+import { trashboxState } from "../../lib/atoms/uiAtoms";
 import { insertionSort } from "../../lib/sort";
 
 export default function AddMemoButton() {
+  const trashbox = useRecoilValue(trashboxState);
   const setIndex = useSetRecoilState(memoIndexState);
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
-  let localDB = JSON.parse(localDBStr);
 
-  const handleClick = () => {
-    const fnd = new FastNoteDate();
+  if (!trashbox) {
+    let localDB = JSON.parse(localDBStr);
 
-    const newMemo: Memo = {
-      title: "新しいメモ",
-      category: "None",
-      tags: [""],
-      star: false,
-      trash: false,
-      created: fnd.getCurrentDate(),
-      updated: fnd.getCurrentDate(),
-      content: "",
+    const handleClick = () => {
+      const fnd = new FastNoteDate();
+
+      const newMemo: Memo = {
+        title: "新しいメモ",
+        category: "None",
+        tags: [""],
+        star: false,
+        trash: false,
+        created: fnd.getCurrentDate(),
+        updated: fnd.getCurrentDate(),
+        content: "",
+      };
+
+      const keys = () => {
+        if (localDB.memos) {
+          return Object.keys(localDB.memos).map((value) => Number(value));
+        }
+
+        return [];
+      };
+
+      const getNewIndex = (keys: number[]) => {
+        if (keys.length !== 0) {
+          const maxIndex = keys.reduce((pre, cur) => {
+            return Math.max(pre, cur);
+          });
+          return String(maxIndex + 1);
+        }
+
+        return "0";
+      };
+
+      const newIndex = getNewIndex(keys());
+
+      localDB.memos[newIndex] = newMemo;
+
+      insertionSort(localDB, setLocalDB);
+      setIndex("0");
     };
 
-    const keys = () => {
-      if (localDB.memos) {
-        return Object.keys(localDB.memos).map((value) => Number(value));
-      }
-
-      return [];
-    };
-
-    const getNewIndex = (keys: number[]) => {
-      if (keys.length !== 0) {
-        const maxIndex = keys.reduce((pre, cur) => {
-          return Math.max(pre, cur);
-        });
-        return String(maxIndex + 1);
-      }
-
-      return "0";
-    };
-
-    const newIndex = getNewIndex(keys());
-
-    localDB.memos[newIndex] = newMemo;
-
-    insertionSort(localDB, setLocalDB);
-    setIndex("0");
-  };
-
-  return (
-    <>
-      <label className="add-memo-label" htmlFor="add-memo-button">
-        <button
-          className="add-memo-button"
-          name="add-memo-button"
-          id="add-memo-button"
-          onClick={handleClick}
-        />
-        <div className="add-button">
-          <div className="cross">
-            <div className="bar" />
-            <div className="bar" />
+    return (
+      <>
+        <label className="add-memo-label" htmlFor="add-memo-button">
+          <button
+            className="add-memo-button"
+            name="add-memo-button"
+            id="add-memo-button"
+            onClick={handleClick}
+          />
+          <div className="add-button">
+            <div className="cross">
+              <div className="bar" />
+              <div className="bar" />
+            </div>
           </div>
-        </div>
-      </label>
+        </label>
 
-      <style jsx>{addButtonStyle}</style>
-    </>
-  );
+        <style jsx>{addButtonStyle}</style>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 const addButtonStyle = css`
