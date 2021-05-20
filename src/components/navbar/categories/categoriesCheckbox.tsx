@@ -26,7 +26,9 @@ export default function CategoriesCheckbox(props: {
           onClick={props.handleClick}
         />
         <i className={icon()} /> カテゴリー
-        <span><AddCategoryButton /></span>
+        <span>
+          <AddCategoryButton />
+        </span>
       </label>
 
       <style jsx>{categoriesCheckboxStyle}</style>
@@ -36,7 +38,6 @@ export default function CategoriesCheckbox(props: {
 
 const categoriesCheckboxStyle = css`
   .checkbox-label {
-    font-size: 2rem;
     cursor: pointer;
     width: 100%;
   }

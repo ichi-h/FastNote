@@ -64,36 +64,45 @@ export default function Editor() {
 const editorStyle = (memoInfoY: number) => {
   return (
     <style jsx>{`
-    .editor {
-      position: relative;
-      height: 100%;
-    }
-  
-    .editor > div:first-child {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: auto;
-      padding: 1rem 1rem 0 1rem;
-    }
+      .editor {
+        position: relative;
+        height: 100%;
+      }
 
-    .editor > div:last-child {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: calc(100% - ${memoInfoY}px);
-      padding: 1rem;
-    }
+      .editor > div:first-child {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: auto;
+        padding: 1rem 1rem 0 1rem;
+      }
 
-    .memo-info > div:first-child {
-      margin-bottom: 1rem;
-    }
+      .editor > div:last-child {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: calc(100% - ${memoInfoY}px);
+        padding: 1rem;
+      }
 
-    .memo-info > div:last-child {
-      display: grid;
-      grid-template-columns: 1fr 6fr 1fr;
-      gap: 1rem;
-    }
-  `}</style>
+      .memo-info > div:first-child {
+        margin-bottom: 1rem;
+      }
+
+      .memo-info > div:last-child {
+        display: grid;
+        grid-template-columns: 1fr 6fr 1fr;
+        gap: 1rem;
+      }
+
+      @media screen and (max-width: 1050px) {
+        .memo-info > div:last-child {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+          gap: 1rem;
+        }
+      }
+    `}</style>
   );
 };

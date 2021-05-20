@@ -46,7 +46,14 @@ export default function Navbar() {
 const navbarStyle = (checked: boolean) => {
   const leftPos = (bool: boolean) => {
     if (bool) return "0";
-    else return "-20vw";
+
+    if (window.matchMedia('(max-width: 550px)').matches) {
+      return "-50vw";
+    } else if (window.matchMedia('(max-width: 1050px)').matches) {
+      return "-30vw"
+    } else {
+      return "-20vw";
+    }
   };
 
   return (
@@ -59,6 +66,7 @@ const navbarStyle = (checked: boolean) => {
         height: 100%;
         padding: 2rem;
         background-color: white;
+        font-size: 2rem;
         transition: 0.3s;
         z-index: 1000;
         user-select: none;
@@ -70,6 +78,20 @@ const navbarStyle = (checked: boolean) => {
 
       .buttons {
         display: flex;
+      }
+
+      @media screen and (max-width: 1050px) {
+        .navbar {
+          width: 30vw;
+        }
+      }
+
+      @media screen and (max-width: 550px) {
+        .navbar {
+          width: 50vw;
+          padding: 1rem;
+          font-size: 1.5rem;
+        }
       }
     `}</style>
   );

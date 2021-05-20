@@ -35,6 +35,9 @@ const tagsStyle = css`
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
+    width: calc(100% - 10rem);
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .icon-tags {

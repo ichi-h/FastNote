@@ -52,4 +52,10 @@ const ellipsisButtonStyle = css`
     color: rgb(160, 160, 160);
     z-index: 5000;
   }
+
+  @media screen and (max-width: 550px) {
+    .ellipsis-button {
+      font-size: 1.5rem;
+    }
+  }
 `;
