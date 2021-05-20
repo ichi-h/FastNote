@@ -94,6 +94,15 @@ const editorStyle = (memoInfoY: number) => {
         grid-template-columns: 1fr 6fr 1fr;
         gap: 1rem;
       }
+
+      @media screen and (max-width: 550px) {
+        .memo-info > div:last-child {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+          gap: 1rem;
+        }
+      }
     `}</style>
   );
 };
