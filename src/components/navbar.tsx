@@ -45,12 +45,14 @@ export default function Navbar() {
 
 const navbarStyle = (checked: boolean) => {
   const leftPos = (bool: boolean) => {
+    if (bool) return "0";
+
     if (window.matchMedia('(max-width: 550px)').matches) {
-      if (bool) return "0";
-      else return "-50vw";
+      return "-50vw";
+    } else if (window.matchMedia('(max-width: 1050px)').matches) {
+      return "-30vw"
     } else {
-      if (bool) return "0";
-      else return "-20vw";
+      return "-20vw";
     }
   };
 
@@ -78,9 +80,14 @@ const navbarStyle = (checked: boolean) => {
         display: flex;
       }
 
+      @media screen and (max-width: 1050px) {
+        .navbar {
+          width: 30vw;
+        }
+      }
+
       @media screen and (max-width: 550px) {
         .navbar {
-          left: ${leftPos(checked)};
           width: 50vw;
           padding: 1rem;
           font-size: 1.5rem;
