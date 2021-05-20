@@ -92,7 +92,7 @@ export class SetupDatabase {
       this.dbRef
         .get()
         .then((snapshot) => {
-          const localDBStr = localStorage.getItem("database");
+          const localDBStr = String(localStorage.getItem("database"));
           const remoteDB = snapshot.toJSON();
 
           if (localDBStr === "undefined" || localDBStr === "null") {
