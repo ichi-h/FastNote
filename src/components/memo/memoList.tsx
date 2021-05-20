@@ -173,6 +173,10 @@ const memoListStyle = css`
     left: 1rem;
     transform: translateY(-50%);
     font-size: 2rem;
+    width: 30rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .update-date {
@@ -199,5 +203,12 @@ const memoListStyle = css`
   .buttons > div:first-child,
   .buttons > div:last-child {
     margin-left: 1rem;
+  }
+
+  @media screen and (max-width: 550px) {
+    .title {
+      font-size: 1.5rem;
+      width: 20rem;
+    }
   }
 `;
