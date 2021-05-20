@@ -123,6 +123,29 @@ const homeStyle = css`
   .separator > div:last-child {
     width: 70%;
   }
+
+  @media screen and (max-width: 550px) {
+    .separator {
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+      height: calc(100vh - ${theme.topBarHeight});
+    }
+
+    .separator > div:first-child,
+    .separator > div:last-child {
+      height: 50%;
+    }
+
+    .separator > div:first-child {
+      width: 100%;
+    }
+
+    .separator > div:last-child {
+      width: 100%;
+      border-bottom: 2px solid rgb(150, 150, 150);
+    }
+  }
 `;
 
 const blackCoverStyle = (checked: boolean) => {
