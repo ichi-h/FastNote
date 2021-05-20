@@ -73,4 +73,13 @@ const topBarStyle = css`
     font-size: 3rem;
     color: white;
   }
+
+  @media screen and (max-width: 550px) {
+    .current-category {
+      font-size: 2rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
 `;
