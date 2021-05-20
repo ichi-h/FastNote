@@ -47,6 +47,7 @@ const tagsStyle = css`
 
 const tagItemStyle = css`
   .tag-item {
+    display: inline-block;
     border: 1px solid black;
     padding: 0 1rem;
     margin-right: 1rem;
