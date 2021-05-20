@@ -45,8 +45,13 @@ export default function Navbar() {
 
 const navbarStyle = (checked: boolean) => {
   const leftPos = (bool: boolean) => {
-    if (bool) return "0";
-    else return "-20vw";
+    if (window.matchMedia('(max-width: 550px)').matches) {
+      if (bool) return "0";
+      else return "-50vw";
+    } else {
+      if (bool) return "0";
+      else return "-20vw";
+    }
   };
 
   return (
@@ -59,6 +64,7 @@ const navbarStyle = (checked: boolean) => {
         height: 100%;
         padding: 2rem;
         background-color: white;
+        font-size: 2rem;
         transition: 0.3s;
         z-index: 1000;
         user-select: none;
@@ -70,6 +76,15 @@ const navbarStyle = (checked: boolean) => {
 
       .buttons {
         display: flex;
+      }
+
+      @media screen and (max-width: 550px) {
+        .navbar {
+          left: ${leftPos(checked)};
+          width: 50vw;
+          padding: 1rem;
+          font-size: 1.5rem;
+        }
       }
     `}</style>
   );

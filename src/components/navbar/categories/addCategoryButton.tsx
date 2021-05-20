@@ -23,4 +23,10 @@ const addCategoryButtonStyle = css`
   .add-category-button {
     font-size: 2rem;
   }
+
+  @media screen and (max-width: 550px) {
+    .add-category-button {
+      font-size: 1.5rem;
+    }
+  }
 `;

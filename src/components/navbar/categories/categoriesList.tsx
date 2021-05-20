@@ -68,7 +68,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
           <li className="category">
             <Link to="/home">
               <div className="category-button all" onClick={handleClick}>
-                すべてのカテゴリー ({total})
+              <span className="category-name">すべてのカテゴリー</span> ({total})
               </div>
             </Link>
           </li>
@@ -80,7 +80,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                     className={`category-button ${category}`}
                     onClick={handleClick}
                   >
-                    {category} ({count[i]})
+                    <span className="category-name">{category}</span> ({count[i]})
                   </div>
                 </Link>
                 <EllipsisButton
@@ -98,7 +98,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
           <li className="category">
             <Link to="/home">
               <div className="category-button None" onClick={handleClick}>
-                None ({numberOfNone})
+              <span className="category-name">None</span> ({numberOfNone})
               </div>
             </Link>
           </li>
@@ -141,7 +141,21 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
           top: 50%;
           left: 0;
           transform: translateY(-50%);
-          font-size: 2rem;
+        }
+
+        .category-name {
+          display: inline-block;
+          max-width: 15vw;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          vertical-align: bottom;
+        }
+
+        @media screen and (max-width: 550px) {
+          .category-name {
+            max-width: 30vw;
+          }
         }
       `}
     </style>

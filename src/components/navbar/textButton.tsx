@@ -124,7 +124,6 @@ const textButtonStyle = css`
   .trash-button,
   .settings-button,
   .logout-button {
-    font-size: 2rem;
     cursor: pointer;
     transition: 0.1s;
   }

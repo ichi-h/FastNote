@@ -38,7 +38,6 @@ export default function CategoriesCheckbox(props: {
 
 const categoriesCheckboxStyle = css`
   .checkbox-label {
-    font-size: 2rem;
     cursor: pointer;
     width: 100%;
   }
