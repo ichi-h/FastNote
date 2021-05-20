@@ -47,10 +47,10 @@ const navbarStyle = (checked: boolean) => {
   const leftPos = (bool: boolean) => {
     if (bool) return "0";
 
-    if (window.matchMedia('(max-width: 550px)').matches) {
+    if (window.matchMedia("(max-width: 550px)").matches) {
       return "-50vw";
-    } else if (window.matchMedia('(max-width: 1050px)').matches) {
-      return "-30vw"
+    } else if (window.matchMedia("(max-width: 1050px)").matches) {
+      return "-30vw";
     } else {
       return "-20vw";
     }
