@@ -124,7 +124,7 @@ const homeStyle = css`
     width: 70%;
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 1050px) {
     .separator {
       display: flex;
       flex-direction: column-reverse;
