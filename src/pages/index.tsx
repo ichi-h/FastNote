@@ -137,4 +137,27 @@ const homeStyle = css`
     width: 80%;
     font-size: 2rem;
   }
+
+  @media screen and (max-width: 1050px) {
+    .login-box {
+      width: 80vw;
+    }
+
+    .title > h1 {
+      font-size: 3rem;
+    }
+
+    .title > h2 {
+      font-size: 1rem;
+    }
+
+    .logo {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    .explain {
+      font-size: 1rem;
+    }
+  }
 `;
