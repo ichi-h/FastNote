@@ -5,6 +5,13 @@ import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
+import { encrypt, decrypt } from "../crypt";
+import { CryptParams } from "../databaseInfo";
+
+export const cryptParamsState = atom<CryptParams>({
+  key: "cryptParamsState",
+  default: { commonKey: "", iv: "" },
+});
 
 const localDBOriginState = atom({
   key: "localDBOriginState",
@@ -14,17 +21,23 @@ const localDBOriginState = atom({
 export const localDBState = selector({
   key: "locaDBState",
   get: ({ get }) => {
-    if (get(localDBOriginState) === "") {
-      return localStorage.getItem("database");
+    if (get(localDBOriginState) !== "") {
+      return get(localDBOriginState);
     }
 
-    return get(localDBOriginState);
+    const cryptParams = get(cryptParamsState);
+    const encrypted = localStorage.getItem("database");
+
+    return decrypt(encrypted, cryptParams.commonKey, cryptParams.iv);
   },
-  set: ({ set }, inputValue: string) => {
+  set: ({ set, get }, inputValue: string) => {
     let localDB = JSON.parse(inputValue);
+    const cryptParams = get(cryptParamsState);
 
     const updateLocalDB = async (currentDate: number) => {
-      localStorage.setItem("database", inputValue);
+      const encrypted = encrypt(inputValue, cryptParams.commonKey, cryptParams.iv);
+
+      localStorage.setItem("database", encrypted);
 
       localDB.lastUpdated = currentDate;
 
@@ -39,7 +52,10 @@ export const localDBState = selector({
 
     const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        const currentValue = localStorage.getItem("database");
+        const encrypted = localStorage.getItem("database");
+
+        const currentValue = decrypt(encrypted, cryptParams.commonKey, cryptParams.iv);
+
         if (inputValue === currentValue) {
           resolve("データベースの更新が停止");
         } else {
@@ -52,7 +68,9 @@ export const localDBState = selector({
       return new Promise((resolve, reject) => {
         localDB.lastUpdated = currentDate;
 
-        localStorage.setItem("database", JSON.stringify(localDB));
+        const encrypted = encrypt(JSON.stringify(localDB), cryptParams.commonKey, cryptParams.iv);
+
+        localStorage.setItem("database", encrypted);
 
         const uid = firebase.auth().currentUser.uid;
 

@@ -3,8 +3,8 @@ import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
-import { DatabaseInfo } from "../databaseInfo";
-import { getRandStr } from "../crypt";
+import { DatabaseInfo, CryptParams } from "../databaseInfo";
+import { encrypt, decrypt, getRandStr } from "../crypt";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
@@ -30,6 +30,17 @@ export class SetupDatabase {
 
       process()
         .then(() => resolve("セットアップ完了"))
+        .catch((e) => reject(e));
+    });
+  }
+
+  public getCryptParams() {
+    return new Promise<CryptParams>((resolve, reject) => {
+      this.dbRef
+        .get()
+        .then((snapshot) => {
+          resolve(snapshot.toJSON()["cryptParams"]);
+        })
         .catch((e) => reject(e));
     });
   }
@@ -75,8 +86,10 @@ export class SetupDatabase {
           font: "",
         },
         lastUpdated: fnd.getCurrentDate(),
-        commonKey: getRandStr(32),
-        iv: getRandStr(32),
+        cryptParams: {
+          commonKey: getRandStr(32),
+          iv: getRandStr(32),
+        }
       };
 
       this.dbRef
@@ -97,12 +110,17 @@ export class SetupDatabase {
         .then((snapshot) => {
           const localDBStr = String(localStorage.getItem("database"));
           const remoteDB = snapshot.toJSON();
+          const cryptParams: CryptParams = remoteDB["cryptParams"];
 
           if (localDBStr === "undefined" || localDBStr === "null") {
-            localStorage.setItem("database", JSON.stringify(remoteDB));
+            const encrypted = encrypt(JSON.stringify(remoteDB), cryptParams.commonKey, cryptParams.iv);
+
+            localStorage.setItem("database", encrypted);
             resolve("localDBをremoteDBに同期");
           } else {
-            const localDB = JSON.parse(localDBStr);
+            const decrypted = decrypt(localDBStr, cryptParams.commonKey, cryptParams.iv);
+
+            const localDB = JSON.parse(decrypted);
 
             const locaUpdated = Number(localDB["lastUpdated"]);
             const remoteUpdated = Number(remoteDB["lastUpdated"]);
@@ -111,7 +129,8 @@ export class SetupDatabase {
               this.dbRef.set(localDB);
               resolve("remoteDBをlocalDBに同期");
             } else {
-              localStorage.setItem("database", JSON.stringify(remoteDB));
+              const encrypted = encrypt(JSON.stringify(remoteDB), cryptParams.commonKey, cryptParams.iv);
+              localStorage.setItem("database", encrypted);
               resolve("localDBをremoteDBに同期");
             }
           }

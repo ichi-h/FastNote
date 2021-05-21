@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -9,6 +9,7 @@ import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
+import { cryptParamsState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar";
@@ -35,6 +36,7 @@ function BlackCover() {
 
 export default function Home() {
   const [isShow, toggle] = useState(false);
+  const setCryptParams = useSetRecoilState(cryptParamsState);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -42,6 +44,12 @@ export default function Home() {
         const setupDB = new SetupDatabase(user.uid);
         setupDB
           .run()
+          .then(async () => {
+            await setupDB.getCryptParams()
+              .then((cryptParams) => {
+                setCryptParams(cryptParams);
+              });
+          })
           .then(() => {
             toggle(true);
           })
@@ -49,7 +57,7 @@ export default function Home() {
             alert(
               `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
             );
-            router.reload();
+            //router.reload();
           });
       } else {
         router.push("/");

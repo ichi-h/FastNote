@@ -1,5 +1,6 @@
 import router from "next/router";
 import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -8,9 +9,12 @@ import "firebaseui/dist/firebaseui.css";
 
 import { startUiAuth } from "../lib/firebase/auth";
 import { SetupDatabase } from "../lib/firebase/database";
+import { cryptParamsState } from "../lib/atoms/localDBAtom";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
+  const setCryptParams = useSetRecoilState(cryptParamsState);
+
   useEffect(() => {
     startUiAuth();
 
@@ -20,13 +24,19 @@ export default function LandingPage(): JSX.Element {
         setupDB
           .run()
           .then(() => {
+            setupDB.getCryptParams()
+              .then((cryptParams) => {
+                setCryptParams(cryptParams);
+              });
+          })
+          .then(() => {
             router.push("/home");
           })
           .catch((e) => {
             alert(
               `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
             );
-            router.reload();
+            //router.reload();
           });
       }
     });
