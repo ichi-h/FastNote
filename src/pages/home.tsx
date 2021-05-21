@@ -60,11 +60,15 @@ export default function Home() {
           .catch((e) => {
             if (e.message === "Error: Client is offline.") {
               const localCryptParams = document.cookie.split(";").map((value) => value.split("=")[1]);
-              setCryptParams({
-                commonKey: localCryptParams[0],
-                iv: localCryptParams[1]
-              });
-              toggle(true);
+              if (localCryptParams[0] !== undefined) {
+                setCryptParams({
+                  commonKey: localCryptParams[0],
+                  iv: localCryptParams[1]
+                });
+                toggle(true);
+              } else {
+                router.push("/");
+              }
             } else {
               alert(
                 `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
