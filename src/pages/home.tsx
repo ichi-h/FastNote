@@ -47,15 +47,26 @@ export default function Home() {
           .then(async () => {
             await setupDB.getCryptParams().then((cryptParams) => {
               setCryptParams(cryptParams);
+              document.cookie = `commonKey=${cryptParams.commonKey}`;
+              document.cookie = `iv=${cryptParams.iv}`;
             });
           })
           .then(() => {
             toggle(true);
           })
           .catch((e) => {
-            alert(
-              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-            );
+            if (e.message === "Error: Client is offline.") {
+              const localCryptParams = document.cookie.split(";").map((value) => value.split("=")[1]);
+              setCryptParams({
+                commonKey: localCryptParams[0],
+                iv: localCryptParams[1]
+              });
+              toggle(true);
+            } else {
+              alert(
+                `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+              );
+            }
             //router.reload();
           });
       } else {

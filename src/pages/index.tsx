@@ -26,15 +26,26 @@ export default function LandingPage(): JSX.Element {
           .then(() => {
             setupDB.getCryptParams().then((cryptParams) => {
               setCryptParams(cryptParams);
+              document.cookie = `commonKey=${cryptParams.commonKey}`;
+              document.cookie = `iv=${cryptParams.iv}`;
             });
           })
           .then(() => {
             router.push("/home");
           })
           .catch((e) => {
-            alert(
-              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-            );
+            if (e.message === "Error: Client is offline.") {
+              const localCryptParams = document.cookie.split(";").map((value) => value.split("=")[1]);
+              setCryptParams({
+                commonKey: localCryptParams[0],
+                iv: localCryptParams[1]
+              });
+              router.push("/home");
+            } else {
+              alert(
+                `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+              );
+            }
             //router.reload();
           });
       }

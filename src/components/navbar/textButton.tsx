@@ -64,6 +64,8 @@ export default function TextButton(props: { type: TextButtonType }) {
           .auth()
           .signOut()
           .then(() => {
+            document.cookie = "commonKey=;max-age=0";
+            document.cookie = "iv=;max-age=0";
             router.push("/");
           })
           .catch((e) => {
