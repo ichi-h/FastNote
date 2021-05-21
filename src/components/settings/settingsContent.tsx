@@ -9,7 +9,12 @@ import AboutApp from "./settingsContent/aboutApp";
 import theme from "../../lib/theme";
 
 function Default() {
-  return <>設定する項目を選んでください。</>;
+  return (
+    <>
+      <p>設定する項目を選択してください。</p>
+      <style jsx>{generalStyle}</style>
+    </>
+  );
 }
 
 export default function SettingsContent() {
