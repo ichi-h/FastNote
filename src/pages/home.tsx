@@ -18,6 +18,7 @@ import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
 import SettingsContent from "../components/settings/settingsContent";
 import Navbar from "../components/navbar";
+import Loading from "../components/loading";
 
 function BlackCover() {
   const [checked, toggleCheck] = useRecoilState(openNavbarState);
@@ -116,7 +117,14 @@ export default function Home() {
       </>
     );
   } else {
-    return <></>;
+    return (
+      <>
+        <div className="home">
+          <Loading />
+        </div>
+        <style jsx>{loadingLayoutStyle}</style>
+      </>
+    );
   }
 }
 
@@ -200,3 +208,14 @@ const blackCoverStyle = (checked: boolean) => {
     `}</style>
   );
 };
+
+const loadingLayoutStyle = css`
+  .home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: ${theme.mainColor};
+  }
+`;
