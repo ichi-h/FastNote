@@ -26,3 +26,13 @@ export const decrypt = (encryptedTarget: string, key: string, iv: string) => {
 
   return target.toString(crypto.enc.Utf8);
 };
+
+export const getRandStr = (len: number) => {
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const res = new Array<string>(len).fill("").map((_) => {
+    const index = Math.floor(Math.random() * chars.length);
+    return chars[index];
+  }).join("");
+
+  return res;
+};
