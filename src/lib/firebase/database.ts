@@ -89,7 +89,7 @@ export class SetupDatabase {
         cryptParams: {
           commonKey: getRandStr(32),
           iv: getRandStr(32),
-        }
+        },
       };
 
       this.dbRef
@@ -113,12 +113,20 @@ export class SetupDatabase {
           const cryptParams: CryptParams = remoteDB["cryptParams"];
 
           if (localDBStr === "undefined" || localDBStr === "null") {
-            const encrypted = encrypt(JSON.stringify(remoteDB), cryptParams.commonKey, cryptParams.iv);
+            const encrypted = encrypt(
+              JSON.stringify(remoteDB),
+              cryptParams.commonKey,
+              cryptParams.iv
+            );
 
             localStorage.setItem("database", encrypted);
             resolve("localDBをremoteDBに同期");
           } else {
-            const decrypted = decrypt(localDBStr, cryptParams.commonKey, cryptParams.iv);
+            const decrypted = decrypt(
+              localDBStr,
+              cryptParams.commonKey,
+              cryptParams.iv
+            );
 
             const localDB = JSON.parse(decrypted);
 
@@ -129,7 +137,11 @@ export class SetupDatabase {
               this.dbRef.set(localDB);
               resolve("remoteDBをlocalDBに同期");
             } else {
-              const encrypted = encrypt(JSON.stringify(remoteDB), cryptParams.commonKey, cryptParams.iv);
+              const encrypted = encrypt(
+                JSON.stringify(remoteDB),
+                cryptParams.commonKey,
+                cryptParams.iv
+              );
               localStorage.setItem("database", encrypted);
               resolve("localDBをremoteDBに同期");
             }

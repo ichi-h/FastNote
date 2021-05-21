@@ -45,10 +45,9 @@ export default function Home() {
         setupDB
           .run()
           .then(async () => {
-            await setupDB.getCryptParams()
-              .then((cryptParams) => {
-                setCryptParams(cryptParams);
-              });
+            await setupDB.getCryptParams().then((cryptParams) => {
+              setCryptParams(cryptParams);
+            });
           })
           .then(() => {
             toggle(true);

@@ -24,10 +24,9 @@ export default function LandingPage(): JSX.Element {
         setupDB
           .run()
           .then(() => {
-            setupDB.getCryptParams()
-              .then((cryptParams) => {
-                setCryptParams(cryptParams);
-              });
+            setupDB.getCryptParams().then((cryptParams) => {
+              setCryptParams(cryptParams);
+            });
           })
           .then(() => {
             router.push("/home");

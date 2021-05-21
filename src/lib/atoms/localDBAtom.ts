@@ -35,7 +35,11 @@ export const localDBState = selector({
     const cryptParams = get(cryptParamsState);
 
     const updateLocalDB = async (currentDate: number) => {
-      const encrypted = encrypt(inputValue, cryptParams.commonKey, cryptParams.iv);
+      const encrypted = encrypt(
+        inputValue,
+        cryptParams.commonKey,
+        cryptParams.iv
+      );
 
       localStorage.setItem("database", encrypted);
 
@@ -54,7 +58,11 @@ export const localDBState = selector({
       return new Promise((resolve, reject) => {
         const encrypted = localStorage.getItem("database");
 
-        const currentValue = decrypt(encrypted, cryptParams.commonKey, cryptParams.iv);
+        const currentValue = decrypt(
+          encrypted,
+          cryptParams.commonKey,
+          cryptParams.iv
+        );
 
         if (inputValue === currentValue) {
           resolve("データベースの更新が停止");
@@ -68,7 +76,11 @@ export const localDBState = selector({
       return new Promise((resolve, reject) => {
         localDB.lastUpdated = currentDate;
 
-        const encrypted = encrypt(JSON.stringify(localDB), cryptParams.commonKey, cryptParams.iv);
+        const encrypted = encrypt(
+          JSON.stringify(localDB),
+          cryptParams.commonKey,
+          cryptParams.iv
+        );
 
         localStorage.setItem("database", encrypted);
 
