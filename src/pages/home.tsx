@@ -51,8 +51,12 @@ export default function Home() {
 
               const date = new Date();
               date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
-              document.cookie = `commonKey=${cryptParams.commonKey};expires=${date.toUTCString()}`;
-              document.cookie = `iv=${cryptParams.iv};expires=${date.toUTCString()}`;
+              document.cookie = `commonKey=${
+                cryptParams.commonKey
+              };expires=${date.toUTCString()}`;
+              document.cookie = `iv=${
+                cryptParams.iv
+              };expires=${date.toUTCString()}`;
             });
           })
           .then(() => {
@@ -60,11 +64,13 @@ export default function Home() {
           })
           .catch((e) => {
             if (e.message === "Error: Client is offline.") {
-              const localCryptParams = document.cookie.split(";").map((value) => value.split("=")[1]);
+              const localCryptParams = document.cookie
+                .split(";")
+                .map((value) => value.split("=")[1]);
               if (localCryptParams[0] !== undefined) {
                 setCryptParams({
                   commonKey: localCryptParams[0],
-                  iv: localCryptParams[1]
+                  iv: localCryptParams[1],
                 });
                 toggle(true);
               } else {
