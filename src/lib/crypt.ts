@@ -11,7 +11,7 @@ export const encrypt = (target: string, key: string, iv: string) => {
     iv: parsedIV,
   });
 
-  return encryptedTarget.ciphertext.toString();
+  return encryptedTarget.toString();
 };
 
 export const decrypt = (encryptedTarget: string, key: string, iv: string) => {
@@ -24,5 +24,5 @@ export const decrypt = (encryptedTarget: string, key: string, iv: string) => {
     iv: parsedIV,
   });
 
-  return target.toString();
+  return target.toString(crypto.enc.Utf8);
 };
