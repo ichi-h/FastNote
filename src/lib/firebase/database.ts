@@ -4,6 +4,7 @@ import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
 import { DatabaseInfo } from "../databaseInfo";
+import { getRandStr } from "../crypt";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
@@ -74,6 +75,8 @@ export class SetupDatabase {
           font: "",
         },
         lastUpdated: fnd.getCurrentDate(),
+        commonKey: getRandStr(32),
+        iv: getRandStr(32),
       };
 
       this.dbRef

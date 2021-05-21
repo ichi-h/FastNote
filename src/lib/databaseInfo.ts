@@ -20,4 +20,6 @@ export interface DatabaseInfo {
   categories: string[];
   settings: Settings;
   lastUpdated: number;
+  commonKey: String;
+  iv: string;
 }
