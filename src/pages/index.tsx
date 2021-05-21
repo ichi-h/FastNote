@@ -26,8 +26,11 @@ export default function LandingPage(): JSX.Element {
           .then(() => {
             setupDB.getCryptParams().then((cryptParams) => {
               setCryptParams(cryptParams);
-              document.cookie = `commonKey=${cryptParams.commonKey}`;
-              document.cookie = `iv=${cryptParams.iv}`;
+
+              const date = new Date();
+              date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
+              document.cookie = `commonKey=${cryptParams.commonKey};expires=${date.toUTCString()}`;
+              document.cookie = `iv=${cryptParams.iv};expires=${date.toUTCString()}`;
             });
           })
           .then(() => {
