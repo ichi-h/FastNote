@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import crypto from "crypto-js";
 import firebase from "firebase/app";
 
 import "firebase/auth";
@@ -64,7 +65,10 @@ export const localDBState = selector({
           cryptParams.iv
         );
 
-        if (inputValue === currentValue) {
+        const before = crypto.SHA256(inputValue).toString();
+        const after = crypto.SHA256(currentValue).toString();
+
+        if (before === after) {
           resolve("データベースの更新が停止");
         } else {
           reject("データベースの更新は続行");
