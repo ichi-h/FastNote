@@ -11,14 +11,15 @@ export const encrypt = (target: string, key: string, iv: string) => {
     iv: parsedIV,
   });
 
-  return encryptedTarget.toString();
+  return encryptedTarget.ciphertext.toString().toUpperCase();
 };
 
 export const decrypt = (encryptedTarget: string, key: string, iv: string) => {
+  const parsedTarget = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(encryptedTarget));
   const parsedKey = crypto.enc.Utf8.parse(key);
   const parsedIV = crypto.enc.Utf8.parse(iv);
 
-  const target = crypto.AES.decrypt(encryptedTarget, parsedKey, {
+  const target = crypto.AES.decrypt(parsedTarget, parsedKey, {
     mode: crypto.mode.CBC,
     padding: crypto.pad.Pkcs7,
     iv: parsedIV,
