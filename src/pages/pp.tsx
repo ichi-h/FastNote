@@ -74,8 +74,8 @@ export default function PrivacyPolicy() {
             <li>運営者：いっぺー（Ippee）</li>
             <li>
               URL：
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                https://△△△△.com
+              <a href="https://fast-note-3939b.web.app/" target="_blank" rel="noopener noreferrer">
+                https://fast-note-3939b.web.app/
               </a>
             </li>
             <li>
