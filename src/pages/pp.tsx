@@ -1,3 +1,4 @@
+import Head from "next/head";
 import router from "next/router";
 import { tosPPStyle } from "../styles/tos_pp.style";
 
@@ -6,6 +7,10 @@ export default function PrivacyPolicy() {
 
   return (
     <>
+      <Head>
+        <title>プライバシーポリシー | Fast Note</title>
+      </Head>
+
       <div className="pp">
         <div className="content">
           <h1 id="プライバシーポリシー">プライバシーポリシー</h1>
