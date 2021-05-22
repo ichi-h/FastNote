@@ -72,7 +72,7 @@ export default function LandingPage(): JSX.Element {
             <h2>素早く、手軽に。いつでも、どこでも。</h2>
           </div>
 
-          <div className="logo">ロゴマーク</div>
+          <div className="logo"></div>
 
           <div className="explain">
             <p>
@@ -126,7 +126,8 @@ const homeStyle = css`
   }
 
   .logo {
-    border: 1px solid black;
+    background-image: url("/assets/img/logo_black.png");
+    background-size: cover;
     width: 20rem;
     height: 20rem;
     margin: 2rem 0;
