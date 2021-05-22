@@ -62,9 +62,11 @@ export const generalStyle = css`
     font-size: 1.5rem;
   }
 
-  a {
+  a,
+  .link {
     color: ${theme.subColor};
     text-decoration: underline;
+    cursor: pointer;
   }
 
   .user-del-button {
