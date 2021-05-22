@@ -52,7 +52,8 @@ export const tosPPStyle = css`
     text-decoration: underline;
   }
 
-  ul {
+  ul,
+  ol {
     margin-bottom: 1rem;
     margin-left: 4rem;
   }
@@ -78,7 +79,8 @@ export const tosPPStyle = css`
       font-size: 1.5rem;
     }
 
-    ul {
+    ul,
+    ol {
       margin-left: 3rem;
     }
 
