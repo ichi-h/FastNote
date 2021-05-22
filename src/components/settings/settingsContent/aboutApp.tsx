@@ -27,6 +27,10 @@ export default function AboutApp() {
             ippee / FastNote
           </a>
         </p>
+        <p>
+          使用規約は <a href="/tos">こちら</a> 。<br />
+          プライバシーポリシーは <a href="/pp">こちら</a> 。
+        </p>
       </div>
 
       <style jsx>{generalStyle}</style>
