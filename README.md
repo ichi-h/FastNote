@@ -42,7 +42,6 @@ Fast Note とは、**マークダウン形式で取ったメモをクラウド�
   - Recoil
   - styled-jsx
   - CodeMirror
-  - crypto-js
 - バックエンド
   - Firebase
     - Authentication
