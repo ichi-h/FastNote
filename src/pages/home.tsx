@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -9,7 +9,6 @@ import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
-import { cryptParamsState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar";
@@ -37,7 +36,6 @@ function BlackCover() {
 
 export default function Home() {
   const [isShow, toggle] = useState(false);
-  const setCryptParams = useSetRecoilState(cryptParamsState);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -45,37 +43,12 @@ export default function Home() {
         const setupDB = new SetupDatabase(user.uid);
         setupDB
           .run()
-          .then(async () => {
-            await setupDB.getCryptParams().then((cryptParams) => {
-              setCryptParams(cryptParams);
-
-              const date = new Date();
-              date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
-              document.cookie = `commonKey=${
-                cryptParams.commonKey
-              };expires=${date.toUTCString()}`;
-              document.cookie = `iv=${
-                cryptParams.iv
-              };expires=${date.toUTCString()}`;
-            });
-          })
           .then(() => {
             toggle(true);
           })
           .catch((e) => {
             if (e.message === "Error: Client is offline.") {
-              const localCryptParams = document.cookie
-                .split(";")
-                .map((value) => value.split("=")[1]);
-              if (localCryptParams[0] !== undefined) {
-                setCryptParams({
-                  commonKey: localCryptParams[0],
-                  iv: localCryptParams[1],
-                });
-                toggle(true);
-              } else {
-                router.push("/");
-              }
+              // オフライン時の処理
             } else {
               alert(
                 `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
