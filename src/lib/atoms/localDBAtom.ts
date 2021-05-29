@@ -1,12 +1,10 @@
 import { atom, selector } from "recoil";
-import crypto from "crypto-js";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
-import { encrypt, decrypt } from "../crypt";
 import { CryptParams } from "../databaseInfo";
 
 export const cryptParamsState = atom<CryptParams>({
@@ -22,28 +20,12 @@ const localDBOriginState = atom({
 export const localDBState = selector({
   key: "locaDBState",
   get: ({ get }) => {
-    if (get(localDBOriginState) !== "") {
-      return get(localDBOriginState);
-    }
-
-    const cryptParams = get(cryptParamsState);
-    const encrypted = localStorage.getItem("database");
-
-    return decrypt(encrypted, cryptParams.commonKey, cryptParams.iv);
+    return get(localDBOriginState);
   },
   set: ({ set, get }, inputValue: string) => {
     let localDB = JSON.parse(inputValue);
-    const cryptParams = get(cryptParamsState);
 
     const updateLocalDB = async (currentDate: number) => {
-      const encrypted = encrypt(
-        inputValue,
-        cryptParams.commonKey,
-        cryptParams.iv
-      );
-
-      localStorage.setItem("database", encrypted);
-
       localDB.lastUpdated = currentDate;
 
       set(localDBOriginState, JSON.stringify(localDB));
@@ -57,16 +39,10 @@ export const localDBState = selector({
 
     const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        const encrypted = localStorage.getItem("database");
+        const newLocalDB = JSON.parse(get(localDBOriginState));
 
-        const currentValue = decrypt(
-          encrypted,
-          cryptParams.commonKey,
-          cryptParams.iv
-        );
-
-        const before = crypto.SHA256(inputValue).toString();
-        const after = crypto.SHA256(currentValue).toString();
+        const before = localDB.lastUpdated;
+        const after = newLocalDB.lastUpdated;
 
         if (before === after) {
           resolve("データベースの更新が停止");
@@ -76,18 +52,8 @@ export const localDBState = selector({
       });
     };
 
-    const update = (currentDate: number) => {
+    const update = () => {
       return new Promise((resolve, reject) => {
-        localDB.lastUpdated = currentDate;
-
-        const encrypted = encrypt(
-          JSON.stringify(localDB),
-          cryptParams.commonKey,
-          cryptParams.iv
-        );
-
-        localStorage.setItem("database", encrypted);
-
         const uid = firebase.auth().currentUser.uid;
 
         firebase
@@ -106,7 +72,7 @@ export const localDBState = selector({
       await updateLocalDB(currentDate);
       await sleep(2000);
       await checkDifference();
-      await update(currentDate);
+      await update();
     };
 
     process().catch((e) => {
