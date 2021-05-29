@@ -12,7 +12,7 @@ export class SetupDatabase {
     this.dbRef = firebase.database().ref(`users/${uid}`);
   }
 
-  public run() {
+  public run(callback: (db: string) => void) {
     return new Promise((resolve, reject) => {
       const checkRemoteDB = async () => {
         await this.remoteIsExist().then(async (bool) => {
@@ -22,11 +22,17 @@ export class SetupDatabase {
         });
       };
 
-      const process = async () => {
-        await checkRemoteDB();
-      };
+      const getRemoteDB = () => {
+        return new Promise<string>((resolve, reject) => {
+          this.dbRef.get().then((snapshot) => {
+            resolve(JSON.stringify(snapshot.toJSON()));
+          }).catch((e) => reject(e));
+        })
+      }
 
-      process()
+      checkRemoteDB()
+        .then(getRemoteDB)
+        .then((snapshot) => callback(snapshot))
         .then(() => resolve("セットアップ完了"))
         .catch((e) => reject(e));
     });

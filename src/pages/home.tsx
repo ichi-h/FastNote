@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -9,6 +9,7 @@ import "firebase/auth";
 
 import theme from "../lib/theme";
 import { openNavbarState } from "../lib/atoms/uiAtoms";
+import { localDBState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar";
@@ -35,6 +36,7 @@ function BlackCover() {
 }
 
 export default function Home() {
+  const setLocalDB = useSetRecoilState(localDBState);
   const [isShow, toggle] = useState(false);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Home() {
       if (user) {
         const setupDB = new SetupDatabase(user.uid);
         setupDB
-          .run()
+          .run(setLocalDB)
           .then(() => {
             toggle(true);
           })
