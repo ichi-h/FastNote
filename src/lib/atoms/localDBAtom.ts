@@ -5,12 +5,6 @@ import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
-import { CryptParams } from "../databaseInfo";
-
-export const cryptParamsState = atom<CryptParams>({
-  key: "cryptParamsState",
-  default: { commonKey: "", iv: "" },
-});
 
 const localDBOriginState = atom({
   key: "localDBOriginState",
