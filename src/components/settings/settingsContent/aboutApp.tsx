@@ -30,8 +30,16 @@ export default function AboutApp() {
           </a>
         </p>
         <p>
-          使用規約は <Link href="/tos"><span className="link">こちら</span></Link> 。<br />
-          プライバシーポリシーは <Link href="/pp"><span className="link">こちら</span></Link> 。
+          使用規約は{" "}
+          <Link href="/tos">
+            <span className="link">こちら</span>
+          </Link>{" "}
+          。<br />
+          プライバシーポリシーは{" "}
+          <Link href="/pp">
+            <span className="link">こちら</span>
+          </Link>{" "}
+          。
         </p>
       </div>
 

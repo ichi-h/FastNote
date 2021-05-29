@@ -24,11 +24,14 @@ export class SetupDatabase {
 
       const getRemoteDB = () => {
         return new Promise<string>((resolve, reject) => {
-          this.dbRef.get().then((snapshot) => {
-            resolve(JSON.stringify(snapshot.toJSON()));
-          }).catch((e) => reject(e));
-        })
-      }
+          this.dbRef
+            .get()
+            .then((snapshot) => {
+              resolve(JSON.stringify(snapshot.toJSON()));
+            })
+            .catch((e) => reject(e));
+        });
+      };
 
       checkRemoteDB()
         .then(getRemoteDB)
