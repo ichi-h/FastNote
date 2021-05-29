@@ -1,6 +1,5 @@
 import router from "next/router";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -9,12 +8,9 @@ import "firebaseui/dist/firebaseui.css";
 
 import { startUiAuth } from "../lib/firebase/auth";
 import { SetupDatabase } from "../lib/firebase/database";
-import { cryptParamsState } from "../lib/atoms/localDBAtom";
 import theme from "../lib/theme";
 
 export default function LandingPage(): JSX.Element {
-  const setCryptParams = useSetRecoilState(cryptParamsState);
-
   useEffect(() => {
     startUiAuth();
 
@@ -24,34 +20,11 @@ export default function LandingPage(): JSX.Element {
         setupDB
           .run()
           .then(() => {
-            setupDB.getCryptParams().then((cryptParams) => {
-              setCryptParams(cryptParams);
-
-              const date = new Date();
-              date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
-              document.cookie = `commonKey=${
-                cryptParams.commonKey
-              };expires=${date.toUTCString()}`;
-              document.cookie = `iv=${
-                cryptParams.iv
-              };expires=${date.toUTCString()}`;
-            });
-          })
-          .then(() => {
             router.push("/home");
           })
           .catch((e) => {
             if (e.message === "Error: Client is offline.") {
-              const localCryptParams = document.cookie
-                .split(";")
-                .map((value) => value.split("=")[1]);
-              if (localCryptParams[0] !== undefined) {
-                setCryptParams({
-                  commonKey: localCryptParams[0],
-                  iv: localCryptParams[1],
-                });
-                router.push("/home");
-              }
+              // オフライン時の処理
             } else {
               alert(
                 `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
