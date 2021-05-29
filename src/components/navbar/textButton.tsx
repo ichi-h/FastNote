@@ -1,5 +1,5 @@
 import router from "next/router";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { css } from "styled-jsx/css";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import firebase from "firebase/app";
@@ -11,8 +11,11 @@ import {
   trashboxState,
   urlState,
 } from "../../lib/atoms/uiAtoms";
+import { deleteTrashedMemos } from "./ellipse/handler";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
+
+import EllipsisButton from "./ellipse/ellipsisButton";
 
 type TextButtonType = "trash" | "settings" | "logout";
 
@@ -42,6 +45,8 @@ export default function TextButton(props: { type: TextButtonType }) {
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
+  const history = useHistory();
+
   const handleClick = () => {
     switch (props.type) {
       case "trash":
@@ -50,11 +55,13 @@ export default function TextButton(props: { type: TextButtonType }) {
         setCategory("all");
         setIndex("-1");
         setURL("/home");
+        history.push("/home");
         break;
 
       case "settings":
         toggleNav(false);
         setURL("/home/settings");
+        history.push("/home/settings");
         break;
 
       case "logout":
@@ -73,47 +80,51 @@ export default function TextButton(props: { type: TextButtonType }) {
     }
   };
 
-  const getContent = (): [JSX.Element, string, string] => {
+  const getContent = (): [JSX.Element, string] => {
     switch (props.type) {
       case "trash":
         return [
-          <Link to="/home">
-            <i className="icon-trash-empty" /> ごみ箱 (
-            {countTrashedMemos(localDB.memos)})
-          </Link>,
-          "/home",
+          <>
+            <div className="trash-button-text" onClick={handleClick}>
+              <i className="icon-trash-empty" /> ごみ箱 (
+              {countTrashedMemos(localDB.memos)})
+            </div>
+            <EllipsisButton items={[
+              {
+                name: "全てのメモを削除",
+                handler: deleteTrashedMemos,
+                buttonValue: "",
+              }
+            ]} />
+          </>,
           "trash-button",
         ];
 
       case "settings":
         return [
-          <Link to="/home/settings">
+          <div className="settings-button-text" onClick={handleClick}>
             <i className="icon-cog" /> 設定
-          </Link>,
-          "/home/settings",
+          </div>,
           "settings-button",
         ];
 
       case "logout":
         return [
-          <>
+          <div className="logout-button-text" onClick={handleClick}>
             <i className="icon-logout" /> ログアウト
-          </>,
-          "/home",
+          </div>,
           "logout-button",
         ];
     }
   };
 
-  const [Content, link, className] = getContent();
+  const [Content, className] = getContent();
 
   return (
     <>
-      <Link to={link}>
-        <div className={className} onClick={handleClick}>
-          {Content}
-        </div>
-      </Link>
+      <div className={className}>
+        {Content}
+      </div>
 
       <style jsx>{textButtonStyle}</style>
     </>
@@ -124,6 +135,7 @@ const textButtonStyle = css`
   .trash-button,
   .settings-button,
   .logout-button {
+    position: relative;
     cursor: pointer;
     transition: 0.1s;
   }

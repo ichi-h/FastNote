@@ -49,6 +49,6 @@ export const renameCategory = (
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 ) => {};
 
-export const deleteTrashedMemos = (
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-) => {};
+export const deleteTrashedMemos: Handler = (props: HandlerProps) => {
+  return new Promise((resolve, reject) => {});
+};
