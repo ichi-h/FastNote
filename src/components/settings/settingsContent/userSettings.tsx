@@ -44,10 +44,6 @@ const RemoveAccout = () => {
         await firebase.auth().signInWithPopup(provider);
       };
 
-      const removeLocalDB = async () => {
-        localStorage.setItem("database", undefined);
-      };
-
       const removeRemoteDB = async () => {
         await remoteDB.remove();
       };
@@ -58,7 +54,6 @@ const RemoveAccout = () => {
 
       const process = async () => {
         await reautholize();
-        await removeLocalDB();
         await removeRemoteDB();
         await removeAccount();
       };
@@ -69,7 +64,6 @@ const RemoveAccout = () => {
           router.push("/");
         })
         .catch((e) => {
-          localStorage.setItem("database", JSON.stringify(localDB));
           remoteDB.set(localDB);
           alert(`下記の理由によりアカウント削除に失敗しました。 \n${e}`);
         });
