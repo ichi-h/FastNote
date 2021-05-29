@@ -15,15 +15,9 @@ export interface Settings {
   font: string;
 }
 
-export interface CryptParams {
-  commonKey: string;
-  iv: string;
-}
-
 export interface DatabaseInfo {
   memos: Memo[];
   categories: string[];
   settings: Settings;
   lastUpdated: number;
-  cryptParams: CryptParams;
 }
