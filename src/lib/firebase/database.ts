@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
-import { DatabaseInfo, CryptParams } from "../databaseInfo";
+import { DatabaseInfo } from "../databaseInfo";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
@@ -24,22 +24,10 @@ export class SetupDatabase {
 
       const process = async () => {
         await checkRemoteDB();
-        await this.syncDB();
       };
 
       process()
         .then(() => resolve("セットアップ完了"))
-        .catch((e) => reject(e));
-    });
-  }
-
-  public getCryptParams() {
-    return new Promise<CryptParams>((resolve, reject) => {
-      this.dbRef
-        .get()
-        .then((snapshot) => {
-          resolve(snapshot.toJSON()["cryptParams"]);
-        })
         .catch((e) => reject(e));
     });
   }
@@ -85,66 +73,12 @@ export class SetupDatabase {
           font: "",
         },
         lastUpdated: fnd.getCurrentDate(),
-        cryptParams: {
-          commonKey: getRandStr(32),
-          iv: getRandStr(32),
-        },
       };
 
       this.dbRef
         .set(newDatabase)
         .then(() => {
           resolve("remoteDB作成完了");
-        })
-        .catch((e) => {
-          reject(e);
-        });
-    });
-  }
-
-  private syncDB() {
-    return new Promise((resolve, reject) => {
-      this.dbRef
-        .get()
-        .then((snapshot) => {
-          const localDBStr = String(localStorage.getItem("database"));
-          const remoteDB = snapshot.toJSON();
-          const cryptParams: CryptParams = remoteDB["cryptParams"];
-
-          if (localDBStr === "undefined" || localDBStr === "null") {
-            const encrypted = encrypt(
-              JSON.stringify(remoteDB),
-              cryptParams.commonKey,
-              cryptParams.iv
-            );
-
-            localStorage.setItem("database", encrypted);
-            resolve("localDBをremoteDBに同期");
-          } else {
-            const decrypted = decrypt(
-              localDBStr,
-              cryptParams.commonKey,
-              cryptParams.iv
-            );
-
-            const localDB = JSON.parse(decrypted);
-
-            const locaUpdated = Number(localDB["lastUpdated"]);
-            const remoteUpdated = Number(remoteDB["lastUpdated"]);
-
-            if (remoteUpdated < locaUpdated) {
-              this.dbRef.set(localDB);
-              resolve("remoteDBをlocalDBに同期");
-            } else {
-              const encrypted = encrypt(
-                JSON.stringify(remoteDB),
-                cryptParams.commonKey,
-                cryptParams.iv
-              );
-              localStorage.setItem("database", encrypted);
-              resolve("localDBをremoteDBに同期");
-            }
-          }
         })
         .catch((e) => {
           reject(e);
