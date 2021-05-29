@@ -16,13 +16,14 @@ export const localDBState = selector({
   get: ({ get }) => {
     return get(localDBOriginState);
   },
-  set: ({ set, get }, inputValue: string) => {
+  set: ({ set }, inputValue: string) => {
     let localDB = JSON.parse(inputValue);
 
     const updateLocalDB = async (currentDate: number) => {
       localDB.lastUpdated = currentDate;
 
       set(localDBOriginState, JSON.stringify(localDB));
+      localStorage.setItem("dbCache", JSON.stringify(localDB));
     };
 
     const sleep = (ms: number) => {
@@ -33,7 +34,7 @@ export const localDBState = selector({
 
     const checkDifference = () => {
       return new Promise((resolve, reject) => {
-        const newLocalDB = JSON.parse(get(localDBOriginState));
+        const newLocalDB = JSON.parse(localStorage.getItem("dbCache"));
 
         const before = localDB.lastUpdated;
         const after = newLocalDB.lastUpdated;
@@ -48,6 +49,7 @@ export const localDBState = selector({
 
     const update = () => {
       return new Promise((resolve, reject) => {
+        localStorage.setItem("dbCache", undefined);
         const uid = firebase.auth().currentUser.uid;
 
         firebase
