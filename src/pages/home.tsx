@@ -49,13 +49,9 @@ export default function Home() {
             toggle(true);
           })
           .catch((e) => {
-            if (e.message === "Error: Client is offline.") {
-              // オフライン時の処理
-            } else {
-              alert(
-                `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-              );
-            }
+            alert(
+              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+            );
             //router.reload();
           });
       } else {
