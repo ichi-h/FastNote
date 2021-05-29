@@ -4,7 +4,6 @@ import "firebase/database";
 
 import { FastNoteDate } from "../fastNoteDate";
 import { DatabaseInfo, CryptParams } from "../databaseInfo";
-import { encrypt, decrypt, getRandStr } from "../crypt";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
