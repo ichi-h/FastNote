@@ -52,4 +52,4 @@ export const posYState = selector<number>({
     return get(posYOriginState);
   },
   set: ({ set }, input) => set(posYOriginState, input),
-})
+});

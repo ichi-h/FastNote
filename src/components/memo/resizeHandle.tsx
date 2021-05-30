@@ -24,11 +24,11 @@ export default function ResizeHandle() {
     const homeHeight =
       document.documentElement.clientHeight - remToPx(theme.topBarHeight);
 
-    const topThred = homeHeight / 2 + (homeHeight / 2) / 3;
+    const topThred = homeHeight / 2 + homeHeight / 2 / 3;
     const bottomThred = homeHeight / 2 + (homeHeight / 2) * (2 / 3);
 
     const setTop = () => {
-      setPosStatus(true)
+      setPosStatus(true);
       setPos(homeHeight / 2);
     };
 

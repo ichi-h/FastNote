@@ -37,7 +37,7 @@ function BlackCover() {
 }
 
 function ListContent() {
-  if (window.matchMedia('(max-width: 1050px)').matches) {
+  if (window.matchMedia("(max-width: 1050px)").matches) {
     return (
       <>
         <ResizeHandle />
@@ -134,61 +134,61 @@ const homeStyle = (posY: number) => {
 
   return (
     <style jsx>{`
-    .home {
-      width: 100vw;
-      height: 100vh;
-    }
-
-    .separator {
-      position: relative;
-      display: flex;
-      width: 100%;
-      height: calc(${homeHeight});
-    }
-  
-    .separator > div:first-child,
-    .separator > div:last-child {
-      height: 100%;
-    }
-  
-    .separator > div:first-child {
-      width: 30%;
-    }
-  
-    .separator > div:last-child {
-      width: 70%;
-    }
-  
-    @media screen and (max-width: 1050px) {
-      .separator {
-        width: 100%;
+      .home {
+        width: 100vw;
+        height: 100vh;
       }
-  
+
+      .separator {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: calc(${homeHeight});
+      }
+
       .separator > div:first-child,
       .separator > div:last-child {
-        width: 100%;
+        height: 100%;
       }
 
       .separator > div:first-child {
-        position: absolute;
-        bottom: 0;
-        height: calc(100% - ${posY}px);
-        background-color: white;
-        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
-        z-index: 2;
-        transition: 0.1s;
+        width: 30%;
       }
 
       .separator > div:last-child {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        z-index: 1;
+        width: 70%;
       }
-    }
-  `}</style>
+
+      @media screen and (max-width: 1050px) {
+        .separator {
+          width: 100%;
+        }
+
+        .separator > div:first-child,
+        .separator > div:last-child {
+          width: 100%;
+        }
+
+        .separator > div:first-child {
+          position: absolute;
+          bottom: 0;
+          height: calc(100% - ${posY}px);
+          background-color: white;
+          filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+          z-index: 2;
+          transition: 0.1s;
+        }
+
+        .separator > div:last-child {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          z-index: 1;
+        }
+      }
+    `}</style>
   );
-}
+};
 
 const blackCoverStyle = (checked: boolean) => {
   const whenOpenNavbar = (bool: boolean) => {
