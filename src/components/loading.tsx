@@ -1,11 +1,15 @@
 import { css } from "styled-jsx/css";
 
+import theme from "../lib/theme";
+
 export default function Loading() {
   return (
     <>
-      <div className="loading">
-        <div className="circle1" />
-        <div className="circle2" />
+      <div className="bg">
+        <div className="loading">
+          <div className="circle1" />
+          <div className="circle2" />
+        </div>
       </div>
 
       <style jsx>{loadingStyle}</style>
@@ -14,6 +18,15 @@ export default function Loading() {
 }
 
 const loadingStyle = css`
+  .bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: ${theme.mainColor};
+  }
+
   .loading {
     position: relative;
     width: 50vw;

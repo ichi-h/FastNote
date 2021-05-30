@@ -116,14 +116,7 @@ export default function Home() {
       </>
     );
   } else {
-    return (
-      <>
-        <div className="home">
-          <Loading />
-        </div>
-        <style jsx>{loadingLayoutStyle}</style>
-      </>
-    );
+    return <Loading />;
   }
 }
 
@@ -217,14 +210,3 @@ const blackCoverStyle = (checked: boolean) => {
     `}</style>
   );
 };
-
-const loadingLayoutStyle = css`
-  .home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: ${theme.mainColor};
-  }
-`;
