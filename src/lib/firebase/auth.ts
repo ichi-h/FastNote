@@ -17,7 +17,7 @@ export async function startUiAuth() {
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
-      signInFlow: "popup",
+      signInFlow: "redirect",
       // tosUrl and privacyPolicyUrl accept either url string or a callback
       // function.
       // Terms of service url/callback.
