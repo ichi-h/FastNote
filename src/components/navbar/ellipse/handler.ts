@@ -50,5 +50,18 @@ export const renameCategory = (
 ) => {};
 
 export const deleteTrashedMemos: Handler = (props: HandlerProps) => {
-  return new Promise((resolve, reject) => {});
+  return new Promise((resolve) => {
+    const deleteMemos = async () => {
+      if (props.localDB.memos) {
+        props.localDB.memos = Object.keys(props.localDB.memos)
+          .filter((key) => props.localDB.memos[key].trash === false)
+          .reduce((pre, cur) => {
+            pre[cur] = props.localDB.memos[cur];
+            return pre;
+          }, {});
+      }
+    };
+
+    deleteMemos().then(resolve);
+  });
 };
