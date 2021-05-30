@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
-import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/auth";
