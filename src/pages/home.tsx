@@ -175,7 +175,7 @@ const homeStyle = (posY: number) => {
         height: calc(100% - ${posY}px);
         z-index: 2;
         background-color: white;
-        transition: 0.3s;
+        transition: 0.1s;
       }
 
       .separator > div:last-child {

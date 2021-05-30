@@ -45,7 +45,7 @@ const resizeHandleStyle = (pos: number) => {
           height: calc(${rect} / 3);
           background-color: ${theme.mainColor};
           border-radius: 20%;
-          transition: 0.3s;
+          transition: 0.1s;
           z-index: 3;
         }
       }
