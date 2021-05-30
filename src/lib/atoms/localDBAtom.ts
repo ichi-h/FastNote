@@ -54,9 +54,6 @@ const localDBOriginState = atom({
               return pre;
             }, {});
 
-            console.log(updateObj);
-            
-
             resolve(updateObj);
           });
         };
