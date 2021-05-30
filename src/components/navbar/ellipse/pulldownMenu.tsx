@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
+import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { EllipsisButtonProps } from "./ellipsisButton";
 import { insertionSort } from "../../../lib/sort";
 
@@ -12,6 +13,7 @@ interface PulldownMenuProps extends EllipsisButtonProps {
 
 export default function PulldownMenu(props: PulldownMenuProps) {
   const menuRef: React.RefObject<HTMLDivElement> = useRef();
+  const setIndex = useSetRecoilState(memoIndexState);
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
   let localDB = JSON.parse(localDBStr);
 
@@ -24,12 +26,28 @@ export default function PulldownMenu(props: PulldownMenuProps) {
   };
 
   const handleClick = props.items.reduce((pre, cur) => {
-    pre.push((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      cur.handler({ localDB: localDB, e: e }).then(() => {
-        insertionSort(localDB, setLocalDB);
-        props.dispatch(false);
-      });
-    });
+    const handler = () => {
+      switch (cur.type) {
+        case "deleteCategory":
+          return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            cur.handler({ localDB: localDB, e: e }).then(() => {
+              insertionSort(localDB, setLocalDB);
+              props.dispatch(false);
+            });
+          };
+
+        case "deleteTrashedMemos":
+          return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            cur.handler({ localDB: localDB, e: e, setIndex: setIndex }).then(() => {
+              insertionSort(localDB, setLocalDB);
+              props.dispatch(false);
+            });
+          };
+      }
+    }
+
+    pre.push(handler());
+
     return pre;
   }, []);
 
