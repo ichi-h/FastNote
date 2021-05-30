@@ -29,6 +29,7 @@ export default function PulldownMenu(props: PulldownMenuProps) {
     const handler = () => {
       switch (cur.type) {
         case "deleteCategory":
+        case "renameCategory":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             cur.handler({ localDB: localDB, e: e }).then(() => {
               insertionSort(localDB, setLocalDB);
