@@ -18,7 +18,7 @@ export default function LandingPage(): JSX.Element {
     if (!isShow) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          router.push("/home")
+          router.push("/home");
         } else {
           toggle(true);
           startUiAuth();
@@ -36,22 +36,23 @@ export default function LandingPage(): JSX.Element {
               <h1>Fast Note</h1>
               <h2>素早く、手軽に。いつでも、どこでも。</h2>
             </div>
-  
+
             <div className="logo"></div>
-  
+
             <div className="explain">
               <p>
-                Fast Noteは、マークダウン形式でメモが取れるアプリケーションです。
+                Fast
+                Noteは、マークダウン形式でメモが取れるアプリケーションです。
               </p>
               <p>
                 取ったメモはクラウド上に保存され、ログインしたどの端末からでも簡単にアクセスできます。
               </p>
             </div>
-  
+
             <div id="firebaseui-auth-container" />
             <div id="loader" />
           </div>
-  
+
           <style jsx>{homeStyle}</style>
         </div>
       </>
