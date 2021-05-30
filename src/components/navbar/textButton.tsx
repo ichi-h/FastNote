@@ -92,7 +92,7 @@ export default function TextButton(props: { type: TextButtonType }) {
             <EllipsisButton items={[
               {
                 type: "deleteTrashedMemos",
-                name: "全てのメモを削除",
+                name: "メモを削除",
                 handler: deleteTrashedMemos,
                 buttonValue: "",
               }
