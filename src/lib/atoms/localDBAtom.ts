@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
+import sha1 from "js-sha1";
 import firebase from "firebase/app";
-
 import "firebase/auth";
 import "firebase/database";
 
@@ -11,11 +11,12 @@ const localDBOriginState = atom({
   default: "",
   effects_UNSTABLE: [
     ({ onSet }) => {
-      onSet((inputValue: string) => {
+      onSet((inputValue: string, oldValue: string) => {
         let localDB = JSON.parse(inputValue);
+        let oldDB = JSON.parse(oldValue);
 
-        const cacheLocalDB = async () => {
-          sessionStorage.setItem("dbCache", inputValue);
+        const hashLocalDB = async () => {
+          sessionStorage.setItem("hashDB", sha1(inputValue));
         };
 
         const sleep = (ms: number) => {
@@ -26,10 +27,8 @@ const localDBOriginState = atom({
 
         const checkDifference = () => {
           return new Promise((resolve, reject) => {
-            const cachedLocalDB = JSON.parse(sessionStorage.getItem("dbCache"));
-
-            const before = localDB.lastUpdated;
-            const after = cachedLocalDB.lastUpdated;
+            const before = sha1(inputValue);
+            const after = sessionStorage.getItem("hashDB");
 
             if (before === after) {
               resolve("データベースの更新が停止");
@@ -41,7 +40,7 @@ const localDBOriginState = atom({
 
         const update = () => {
           return new Promise((resolve, reject) => {
-            sessionStorage.setItem("dbCache", undefined);
+            sessionStorage.setItem("hashDB", undefined);
             const uid = firebase.auth().currentUser.uid;
 
             firebase
@@ -54,7 +53,7 @@ const localDBOriginState = atom({
         };
 
         const process = async () => {
-          await cacheLocalDB();
+          await hashLocalDB();
           await sleep(2000);
           await checkDifference();
           await update();
