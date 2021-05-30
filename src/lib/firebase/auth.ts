@@ -18,6 +18,7 @@ export async function startUiAuth() {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
       signInFlow: "redirect",
+      signInSuccessUrl: "/home",
       // tosUrl and privacyPolicyUrl accept either url string or a callback
       // function.
       // Terms of service url/callback.
