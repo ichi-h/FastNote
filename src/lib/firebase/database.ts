@@ -78,7 +78,6 @@ export class SetupDatabase {
         categories: ["FastNote", "None"],
         settings: {
           theme: "",
-          fontSize: "20",
           font: "",
         },
         lastUpdated: fnd.getCurrentDate(),

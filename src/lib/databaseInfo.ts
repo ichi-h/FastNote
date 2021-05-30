@@ -11,7 +11,6 @@ export interface Memo {
 
 export interface Settings {
   theme: string;
-  fontSize: string;
   font: string;
 }
 
