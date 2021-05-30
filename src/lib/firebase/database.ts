@@ -33,9 +33,17 @@ export class SetupDatabase {
         });
       };
 
+      const checkFontSize = async () => {
+        const fontSize: string = localStorage.getItem("fontSize");
+        if (!parseInt(fontSize)) {
+          localStorage.setItem("fontSize", "20");
+        }
+      };
+
       checkRemoteDB()
         .then(getRemoteDB)
         .then((snapshot) => callback(snapshot))
+        .then(checkFontSize)
         .then(() => resolve("セットアップ完了"))
         .catch((e) => reject(e));
     });
