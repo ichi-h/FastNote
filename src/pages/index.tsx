@@ -12,8 +12,11 @@ import { SetupDatabase } from "../lib/firebase/database";
 import { localDBState } from "../lib/atoms/localDBAtom";
 import theme from "../lib/theme";
 
+import Loading from "../components/loading";
+
 export default function LandingPage(): JSX.Element {
   const setLocalDB = useSetRecoilState(localDBState);
+  const [isShow, toggle] = useState(false);
 
   useEffect(() => {
     startUiAuth();
@@ -36,6 +39,7 @@ export default function LandingPage(): JSX.Element {
     });
   });
 
+  if (isShow) {
   return (
     <>
       <div className="bg">
@@ -64,6 +68,9 @@ export default function LandingPage(): JSX.Element {
       </div>
     </>
   );
+  } else {
+    return <Loading />;
+  }
 }
 
 const homeStyle = css`
