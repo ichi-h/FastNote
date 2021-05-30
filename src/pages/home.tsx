@@ -35,6 +35,32 @@ function BlackCover() {
   );
 }
 
+function ListContent() {
+  if (window.matchMedia('(max-width: 1050px)').matches) {
+    return (
+      <>
+        <Route path="/home" exact component={Editor} />
+        <Route
+          path="/home/settings"
+          exact
+          component={SettingsContent}
+        />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Route path="/home" exact component={Editor} />
+        <Route
+          path="/home/settings"
+          exact
+          component={SettingsContent}
+        />
+      </>
+    );
+  }
+}
+
 export default function Home() {
   const setLocalDB = useSetRecoilState(localDBState);
   const [isShow, toggle] = useState(false);
@@ -75,12 +101,7 @@ export default function Home() {
                 <Route path="/home/settings" exact component={SettingsList} />
               </div>
               <div>
-                <Route path="/home" exact component={Editor} />
-                <Route
-                  path="/home/settings"
-                  exact
-                  component={SettingsContent}
-                />
+                <ListContent />
               </div>
             </div>
 
@@ -137,23 +158,27 @@ const homeStyle = () => {
   
     @media screen and (max-width: 1050px) {
       .separator {
-        display: flex;
-        flex-direction: column-reverse;
         width: 100%;
       }
   
       .separator > div:first-child,
       .separator > div:last-child {
-        height: 50%;
+        width: 100%;
       }
-  
+
       .separator > div:first-child {
-        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 50%;
+        z-index: 2;
+        background-color: white;
       }
-  
+
       .separator > div:last-child {
-        width: 100%;
-        border-bottom: 2px solid rgb(150, 150, 150);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
       }
     }
   `}</style>
