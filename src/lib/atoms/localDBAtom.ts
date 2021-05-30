@@ -11,9 +11,9 @@ const localDBOriginState = atom({
   default: "",
   effects_UNSTABLE: [
     ({ onSet }) => {
-      onSet((inputValue: string, oldValue: string) => {
-        let localDB = JSON.parse(inputValue);
-        let oldDB = JSON.parse(oldValue);
+      onSet(async (inputValue, oldValue) => {
+        let localDB = JSON.parse(String(inputValue));
+        let oldDB = JSON.parse(String(oldValue));
 
         const hashLocalDB = async () => {
           sessionStorage.setItem("hashDB", sha1(inputValue));
@@ -31,6 +31,7 @@ const localDBOriginState = atom({
             const after = sessionStorage.getItem("hashDB");
 
             if (before === after) {
+              sessionStorage.setItem("hashDB", undefined);
               resolve("データベースの更新が停止");
             } else {
               reject("データベースの更新は続行");
@@ -38,25 +39,41 @@ const localDBOriginState = atom({
           });
         };
 
-        const update = () => {
-          return new Promise((resolve, reject) => {
-            sessionStorage.setItem("hashDB", undefined);
+        const createUpdateObj = () => {
+          return new Promise<object>((resolve) => {
+            const targets = Object.keys(localDB);
             const uid = firebase.auth().currentUser.uid;
 
-            firebase
-              .database()
-              .ref(`users/${uid}`)
-              .set(localDB)
-              .then(() => resolve("データベースを更新"))
-              .catch((e) => reject(e));
+            const updateObj = targets.reduce((pre, target) => {
+              const current = sha1(JSON.stringify(localDB[target]));
+              const old = sha1(JSON.stringify(oldDB[target]));
+
+              if (current !== old) {
+                pre[`users/${uid}/${target}`] = localDB[target];
+              }
+              return pre;
+            }, {});
+
+            console.log(updateObj);
+            
+
+            resolve(updateObj);
           });
+        };
+
+        const update = async (obj: object) => {
+          firebase
+            .database()
+            .ref()
+            .update(obj);
         };
 
         const process = async () => {
           await hashLocalDB();
           await sleep(2000);
           await checkDifference();
-          await update();
+          await createUpdateObj()
+            .then((obj) => update(obj));
         };
 
         process().catch((e) => {
