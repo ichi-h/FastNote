@@ -32,21 +32,20 @@ export default function ResizeHandle() {
 }
 
 const resizeHandleStyle = (pos: number) => {
-  const rect = "10rem";
+  const rect = "20vw";
 
   return (
     <style jsx>{`
       @media screen and (max-width: 1050px) {
         .resize-handle {
           position: absolute;
-          top: calc(${pos}px - ${theme.topBarHeight});
           left: 50%;
-          transform: translateX(-50%);
+          transform: translateX(-50%) translateY(calc(-${rect} / 3));
           width: ${rect};
-          height: ${rect};
+          height: calc(${rect} / 3);
           background-color: ${theme.mainColor};
           border-radius: 20%;
-          transition: 0.1s;
+          transition: 0.3s;
           z-index: 3;
         }
       }

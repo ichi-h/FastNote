@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 
 import theme from "../lib/theme";
-import { openNavbarState } from "../lib/atoms/uiAtoms";
+import { openNavbarState, posYState } from "../lib/atoms/uiAtoms";
 import { localDBState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
@@ -41,23 +41,15 @@ function ListContent() {
     return (
       <>
         <ResizeHandle />
-        <Route path="/home" exact component={Editor} />
-        <Route
-          path="/home/settings"
-          exact
-          component={SettingsContent}
-        />
+        <Route path="/home" exact component={MemoList} />
+        <Route path="/home/settings" exact component={SettingsList} />
       </>
     );
   } else {
     return (
       <>
-        <Route path="/home" exact component={Editor} />
-        <Route
-          path="/home/settings"
-          exact
-          component={SettingsContent}
-        />
+        <Route path="/home" exact component={MemoList} />
+        <Route path="/home/settings" exact component={SettingsList} />
       </>
     );
   }
@@ -65,27 +57,32 @@ function ListContent() {
 
 export default function Home() {
   const setLocalDB = useSetRecoilState(localDBState);
+  const posY = useRecoilValue(posYState);
   const [isShow, toggle] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const setupDB = new SetupDatabase(user.uid);
-        setupDB
-          .run(setLocalDB)
-          .then(() => {
-            toggle(true);
-          })
-          .catch((e) => {
-            alert(
-              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-            );
-            //router.reload();
-          });
-      } else {
-        router.push("/");
-      }
-    });
+    if (!isComplete) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const setupDB = new SetupDatabase(user.uid);
+          setupDB
+            .run(setLocalDB)
+            .then(() => {
+              toggle(true);
+              setIsComplete(true);
+            })
+            .catch((e) => {
+              alert(
+                `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
+              );
+              //router.reload();
+            });
+        } else {
+          router.push("/");
+        }
+      });
+    }
   });
 
   if (isShow) {
@@ -99,11 +96,15 @@ export default function Home() {
           <BrowserRouter>
             <div className="separator">
               <div>
-                <Route path="/home" exact component={MemoList} />
-                <Route path="/home/settings" exact component={SettingsList} />
+                <ListContent />
               </div>
               <div>
-                <ListContent />
+                <Route path="/home" exact component={Editor} />
+                <Route
+                  path="/home/settings"
+                  exact
+                  component={SettingsContent}
+                />
               </div>
             </div>
 
@@ -111,7 +112,7 @@ export default function Home() {
           </BrowserRouter>
         </div>
 
-        {homeStyle()}
+        {homeStyle(posY)}
       </>
     );
   } else {
@@ -126,7 +127,7 @@ export default function Home() {
   }
 }
 
-const homeStyle = () => {
+const homeStyle = (posY: number) => {
   const clientHeight = document.documentElement.clientHeight;
 
   const homeHeight = `${clientHeight}px - ${theme.topBarHeight}`;
@@ -171,9 +172,10 @@ const homeStyle = () => {
       .separator > div:first-child {
         position: absolute;
         bottom: 0;
-        height: 50%;
+        height: calc(100% - ${posY}px);
         z-index: 2;
         background-color: white;
+        transition: 0.3s;
       }
 
       .separator > div:last-child {
