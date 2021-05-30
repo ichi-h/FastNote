@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { deleteCategory } from "../ellipse/handler";
+import { deleteCategory, renameCategory } from "../ellipse/handler";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import {
   openNavbarState,
@@ -93,6 +93,12 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                       handler: deleteCategory,
                       buttonValue: category,
                     },
+                    {
+                      type: "renameCategory",
+                      name: "名前変更",
+                      handler: renameCategory,
+                      buttonValue: category,
+                    }
                   ]}
                 />
               </li>
