@@ -59,18 +59,14 @@ const localDBOriginState = atom({
         };
 
         const update = async (obj: object) => {
-          firebase
-            .database()
-            .ref()
-            .update(obj);
+          firebase.database().ref().update(obj);
         };
 
         const process = async () => {
           await hashLocalDB();
           await sleep(2000);
           await checkDifference();
-          await createUpdateObj()
-            .then((obj) => update(obj));
+          await createUpdateObj().then((obj) => update(obj));
         };
 
         process().catch((e) => {

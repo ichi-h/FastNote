@@ -98,7 +98,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                       name: "名前変更",
                       handler: renameCategory,
                       buttonValue: category,
-                    }
+                    },
                   ]}
                 />
               </li>
