@@ -2,6 +2,7 @@ import { useState } from "react";
 import { css } from "styled-jsx/css";
 
 import { HandlerType, Handler } from "./handler";
+import theme from "../../../lib/theme";
 
 import PulldownMenu from "./pulldownMenu";
 
@@ -50,7 +51,7 @@ const ellipsisButtonStyle = css`
     right: 0;
     transform: translateY(-50%);
     font-size: 2rem;
-    color: rgb(160, 160, 160);
+    color: ${theme.gray};
     z-index: 5000;
   }
 

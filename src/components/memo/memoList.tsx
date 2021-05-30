@@ -5,6 +5,7 @@ import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { numToStr } from "../../lib/fastNoteDate";
+import theme from "../../lib/theme";
 
 import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
@@ -140,7 +141,7 @@ const memoListStyle = css`
   }
 
   .memo-item.focused {
-    outline: 2px solid rgb(150, 150, 150);
+    outline: 2px solid ${theme.gray};
     background-color: rgba(0, 0, 0, 0.03);
   }
 
