@@ -3,7 +3,11 @@ interface HandlerProps {
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 
-export type Handler = (props: HandlerProps) => Promise<unknown>;
+interface DelTrashMemosProps extends HandlerProps {
+  setIndex: (index: string) => void;
+}
+
+export type Handler = (props: HandlerProps | DelTrashMemosProps) => Promise<unknown>;
 
 export const deleteCategory: Handler = (props: HandlerProps) => {
   return new Promise((resolve) => {
@@ -49,7 +53,7 @@ export const renameCategory = (
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 ) => {};
 
-export const deleteTrashedMemos: Handler = (props: HandlerProps) => {
+export const deleteTrashedMemos: Handler = (props: DelTrashMemosProps) => {
   return new Promise((resolve) => {
     const deleteMemos = async () => {
       if (props.localDB.memos) {
@@ -62,6 +66,8 @@ export const deleteTrashedMemos: Handler = (props: HandlerProps) => {
       }
     };
 
-    deleteMemos().then(resolve);
+    deleteMemos()
+      .then(() => props.setIndex("-1"))
+      .then(resolve);
   });
 };
