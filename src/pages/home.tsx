@@ -69,20 +69,18 @@ export default function Home() {
           <TopBar />
 
           <BrowserRouter>
-            <div className="home-canvas">
-              <div className="separator">
-                <div>
-                  <Route path="/home" exact component={MemoList} />
-                  <Route path="/home/settings" exact component={SettingsList} />
-                </div>
-                <div>
-                  <Route path="/home" exact component={Editor} />
-                  <Route
-                    path="/home/settings"
-                    exact
-                    component={SettingsContent}
-                  />
-                </div>
+            <div className="separator">
+              <div>
+                <Route path="/home" exact component={MemoList} />
+                <Route path="/home/settings" exact component={SettingsList} />
+              </div>
+              <div>
+                <Route path="/home" exact component={Editor} />
+                <Route
+                  path="/home/settings"
+                  exact
+                  component={SettingsContent}
+                />
               </div>
             </div>
 
@@ -90,7 +88,7 @@ export default function Home() {
           </BrowserRouter>
         </div>
 
-        <style jsx>{homeStyle}</style>
+        {homeStyle()}
       </>
     );
   } else {
@@ -105,58 +103,62 @@ export default function Home() {
   }
 }
 
-const homeStyle = css`
-  .home {
-    width: 100vw;
-    height: 100vh;
-  }
+const homeStyle = () => {
+  const clientHeight = document.documentElement.clientHeight;
 
-  .home-canvas {
-    position: relative;
-  }
+  const homeHeight = `${clientHeight}px - ${theme.topBarHeight}`;
 
-  .separator {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - ${theme.topBarHeight});
-  }
-
-  .separator > div:first-child,
-  .separator > div:last-child {
-    height: 100%;
-  }
-
-  .separator > div:first-child {
-    width: 30%;
-  }
-
-  .separator > div:last-child {
-    width: 70%;
-  }
-
-  @media screen and (max-width: 1050px) {
-    .separator {
-      display: flex;
-      flex-direction: column-reverse;
-      width: 100%;
-      height: calc(100vh - ${theme.topBarHeight});
+  return (
+    <style jsx>{`
+    .home {
+      width: 100vw;
+      height: 100vh;
     }
 
+    .separator {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: calc(${homeHeight});
+    }
+  
     .separator > div:first-child,
     .separator > div:last-child {
-      height: 50%;
+      height: 100%;
     }
-
+  
     .separator > div:first-child {
-      width: 100%;
+      width: 30%;
     }
-
+  
     .separator > div:last-child {
-      width: 100%;
-      border-bottom: 2px solid rgb(150, 150, 150);
+      width: 70%;
     }
-  }
-`;
+  
+    @media screen and (max-width: 1050px) {
+      .separator {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+      }
+  
+      .separator > div:first-child,
+      .separator > div:last-child {
+        height: 50%;
+      }
+  
+      .separator > div:first-child {
+        width: 100%;
+      }
+  
+      .separator > div:last-child {
+        width: 100%;
+        border-bottom: 2px solid rgb(150, 150, 150);
+      }
+    }
+  `}</style>
+  );
+}
 
 const blackCoverStyle = (checked: boolean) => {
   const whenOpenNavbar = (bool: boolean) => {
