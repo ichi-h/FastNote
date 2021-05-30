@@ -173,8 +173,9 @@ const homeStyle = (posY: number) => {
         position: absolute;
         bottom: 0;
         height: calc(100% - ${posY}px);
-        z-index: 2;
         background-color: white;
+        filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+        z-index: 2;
         transition: 0.1s;
       }
 

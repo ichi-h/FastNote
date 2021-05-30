@@ -57,7 +57,10 @@ export default function ResizeHandle() {
         ref={ref}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-      />
+      >
+        <div className="line" />
+        <div className="line" />
+      </div>
 
       {resizeHandleStyle(pos)}
     </>
@@ -74,12 +77,24 @@ const resizeHandleStyle = (pos: number) => {
           position: absolute;
           left: 50%;
           transform: translateX(-50%) translateY(calc(-${rect} / 3));
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
           width: ${rect};
           height: calc(${rect} / 3);
-          background-color: ${theme.mainColor};
-          border-radius: 20%;
+          background-color: white;
           transition: 0.1s;
           z-index: 3;
+        }
+
+        .line {
+          height: 1px;
+          width: 50%;
+          background-color: rgb(150, 150, 150);
+          margin: 0.2rem;
         }
       }
     `}</style>
