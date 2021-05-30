@@ -39,11 +39,17 @@ export const urlState = atom({
 // ResizeHandleの座標
 const posYOriginState = atom({
   key: "posYOriginState",
-  default: document.documentElement.clientHeight / 2,
+  default: 0,
 });
 
 export const posYState = selector<number>({
   key: "posYState",
-  get: ({ get }) => get(posYOriginState),
+  get: ({ get }) => {
+    if (get(posYOriginState) === 0) {
+      return document.documentElement.clientHeight / 2;
+    }
+
+    return get(posYOriginState);
+  },
   set: ({ set }, input) => set(posYOriginState, input),
 })
