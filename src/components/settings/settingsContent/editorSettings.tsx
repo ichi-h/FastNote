@@ -10,8 +10,7 @@ const FontSize = React.memo(() => {
   let localDB = JSON.parse(localDBStr);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    localDB.settings.fontSize = e.currentTarget.value;
-    insertionSort(localDB, setLocalDB);
+    localStorage.setItem("fontSize", e.currentTarget.value);
   };
 
   return (
@@ -21,7 +20,7 @@ const FontSize = React.memo(() => {
         <p>フォントサイズを変更します（単位: px）。</p>
         <input
           type="number"
-          defaultValue={localDB.settings.fontSize}
+          defaultValue={localStorage.getItem("fontSize")}
           onChange={handleChange}
         />
       </div>

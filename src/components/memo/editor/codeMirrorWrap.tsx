@@ -56,7 +56,7 @@ const CodeMirrorWrap = React.memo(() => {
         />
       </div>
 
-      {codeMirrorWrapStyle(localDB.settings.fontSize)}
+      {codeMirrorWrapStyle(localStorage.getItem("fontSize"))}
     </>
   );
 });
