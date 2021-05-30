@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { css } from "styled-jsx/css";
 
-import { Handler } from "./handler";
+import { HandlerType, Handler } from "./handler";
 
 import PulldownMenu from "./pulldownMenu";
 
 interface MenuItem {
+  type: HandlerType;
   name: string;
   handler: Handler;
   buttonValue: string;

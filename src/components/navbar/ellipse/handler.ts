@@ -7,6 +7,11 @@ interface DelTrashMemosProps extends HandlerProps {
   setIndex: (index: string) => void;
 }
 
+export type HandlerType
+  = "deleteCategory"
+  | "renameCategory"
+  | "deleteTrashedMemos";
+
 export type Handler = (props: HandlerProps | DelTrashMemosProps) => Promise<unknown>;
 
 export const deleteCategory: Handler = (props: HandlerProps) => {

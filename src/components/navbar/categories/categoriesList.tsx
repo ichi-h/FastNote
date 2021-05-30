@@ -88,6 +88,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
                 <EllipsisButton
                   items={[
                     {
+                      type: "deleteCategory",
                       name: "削除",
                       handler: deleteCategory,
                       buttonValue: category,
