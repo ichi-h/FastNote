@@ -89,14 +89,16 @@ export default function TextButton(props: { type: TextButtonType }) {
               <i className="icon-trash-empty" /> ごみ箱 (
               {countTrashedMemos(localDB.memos)})
             </div>
-            <EllipsisButton items={[
-              {
-                type: "deleteTrashedMemos",
-                name: "メモを削除",
-                handler: deleteTrashedMemos,
-                buttonValue: "",
-              }
-            ]} />
+            <EllipsisButton
+              items={[
+                {
+                  type: "deleteTrashedMemos",
+                  name: "メモを削除",
+                  handler: deleteTrashedMemos,
+                  buttonValue: "",
+                },
+              ]}
+            />
           </>,
           "trash-button",
         ];
@@ -123,9 +125,7 @@ export default function TextButton(props: { type: TextButtonType }) {
 
   return (
     <>
-      <div className={className}>
-        {Content}
-      </div>
+      <div className={className}>{Content}</div>
 
       <style jsx>{textButtonStyle}</style>
     </>

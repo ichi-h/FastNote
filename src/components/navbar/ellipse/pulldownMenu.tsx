@@ -38,13 +38,15 @@ export default function PulldownMenu(props: PulldownMenuProps) {
 
         case "deleteTrashedMemos":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            cur.handler({ localDB: localDB, e: e, setIndex: setIndex }).then(() => {
-              insertionSort(localDB, setLocalDB);
-              props.dispatch(false);
-            });
+            cur
+              .handler({ localDB: localDB, e: e, setIndex: setIndex })
+              .then(() => {
+                insertionSort(localDB, setLocalDB);
+                props.dispatch(false);
+              });
           };
       }
-    }
+    };
 
     pre.push(handler());
 
