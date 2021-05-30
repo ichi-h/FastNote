@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 // 選択されているカテゴリー
 export const currentCategoryState = atom({
@@ -35,3 +35,15 @@ export const urlState = atom({
   key: "urlState",
   default: "/home",
 });
+
+// ResizeHandleの座標
+const posYOriginState = atom({
+  key: "posYOriginState",
+  default: document.documentElement.clientHeight / 2,
+});
+
+export const posYState = selector<number>({
+  key: "posYState",
+  get: ({ get }) => get(posYOriginState),
+  set: ({ set }, input) => set(posYOriginState, input),
+})
