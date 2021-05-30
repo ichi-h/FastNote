@@ -56,9 +56,56 @@ export const deleteCategory: Handler = (props: HandlerProps) => {
   });
 };
 
-export const renameCategory = (
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-) => {};
+export const renameCategory: Handler = (props: HandlerProps) => {
+  return new Promise((resolve) => {
+    const oldCatName = props.e.currentTarget.value;
+
+    const getNewName = () => {
+      return new Promise<string>((res) => {
+        const ans = prompt(`
+          "${oldCatName}" の新しいカテゴリー名を入力してください。
+        `);
+
+        res(ans);
+      });
+    };
+
+    const updateCategory = async (target: string, newName: string) => {
+      const keys = Object.keys(props.localDB[target]);
+
+      props.localDB[target] = keys.reduce((pre, key) => {
+        switch (target) {
+          case "memos":
+            let memo = props.localDB[target][key];
+            if (memo.category === oldCatName) {
+              memo.category = newName;
+            }
+
+            pre[key] = memo;
+            return pre;
+
+          case "categories":
+            if (props.localDB[target][key] === oldCatName) {
+              pre[key] = newName;
+            } else {
+              pre[key] = props.localDB[target][key];
+            }
+
+            return pre;
+        }
+      }, {});
+    };
+
+    getNewName()
+      .then(async (newName) => {
+        if (Boolean(newName)) {
+          await updateCategory("memos", newName);
+          await updateCategory("categories", newName);
+        }
+      })
+      .then(resolve);
+  });
+};
 
 export const deleteTrashedMemos: Handler = (props: DelTrashMemosProps) => {
   return new Promise((resolve) => {
