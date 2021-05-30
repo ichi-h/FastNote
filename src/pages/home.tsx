@@ -17,6 +17,7 @@ import MemoList from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
 import SettingsContent from "../components/settings/settingsContent";
+import ResizeHandle from "../components/memo/resizeHandle";
 import Navbar from "../components/navbar";
 import Loading from "../components/loading";
 
@@ -39,6 +40,7 @@ function ListContent() {
   if (window.matchMedia('(max-width: 1050px)').matches) {
     return (
       <>
+        <ResizeHandle />
         <Route path="/home" exact component={Editor} />
         <Route
           path="/home/settings"
