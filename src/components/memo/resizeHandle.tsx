@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import theme, { remToPx } from "../../lib/theme";
 import { posYState } from "../../lib/atoms/uiAtoms";
 
 export default function ResizeHandle() {
   const ref: React.RefObject<HTMLDivElement> = useRef();
-  const [pos, setPos] = useRecoilState(posYState);
+  const setPos = useSetRecoilState(posYState);
   const [posStatus, setPosStatus] = useState(true);
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -62,12 +62,12 @@ export default function ResizeHandle() {
         <div className="line" />
       </div>
 
-      {resizeHandleStyle(pos)}
+      {resizeHandleStyle()}
     </>
   );
 }
 
-const resizeHandleStyle = (pos: number) => {
+const resizeHandleStyle = () => {
   const rect = "20vw";
 
   return (
