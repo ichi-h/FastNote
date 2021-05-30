@@ -59,10 +59,9 @@ export default function Home() {
   const setLocalDB = useSetRecoilState(localDBState);
   const posY = useRecoilValue(posYState);
   const [isShow, toggle] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    if (!isComplete) {
+    if (!isShow) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           const setupDB = new SetupDatabase(user.uid);
@@ -70,7 +69,6 @@ export default function Home() {
             .run(setLocalDB)
             .then(() => {
               toggle(true);
-              setIsComplete(true);
             })
             .catch((e) => {
               alert(
