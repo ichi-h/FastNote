@@ -1,6 +1,5 @@
 import router from "next/router";
-import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 import { css } from "styled-jsx/css";
 import firebase from "firebase/app";
 
@@ -8,66 +7,55 @@ import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
 import { startUiAuth } from "../lib/firebase/auth";
-import { SetupDatabase } from "../lib/firebase/database";
-import { localDBState } from "../lib/atoms/localDBAtom";
 import theme from "../lib/theme";
 
 import Loading from "../components/loading";
 
 export default function LandingPage(): JSX.Element {
-  const setLocalDB = useSetRecoilState(localDBState);
   const [isShow, toggle] = useState(false);
 
   useEffect(() => {
-    startUiAuth();
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const setupDB = new SetupDatabase(user.uid);
-        setupDB
-          .run(setLocalDB)
-          .then(() => {
-            router.push("/home");
-          })
-          .catch((e) => {
-            alert(
-              `以下の理由によりデータベースのセットアップができませんでした。 \n${e}`
-            );
-            //router.reload();
-          });
-      }
-    });
+    if (!isShow) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          router.push("/home")
+        } else {
+          toggle(true);
+          startUiAuth();
+        }
+      });
+    }
   });
 
   if (isShow) {
-  return (
-    <>
-      <div className="bg">
-        <div className="login-box">
-          <div className="title">
-            <h1>Fast Note</h1>
-            <h2>素早く、手軽に。いつでも、どこでも。</h2>
+    return (
+      <>
+        <div className="bg">
+          <div className="login-box">
+            <div className="title">
+              <h1>Fast Note</h1>
+              <h2>素早く、手軽に。いつでも、どこでも。</h2>
+            </div>
+  
+            <div className="logo"></div>
+  
+            <div className="explain">
+              <p>
+                Fast Noteは、マークダウン形式でメモが取れるアプリケーションです。
+              </p>
+              <p>
+                取ったメモはクラウド上に保存され、ログインしたどの端末からでも簡単にアクセスできます。
+              </p>
+            </div>
+  
+            <div id="firebaseui-auth-container" />
+            <div id="loader" />
           </div>
-
-          <div className="logo"></div>
-
-          <div className="explain">
-            <p>
-              Fast Noteは、マークダウン形式でメモが取れるアプリケーションです。
-            </p>
-            <p>
-              取ったメモはクラウド上に保存され、ログインしたどの端末からでも簡単にアクセスできます。
-            </p>
-          </div>
-
-          <div id="firebaseui-auth-container" />
-          <div id="loader" />
+  
+          <style jsx>{homeStyle}</style>
         </div>
-
-        <style jsx>{homeStyle}</style>
-      </div>
-    </>
-  );
+      </>
+    );
   } else {
     return <Loading />;
   }
