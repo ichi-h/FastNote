@@ -56,7 +56,7 @@ const memoListStyle = css`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 7vh;
+    height: 6rem;
     cursor: pointer;
   }
 

@@ -126,7 +126,7 @@ const memoListStyle = css`
   .memo-item {
     display: flex;
     flex-direction: column;
-    height: 16vh;
+    height: 12rem;
     margin: 1rem;
     cursor: pointer;
   }
@@ -206,6 +206,10 @@ const memoListStyle = css`
   }
 
   @media screen and (max-width: 550px) {
+    .memo-item {
+      height: 10rem;
+    }
+
     .title {
       font-size: 1.5rem;
       width: 20rem;
