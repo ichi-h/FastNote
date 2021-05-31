@@ -93,6 +93,7 @@ const resizeHandleStyle = () => {
 
           width: ${rect};
           height: calc(${rect} / 3);
+          border: 1px solid ${theme.gray};
           background-color: white;
           transition: 0.1s;
           z-index: 3;

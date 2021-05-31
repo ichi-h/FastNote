@@ -164,7 +164,8 @@ const homeStyle = (posY: number) => {
           bottom: 0;
           height: calc(100% - ${posY}px);
           background-color: white;
-          filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+          border-top: 1px solid ${theme.gray};
+          filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.5));
           z-index: 2;
           transition: 0.1s;
         }
