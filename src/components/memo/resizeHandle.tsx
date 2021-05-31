@@ -10,7 +10,7 @@ export default function ResizeHandle() {
   const [posStatus, setPosStatus] = useState(true);
 
   const homeHeight =
-      document.documentElement.clientHeight - remToPx(theme.topBarHeight);
+    document.documentElement.clientHeight - remToPx(theme.topBarHeight);
 
   const setTop = () => {
     setPosStatus(true);
