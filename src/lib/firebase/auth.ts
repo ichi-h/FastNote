@@ -22,10 +22,10 @@ export async function startUiAuth() {
       // tosUrl and privacyPolicyUrl accept either url string or a callback
       // function.
       // Terms of service url/callback.
-      tosUrl: "/tos.html",
+      tosUrl: "/tos",
       // Privacy policy url/callback.
       privacyPolicyUrl: function () {
-        window.location.assign("/pp.html");
+        window.location.assign("/pp");
       },
     };
 
