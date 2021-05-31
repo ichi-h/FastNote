@@ -9,10 +9,29 @@ export default function ResizeHandle() {
   const setPos = useSetRecoilState(posYState);
   const [posStatus, setPosStatus] = useState(true);
 
+  const homeHeight =
+      document.documentElement.clientHeight - remToPx(theme.topBarHeight);
+
+  const setTop = () => {
+    setPosStatus(true);
+    setPos(homeHeight / 2);
+  };
+
+  const setBottom = () => {
+    setPosStatus(false);
+    setPos(homeHeight);
+  };
+
+  const handleClick = () => {
+    if (posStatus) {
+      setBottom();
+    } else {
+      setTop();
+    }
+  };
+
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const touch = e.changedTouches;
-    const homeHeight =
-      document.documentElement.clientHeight - remToPx(theme.topBarHeight);
 
     if (homeHeight / 2 < touch[0].clientY) {
       setPos(touch[0].clientY);
@@ -21,21 +40,9 @@ export default function ResizeHandle() {
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const touch = e.changedTouches;
-    const homeHeight =
-      document.documentElement.clientHeight - remToPx(theme.topBarHeight);
 
     const topThred = homeHeight / 2 + homeHeight / 2 / 3;
     const bottomThred = homeHeight / 2 + (homeHeight / 2) * (2 / 3);
-
-    const setTop = () => {
-      setPosStatus(true);
-      setPos(homeHeight / 2);
-    };
-
-    const setBottom = () => {
-      setPosStatus(false);
-      setPos(homeHeight);
-    };
 
     if (bottomThred < touch[0].clientY) {
       setBottom();
@@ -55,6 +62,7 @@ export default function ResizeHandle() {
       <div
         className="resize-handle"
         ref={ref}
+        onClick={handleClick}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
