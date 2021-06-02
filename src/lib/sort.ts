@@ -1,3 +1,5 @@
+import { dateInfoToNum } from "./fastNoteDate";
+
 export async function insertionSort(
   localDB: any,
   callback: (localDBStr: string) => void
@@ -8,7 +10,8 @@ export async function insertionSort(
 
       let tmp = Number.MAX_SAFE_INTEGER;
       const sortedKeyList = keys.reduce((sorted, key) => {
-        const updated = Number(localDB.memos[key].updated);
+        const updated = dateInfoToNum(localDB.memos[key].updated);
+
         if (updated <= tmp) {
           tmp = updated;
           sorted = sorted.concat(key);
