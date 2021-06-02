@@ -35,7 +35,6 @@ export default function MemoTags() {
     localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].tags = e.currentTarget.value.split(", ");
     setLocalDB(JSON.stringify(localDB));
-    
   };
 
   return (

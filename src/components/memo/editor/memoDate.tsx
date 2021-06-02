@@ -23,19 +23,21 @@ const displayDate = (dateInfo: DateInfo) => {
       }
     };
 
-    const res = keys[type].reduce((pre, cur) => {
-      pre = pre + sep() + dateInfo[cur];
-      return pre;
-    }, "").slice(1);
+    const res = keys[type]
+      .reduce((pre, cur) => {
+        pre = pre + sep() + dateInfo[cur];
+        return pre;
+      }, "")
+      .slice(1);
 
     return res;
-  }
+  };
 
   const date = convertTo("date");
   const time = convertTo("time");
 
   return `${date} ${time}`;
-}
+};
 
 export default function MemoDate() {
   const memoIndex = useRecoilValue(memoIndexState);

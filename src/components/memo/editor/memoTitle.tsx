@@ -23,7 +23,6 @@ export default function MemoTitle() {
     localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].title = e.currentTarget.value;
     setLocalDB(JSON.stringify(localDB));
-    
   };
 
   return (

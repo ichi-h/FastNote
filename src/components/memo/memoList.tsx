@@ -13,13 +13,19 @@ import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
 import { insertionSort } from "../../lib/sort";
 
-function getSelectedIndex(memos: object, sortedKeys: string[], category: string) {
+function getSelectedIndex(
+  memos: object,
+  sortedKeys: string[],
+  category: string
+) {
   if (memos) {
     if (category === "all") {
       return sortedKeys.map((key) => Number(key));
     }
 
-    const memosKeyList = sortedKeys.filter((key) => memos[key].category === category);
+    const memosKeyList = sortedKeys.filter(
+      (key) => memos[key].category === category
+    );
 
     return memosKeyList.map((i) => Number(i));
   }
@@ -64,7 +70,7 @@ export default function MemoList() {
     const currentDate = new Date();
     const converted = dateInfoToDate(localDB.memos[i].updated);
     return calcDateDiff(currentDate, converted);
-  }
+  };
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const idName = e.currentTarget.id;
@@ -87,9 +93,7 @@ export default function MemoList() {
                 >
                   <div className="item-top">
                     <p className="title">{localDB.memos[i].title}</p>
-                    <p className="update-date">
-                      {displayDate(i)}
-                    </p>
+                    <p className="update-date">{displayDate(i)}</p>
                   </div>
 
                   <div className="item-mid">

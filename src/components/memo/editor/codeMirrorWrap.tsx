@@ -24,10 +24,10 @@ const CodeMirrorWrap = React.memo(() => {
     _editorChange: CodeMirror.EditorChange,
     newContent: string
   ) => {
-      const currentDate = getCurrentDate(new Date());
-      localDB.memos[memoIndex].updated = currentDate;
-      localDB.memos[memoIndex].content = newContent;
-      setLocalDB(JSON.stringify(localDB));
+    const currentDate = getCurrentDate(new Date());
+    localDB.memos[memoIndex].updated = currentDate;
+    localDB.memos[memoIndex].content = newContent;
+    setLocalDB(JSON.stringify(localDB));
   };
 
   return (

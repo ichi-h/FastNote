@@ -8,7 +8,7 @@ export function getCurrentDate(date: Date): DateInfo {
     hours: date.getHours(),
     minutes: date.getMinutes(),
     seconds: date.getSeconds(),
-  }
+  };
 }
 
 export function dateInfoToDate(dateInfo: DateInfo) {
@@ -29,15 +29,12 @@ export function calcDateDiff(currentDate: Date, memoDate: Date) {
 
   if (diff < 60) {
     return `${diff} 秒前`;
-
   } else if (diff < 60 ** 2) {
     const res = Math.floor(diff / 60);
     return `${res} 分前`;
-
   } else if (diff < 60 ** 2 * 24) {
     const res = Math.floor(diff / 60 / 60);
     return `${res} 時間前`;
-
   } else {
     const year = memoDate.getFullYear();
     const month = memoDate.getMonth() + 1;
@@ -49,7 +46,7 @@ export function calcDateDiff(currentDate: Date, memoDate: Date) {
 export function dateInfoToNum(dateInfo: DateInfo) {
   const addZero = (num: number) => {
     if (num < 10) {
-      return `0${num}`
+      return `0${num}`;
     } else {
       return `${num}`;
     }

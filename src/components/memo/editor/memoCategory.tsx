@@ -28,7 +28,6 @@ export default function MemoCategory() {
     localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].category = e.currentTarget.value;
     setLocalDB(JSON.stringify(localDB));
-    
   };
 
   return (
