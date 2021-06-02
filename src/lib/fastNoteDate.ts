@@ -46,28 +46,15 @@ export function calcDateDiff(currentDate: Date, memoDate: Date) {
   }
 }
 
-export function numToStr(numDate: number, cutTime: boolean) {
-  const strDate = String(numDate);
-
-  const slicedStrDate = [
-    strDate.slice(0, 4),
-    strDate.slice(4, 6),
-    strDate.slice(6, 8),
+export function dateInfoToNum(dateInfo: DateInfo) {
+  const list = [
+    dateInfo.year,
+    dateInfo.month + 1,
+    dateInfo.date,
+    dateInfo.hours,
+    dateInfo.minutes,
+    dateInfo.seconds,
   ];
 
-  const slicedStrTime = [
-    strDate.slice(8, 10),
-    strDate.slice(10, 12),
-    strDate.slice(12, 14),
-  ];
-
-  const gluedStrDate = slicedStrDate.reduce((pre, cur) => `${pre}/${cur}`);
-  const gluedStrTime = slicedStrTime.reduce((pre, cur) => `${pre}:${cur}`);
-
-  if (cutTime) return gluedStrDate;
-  else return `${gluedStrDate} - ${gluedStrTime}`;
-}
-
-export function strToNum(strDate: string) {
-  return Number(strDate.replaceAll("/", ""));
+  return Number(list.join(""));
 }
