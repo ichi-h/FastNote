@@ -47,13 +47,21 @@ export function calcDateDiff(currentDate: Date, memoDate: Date) {
 }
 
 export function dateInfoToNum(dateInfo: DateInfo) {
+  const addZero = (num: number) => {
+    if (num < 10) {
+      return `0${num}`
+    } else {
+      return `${num}`;
+    }
+  };
+
   const list = [
-    dateInfo.year,
-    dateInfo.month + 1,
-    dateInfo.date,
-    dateInfo.hours,
-    dateInfo.minutes,
-    dateInfo.seconds,
+    String(dateInfo.year),
+    addZero(dateInfo.month + 1),
+    addZero(dateInfo.date),
+    addZero(dateInfo.hours),
+    addZero(dateInfo.minutes),
+    addZero(dateInfo.seconds),
   ];
 
   return Number(list.join(""));
