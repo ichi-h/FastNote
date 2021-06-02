@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { generalStyle } from "../settingsContent";
 
 export default function AboutApp() {
@@ -31,14 +29,14 @@ export default function AboutApp() {
         </p>
         <p>
           使用規約は{" "}
-          <Link href="/tos">
+          <a href="/tos" target="_blank" rel="noopener noreferrer">
             <span className="link">こちら</span>
-          </Link>{" "}
+          </a>{" "}
           。<br />
           プライバシーポリシーは{" "}
-          <Link href="/pp">
+          <a href="/pp" target="_blank" rel="noopener noreferrer">
             <span className="link">こちら</span>
-          </Link>{" "}
+          </a>{" "}
           。
         </p>
       </div>
