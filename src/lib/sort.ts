@@ -16,14 +16,12 @@ export function insertionSort(localDB: any): string[] {
           for (let i = 0; i < sorted.length; i++) {
             const updated2 = dateInfoToNum(localDB.memos[sorted[i]].updated);
             if (updated2 <= updated) {
-              if (i === 0) return 0;
-              else return i - 1;
+              return i;
             }
           }
         };
         sorted.splice(index(), 0, key);
       }
-
       return sorted;
     }, []);
 
