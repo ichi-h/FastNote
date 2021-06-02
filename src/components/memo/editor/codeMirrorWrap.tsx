@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { FastNoteDate } from "../../../lib/fastNoteDate";
+import { getCurrentDate } from "../../../lib/fastNoteDate";
 import { insertionSort } from "../../../lib/sort";
 
 import "codemirror/lib/codemirror.css";
@@ -31,8 +31,8 @@ const CodeMirrorWrap = React.memo(() => {
       setEditIndex(memoIndex);
     } else {
       // CodeMirrorのテキストが更新された場合
-      const fnd = new FastNoteDate();
-      localDB.memos[memoIndex].updated = fnd.getCurrentDate();
+      const currentDate = getCurrentDate(new Date());
+      localDB.memos[memoIndex].updated = currentDate;
       localDB.memos[memoIndex].content = newContent;
       insertionSort(localDB, setLocalDB);
       if (memoIndex !== "0") {

@@ -1,37 +1,13 @@
-export class FastNoteDate {
-  private currentDate: Date;
+import { DateInfo } from "./databaseInfo";
 
-  public constructor() {
-    this.currentDate = new Date();
-  }
-
-  public getCurrentDate() {
-    const year = this.currentDate.getFullYear();
-    const month = this.currentDate.getMonth() + 1;
-    const date = this.currentDate.getDate();
-    const hour = this.currentDate.getHours();
-    const minute = this.currentDate.getMinutes();
-    const second = this.currentDate.getSeconds();
-
-    const resStr = [
-      this.addZero(year),
-      this.addZero(month),
-      this.addZero(date),
-      this.addZero(hour),
-      this.addZero(minute),
-      this.addZero(second),
-    ];
-
-    const resNumber = Number(resStr.join(""));
-
-    return resNumber;
-  }
-
-  private addZero(num: number) {
-    if (num < 10) {
-      return `0${num}`;
-    }
-    return num;
+export function getCurrentDate(date: Date): DateInfo {
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    date: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds(),
   }
 }
 

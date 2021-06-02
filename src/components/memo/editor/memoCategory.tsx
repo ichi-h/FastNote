@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { FastNoteDate } from "../../../lib/fastNoteDate";
+import { getCurrentDate } from "../../../lib/fastNoteDate";
 import { insertionSort } from "../../../lib/sort";
 
 export default function MemoCategory() {
@@ -24,8 +24,8 @@ export default function MemoCategory() {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const fnd = new FastNoteDate();
-    localDB.memos[memoIndex].updated = fnd.getCurrentDate();
+    const currentDate = getCurrentDate(new Date());
+    localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].category = e.currentTarget.value;
     insertionSort(localDB, setLocalDB);
     setIndex("0");

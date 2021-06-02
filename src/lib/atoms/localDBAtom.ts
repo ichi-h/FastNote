@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
-import { FastNoteDate } from "../fastNoteDate";
+import { getCurrentDate } from "../fastNoteDate";
 
 const localDBOriginState = atom({
   key: "localDBOriginState",
@@ -87,8 +87,8 @@ export const localDBState = selector({
   set: ({ set }, inputValue: string) => {
     let localDB = JSON.parse(inputValue);
 
-    const fnd = new FastNoteDate();
-    localDB.lastUpdated = fnd.getCurrentDate();
+    const currentDate = getCurrentDate(new Date());
+    localDB.lastUpdated = currentDate;
 
     set(localDBOriginState, JSON.stringify(localDB));
   },

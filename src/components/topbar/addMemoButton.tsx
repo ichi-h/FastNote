@@ -2,7 +2,7 @@ import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { Memo } from "../../lib/databaseInfo";
-import { FastNoteDate } from "../../lib/fastNoteDate";
+import { getCurrentDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { trashboxState, urlState } from "../../lib/atoms/uiAtoms";
@@ -18,7 +18,7 @@ export default function AddMemoButton() {
     let localDB = JSON.parse(localDBStr);
 
     const handleClick = () => {
-      const fnd = new FastNoteDate();
+      const currentDate = getCurrentDate(new Date());
 
       const newMemo: Memo = {
         title: "新しいメモ",
@@ -26,8 +26,8 @@ export default function AddMemoButton() {
         tags: [""],
         star: false,
         trash: false,
-        created: fnd.getCurrentDate(),
-        updated: fnd.getCurrentDate(),
+        created: currentDate,
+        updated: currentDate,
         content: "",
       };
 
