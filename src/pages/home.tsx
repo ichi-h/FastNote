@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import router from "next/router";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import firebase from "firebase/app";
 
 import "firebase/auth";
 
 import theme from "../lib/theme";
-import { openNavbarState, posYState } from "../lib/atoms/uiAtoms";
+import { posYState } from "../lib/atoms/uiAtoms";
 import { localDBState } from "../lib/atoms/localDBAtom";
 import { SetupDatabase } from "../lib/firebase/database";
 
 import TopBar from "../components/topbar";
+import BlackCover from "../components/blackCover";
 import MemoList from "../components/memo/memoList";
 import Editor from "../components/memo/editor";
 import SettingsList from "../components/settings/settingsList";
@@ -19,21 +20,6 @@ import SettingsContent from "../components/settings/settingsContent";
 import ResizeHandle from "../components/memo/resizeHandle";
 import Navbar from "../components/navbar";
 import Loading from "../components/loading";
-
-function BlackCover() {
-  const [checked, toggleCheck] = useRecoilState(openNavbarState);
-
-  const handleClick = () => {
-    toggleCheck(!checked);
-  };
-
-  return (
-    <>
-      <div className="black-cover" onClick={handleClick} />
-      {blackCoverStyle(checked)}
-    </>
-  );
-}
 
 function ListContent() {
   if (window.matchMedia("(max-width: 1050px)").matches) {
@@ -176,34 +162,6 @@ const homeStyle = (posY: number) => {
           height: 100%;
           z-index: 1;
         }
-      }
-    `}</style>
-  );
-};
-
-const blackCoverStyle = (checked: boolean) => {
-  const whenOpenNavbar = (bool: boolean) => {
-    if (bool) return ["0.5", "visible"];
-    else return ["0", "hidden"];
-  };
-
-  const [opacity, visibility] = whenOpenNavbar(checked);
-
-  return (
-    <style jsx>{`
-      .black-cover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: black;
-        width: 100%;
-        height: 100%;
-        transition: 0.3s;
-        cursor: pointer;
-        z-index: 100;
-
-        opacity: ${opacity};
-        visibility: ${visibility};
       }
     `}</style>
   );
