@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
-import { numToStr } from "../../lib/fastNoteDate";
+import { dateInfoToDate, calcDateDiff } from "../../lib/fastNoteDate";
 import theme from "../../lib/theme";
 
 import Tags from "./memoList/tags";
@@ -60,6 +60,12 @@ export default function MemoList() {
     }
   };
 
+  const displayDate = (i: number): string => {
+    const currentDate = new Date();
+    const converted = dateInfoToDate(localDB.memos[i].updated);
+    return calcDateDiff(currentDate, converted);
+  }
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const idName = e.currentTarget.id;
     const targetIndex = idName.replace("memo-item-", "");
@@ -83,7 +89,7 @@ export default function MemoList() {
                   <div className="item-top">
                     <p className="title">{localDB.memos[i].title}</p>
                     <p className="update-date">
-                      {numToStr(localDB.memos[i].updated, false)}
+                      {displayDate(i)}
                     </p>
                   </div>
 
