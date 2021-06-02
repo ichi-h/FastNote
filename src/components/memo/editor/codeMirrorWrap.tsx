@@ -17,8 +17,6 @@ const CodeMirrorWrap = React.memo(() => {
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
   let localDB = JSON.parse(localDBStr);
 
-  const [editIndex, setEditIndex] = useState(memoIndex);
-
   let content = localDB.memos[memoIndex].content;
 
   const handleChangeContent = (
@@ -26,16 +24,10 @@ const CodeMirrorWrap = React.memo(() => {
     _editorChange: CodeMirror.EditorChange,
     newContent: string
   ) => {
-    if (editIndex !== memoIndex) {
-      // 選択中のメモが変更されてCodeMirror内のテキストが変わった場合
-      setEditIndex(memoIndex);
-    } else {
-      // CodeMirrorのテキストが更新された場合
       const currentDate = getCurrentDate(new Date());
       localDB.memos[memoIndex].updated = currentDate;
       localDB.memos[memoIndex].content = newContent;
       setLocalDB(JSON.stringify(localDB));
-    }
   };
 
   return (
