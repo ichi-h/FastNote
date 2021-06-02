@@ -11,6 +11,17 @@ export function getCurrentDate(date: Date): DateInfo {
   }
 }
 
+export function dateInfoToDate(dateInfo: DateInfo) {
+  return new Date(
+    dateInfo.year,
+    dateInfo.month,
+    dateInfo.date,
+    dateInfo.hours,
+    dateInfo.minutes,
+    dateInfo.seconds
+  );
+}
+
 export function numToStr(numDate: number, cutTime: boolean) {
   const strDate = String(numDate);
 
