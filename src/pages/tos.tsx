@@ -3,8 +3,6 @@ import router from "next/router";
 import { tosPPStyle } from "../styles/tos_pp.style";
 
 export default function ToS() {
-  const handleClick = () => router.back();
-
   return (
     <>
       <Head>
@@ -185,9 +183,6 @@ export default function ToS() {
             初出掲載：2021 年 5 月 22 日<br />
             最終更新：2021 年 6 月 1 日
           </p>
-          <div className="back-button">
-            <button onClick={handleClick}>前のページへ戻る</button>
-          </div>
         </div>
       </div>
 

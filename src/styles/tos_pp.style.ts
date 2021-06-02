@@ -22,16 +22,6 @@ export const tosPPStyle = css`
     margin: 5rem;
   }
 
-  .back-button {
-    text-align: center;
-  }
-
-  button {
-    color: ${theme.subColor};
-    font-size: 1.5rem;
-    text-decoration: underline;
-  }
-
   h1 {
     text-align: center;
     font-size: 3rem;
@@ -82,10 +72,6 @@ export const tosPPStyle = css`
     ul,
     ol {
       margin-left: 3rem;
-    }
-
-    button {
-      font-size: 1rem;
     }
   }
 `;
