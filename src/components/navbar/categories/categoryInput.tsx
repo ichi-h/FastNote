@@ -36,7 +36,7 @@ export default function CategoryInput() {
         }, {});
 
         localDB.categories = categoryObj;
-        insertionSort(localDB, setLocalDB);
+        setLocalDB(JSON.stringify(localDB));
       }
 
       toggleIsShow(false);

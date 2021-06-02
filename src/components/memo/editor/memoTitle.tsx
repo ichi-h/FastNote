@@ -22,8 +22,8 @@ export default function MemoTitle() {
     const currentDate = getCurrentDate(new Date());
     localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].title = e.currentTarget.value;
-    insertionSort(localDB, setLocalDB);
-    setIndex("0");
+    setLocalDB(JSON.stringify(localDB));
+    
   };
 
   return (

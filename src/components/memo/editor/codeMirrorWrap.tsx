@@ -34,10 +34,7 @@ const CodeMirrorWrap = React.memo(() => {
       const currentDate = getCurrentDate(new Date());
       localDB.memos[memoIndex].updated = currentDate;
       localDB.memos[memoIndex].content = newContent;
-      insertionSort(localDB, setLocalDB);
-      if (memoIndex !== "0") {
-        setIndex("0");
-      }
+      setLocalDB(JSON.stringify(localDB));
     }
   };
 

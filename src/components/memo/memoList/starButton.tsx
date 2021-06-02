@@ -15,7 +15,7 @@ export default function StarButton(props: { index: number }) {
   const handleChange = () => {
     toggle(!checked);
     localDB.memos[props.index].star = !checked;
-    insertionSort(localDB, setLocalDB);
+    setLocalDB(JSON.stringify(localDB));
   };
 
   return (

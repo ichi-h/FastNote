@@ -32,7 +32,7 @@ export default function PulldownMenu(props: PulldownMenuProps) {
         case "renameCategory":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             cur.handler({ localDB: localDB, e: e }).then(() => {
-              insertionSort(localDB, setLocalDB);
+              setLocalDB(JSON.stringify(localDB));
               props.dispatch(false);
             });
           };
@@ -42,7 +42,7 @@ export default function PulldownMenu(props: PulldownMenuProps) {
             cur
               .handler({ localDB: localDB, e: e, setIndex: setIndex })
               .then(() => {
-                insertionSort(localDB, setLocalDB);
+                setLocalDB(JSON.stringify(localDB));
                 props.dispatch(false);
               });
           };

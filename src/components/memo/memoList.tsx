@@ -11,16 +11,15 @@ import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
+import { insertionSort } from "../../lib/sort";
 
-function getSelectedIndex(memos: object, category: string) {
+function getSelectedIndex(memos: object, sortedKeys: string[], category: string) {
   if (memos) {
-    const keys = Object.keys(memos);
-
     if (category === "all") {
-      return Object.keys(memos).map((value) => Number(value));
+      return sortedKeys.map((key) => Number(key));
     }
 
-    const memosKeyList = keys.filter((key) => memos[key].category === category);
+    const memosKeyList = sortedKeys.filter((key) => memos[key].category === category);
 
     return memosKeyList.map((i) => Number(i));
   }
@@ -43,7 +42,8 @@ export default function MemoList() {
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
-  const index = getSelectedIndex(localDB.memos, currentCategory);
+  const sortedKeys = insertionSort(localDB);
+  const index = getSelectedIndex(localDB.memos, sortedKeys, currentCategory);
 
   const funcType: (trashbox: boolean) => FuncType = () => {
     switch (trashbox) {
@@ -69,7 +69,6 @@ export default function MemoList() {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const idName = e.currentTarget.id;
     const targetIndex = idName.replace("memo-item-", "");
-
     setMemoIndex(targetIndex);
   };
 

@@ -34,8 +34,8 @@ export default function MemoTags() {
     const currentDate = getCurrentDate(new Date());
     localDB.memos[memoIndex].updated = currentDate;
     localDB.memos[memoIndex].tags = e.currentTarget.value.split(", ");
-    insertionSort(localDB, setLocalDB);
-    setIndex("0");
+    setLocalDB(JSON.stringify(localDB));
+    
   };
 
   return (

@@ -36,7 +36,7 @@ export default function TrashRevertButton(props: {
   const handleClick = () => {
     setIndex("-1");
     localDB.memos[props.index].trash = trashAtr(props.func);
-    insertionSort(localDB, setLocalDB);
+    setLocalDB(JSON.stringify(localDB));
   };
 
   return (

@@ -20,7 +20,7 @@ export default function DeleteButton(props: { index: number }) {
     };
 
     const updateLocalDB = async () => {
-      insertionSort(localDB, setLocalDB);
+      setLocalDB(JSON.stringify(localDB));
     };
 
     const process = async () => {

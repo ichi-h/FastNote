@@ -54,8 +54,8 @@ export default function AddMemoButton() {
 
       localDB.memos[newIndex] = newMemo;
 
-      insertionSort(localDB, setLocalDB);
-      setIndex("0");
+      setLocalDB(JSON.stringify(localDB));
+      setIndex(newIndex);
     };
 
     return (
