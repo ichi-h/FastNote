@@ -3,7 +3,39 @@ import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { numToStr } from "../../../lib/fastNoteDate";
+import { DateInfo } from "../../../lib/databaseInfo";
+
+const displayDate = (dateInfo: DateInfo) => {
+  dateInfo.month += 1;
+
+  const keys = {
+    date: ["year", "month", "date"],
+    time: ["hours", "minutes", "seconds"],
+  };
+
+  const convertTo = (type: "date" | "time") => {
+    const sep = () => {
+      switch (type) {
+        case "date":
+          return "/";
+        case "time":
+          return ":";
+      }
+    };
+
+    const res = keys[type].reduce((pre, cur) => {
+      pre = pre + sep() + dateInfo[cur];
+      return pre;
+    }, "").slice(1);
+
+    return res;
+  }
+
+  const date = convertTo("date");
+  const time = convertTo("time");
+
+  return `${date} ${time}`;
+}
 
 export default function MemoDate() {
   const memoIndex = useRecoilValue(memoIndexState);
@@ -16,10 +48,10 @@ export default function MemoDate() {
     <>
       <div className="memo-date">
         <p>
-          <i className="icon-calendar" />: {numToStr(Number(created), false)}
+          <i className="icon-calendar" />: {displayDate(created)}
         </p>
         <p>
-          <i className="icon-arrows-cw" />: {numToStr(Number(updated), false)}
+          <i className="icon-arrows-cw" />: {displayDate(updated)}
         </p>
       </div>
 
