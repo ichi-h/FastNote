@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
@@ -11,7 +11,7 @@ import "codemirror/theme/neat.css";
 import "codemirror/mode/markdown/markdown";
 
 const CodeMirrorWrap = React.memo(() => {
-  const [memoIndex, setIndex] = useRecoilState(memoIndexState);
+  const memoIndex = useRecoilValue(memoIndexState);
 
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
   let localDB = JSON.parse(localDBStr);

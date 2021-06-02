@@ -1,13 +1,13 @@
 import { useRef, useEffect } from "react";
 import { css } from "styled-jsx/css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { getCurrentDate } from "../../../lib/fastNoteDate";
 
 export default function MemoCategory() {
-  const [memoIndex, setIndex] = useRecoilState(memoIndexState);
+  const memoIndex = useRecoilValue(memoIndexState);
   const selectRef: React.LegacyRef<HTMLSelectElement> = useRef();
 
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
