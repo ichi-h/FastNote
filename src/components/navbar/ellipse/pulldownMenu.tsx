@@ -5,7 +5,6 @@ import { css } from "styled-jsx/css";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { EllipsisButtonProps } from "./ellipsisButton";
-import { insertionSort } from "../../../lib/sort";
 
 interface PulldownMenuProps extends EllipsisButtonProps {
   dispatch: React.Dispatch<React.SetStateAction<boolean>>;

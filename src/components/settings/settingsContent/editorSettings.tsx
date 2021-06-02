@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 
 import { generalStyle } from "../settingsContent";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { insertionSort } from "../../../lib/sort";
 
 const FontSize = React.memo(() => {
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);

@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { insertionSort } from "../../../lib/sort";
 import theme from "../../../lib/theme";
 
 export default function StarButton(props: { index: number }) {

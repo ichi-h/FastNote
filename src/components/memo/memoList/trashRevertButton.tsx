@@ -3,7 +3,6 @@ import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
-import { insertionSort } from "../../../lib/sort";
 
 export type FuncType = "trash" | "revert";
 

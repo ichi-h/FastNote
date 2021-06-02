@@ -6,7 +6,6 @@ import { getCurrentDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { trashboxState, urlState } from "../../lib/atoms/uiAtoms";
-import { insertionSort } from "../../lib/sort";
 
 export default function AddMemoButton() {
   const trashbox = useRecoilValue(trashboxState);

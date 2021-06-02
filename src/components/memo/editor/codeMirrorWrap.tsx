@@ -5,7 +5,6 @@ import { useRecoilState } from "recoil";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { getCurrentDate } from "../../../lib/fastNoteDate";
-import { insertionSort } from "../../../lib/sort";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neat.css";
