@@ -84,10 +84,6 @@ export class SetupDatabase {
           },
         ],
         categories: ["FastNote", "None"],
-        settings: {
-          theme: "",
-          font: "",
-        },
         lastUpdated: currentDate,
       };
 

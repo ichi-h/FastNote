@@ -18,14 +18,8 @@ export interface Memo {
   content: string;
 }
 
-export interface Settings {
-  theme: string;
-  font: string;
-}
-
 export interface DatabaseInfo {
   memos: Memo[];
   categories: string[];
-  settings: Settings;
   lastUpdated: DateInfo;
 }
