@@ -1,6 +1,6 @@
 import { dateInfoToNum } from "./fastNoteDate";
 
-export function insertionSort(localDB: any): string[] {
+export function getSortedKeys(localDB: any): string[] {
   if (localDB.memos) {
     const keys = Object.keys(localDB.memos);
 

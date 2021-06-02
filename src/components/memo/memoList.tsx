@@ -11,7 +11,7 @@ import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
-import { insertionSort } from "../../lib/sort";
+import { getSortedKeys } from "../../lib/sort";
 
 function getSelectedIndex(
   memos: object,
@@ -48,7 +48,7 @@ export default function MemoList() {
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
-  const sortedKeys = insertionSort(localDB);
+  const sortedKeys = getSortedKeys(localDB);
   const index = getSelectedIndex(localDB.memos, sortedKeys, currentCategory);
 
   const funcType: (trashbox: boolean) => FuncType = () => {
