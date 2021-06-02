@@ -22,6 +22,30 @@ export function dateInfoToDate(dateInfo: DateInfo) {
   );
 }
 
+export function calcDateDiff(currentDate: Date, memoDate: Date) {
+  const currentTime = Math.floor(currentDate.getTime() / 1000);
+  const memoTime = Math.floor(memoDate.getTime() / 1000);
+  const diff = currentTime - memoTime;
+
+  if (diff < 60) {
+    return `${diff} 秒前`;
+
+  } else if (diff < 60 ** 2) {
+    const res = Math.floor(diff / 60);
+    return `${res} 分前`;
+
+  } else if (diff < 60 ** 2 * 24) {
+    const res = Math.floor(diff / 60 / 60);
+    return `${res} 時間前`;
+
+  } else {
+    const year = memoDate.getFullYear();
+    const month = memoDate.getMonth() + 1;
+    const date = memoDate.getDate();
+    return `${year}/${month}/${date}`;
+  }
+}
+
 export function numToStr(numDate: number, cutTime: boolean) {
   const strDate = String(numDate);
 
