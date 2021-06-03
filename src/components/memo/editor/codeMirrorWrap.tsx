@@ -42,6 +42,8 @@ const CodeMirrorWrap = React.memo(() => {
             lineWrapping: true,
             extraKeys: {
               "Enter": "newlineAndIndentContinueMarkdownList",
+              "Tab": (cm) => cm.execCommand("indentMore"),
+              "Shift-Tab": (cm) => cm.execCommand("indentLess"),
             }
           }}
           onBeforeChange={handleChangeContent}
