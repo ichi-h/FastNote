@@ -4,20 +4,40 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
+import { searchKeywordState, posPairsState, getMarkerPos } from "../../../lib/atoms/searchAtom"
 import { getCurrentDate } from "../../../lib/fastNoteDate";
+import theme from "../../../lib/theme";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neat.css";
 import "codemirror/mode/gfm/gfm";
 import "codemirror/addon/edit/continuelist";
+import "codemirror/addon/selection/mark-selection";
 
 const CodeMirrorWrap = React.memo(() => {
   const memoIndex = useRecoilValue(memoIndexState);
-
+  const keyword = useRecoilValue(searchKeywordState);
+  const [posPairs, setPosPairs] = useRecoilState(posPairsState);
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
-  let localDB = JSON.parse(localDBStr);
 
+  let localDB = JSON.parse(localDBStr);
   let content = localDB.memos[memoIndex].content;
+
+  const markKeyword = (editor: CodeMirror.Editor) => {
+    posPairs.forEach((pos) => {
+      editor.markText(pos.start, pos.end).clear();
+    });
+
+    const newPosPairs = getMarkerPos(keyword, content);
+    newPosPairs.forEach((pos) => {
+      editor.markText(pos.start, pos.end, {
+        className: "marked",
+        css: `background-color: ${theme.subColor};`,
+      });
+    });
+
+    setPosPairs(newPosPairs);
+  };
 
   const handleChangeContent = (
     _editor: CodeMirror.Editor,
@@ -40,6 +60,7 @@ const CodeMirrorWrap = React.memo(() => {
             theme: "neat",
             lineNumbers: false,
             lineWrapping: true,
+            styleSelectedText: true,
             extraKeys: {
               "Enter": "newlineAndIndentContinueMarkdownList",
               "Tab": (cm) => cm.execCommand("indentMore"),
@@ -47,6 +68,7 @@ const CodeMirrorWrap = React.memo(() => {
             }
           }}
           onBeforeChange={handleChangeContent}
+          onChange={markKeyword}
         />
       </div>
 
