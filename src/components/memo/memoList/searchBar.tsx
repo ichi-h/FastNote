@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { css } from 'styled-jsx/css';
 
-import { searchKeywordState } from '../../../lib/atoms/uiAtoms';
+import { searchKeywordState } from '../../../lib/atoms/searchAtom';
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useRecoilState(searchKeywordState);
