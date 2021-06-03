@@ -8,7 +8,7 @@ import { getCurrentDate } from "../../../lib/fastNoteDate";
 
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neat.css";
-import "codemirror/mode/markdown/markdown";
+import "codemirror/mode/gfm/gfm";
 import "codemirror/addon/edit/continuelist";
 
 const CodeMirrorWrap = React.memo(() => {
@@ -36,7 +36,7 @@ const CodeMirrorWrap = React.memo(() => {
         <CodeMirror
           value={content}
           options={{
-            mode: "markdown",
+            mode: "gfm",
             theme: "neat",
             lineNumbers: false,
             lineWrapping: true,
