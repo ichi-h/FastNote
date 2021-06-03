@@ -53,3 +53,9 @@ export const posYState = selector<number>({
   },
   set: ({ set }, input) => set(posYOriginState, input),
 });
+
+// 検索するキーワード
+export const searchKeywordState = atom({
+  key: "searchKeywordState",
+  default: "",
+});
