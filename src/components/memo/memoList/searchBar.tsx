@@ -12,15 +12,18 @@ export default function SearchBar() {
 
   return (
     <>
-      <div className='searchbar'>
+      <div className="searchbar">
         <input
           type="text"
           name="search"
+          className="textbox"
           placeholder="メモを検索"
           defaultValue={keyword}
           onChange={handleChange}
         />
       </div>
+
+      <hr />
 
       <style jsx>{SearchBarStyle}</style>
     </>
@@ -28,5 +31,13 @@ export default function SearchBar() {
 }
 
 const SearchBarStyle = css`
-  .searchbar {}
+  .searchbar {
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+  }
+
+  .textbox {
+    width: 100%;
+  }
 `;

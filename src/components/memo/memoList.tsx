@@ -5,13 +5,14 @@ import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { dateInfoToDate, calcDateDiff } from "../../lib/fastNoteDate";
+import { getSortedKeys } from "../../lib/sort";
 import theme from "../../lib/theme";
 
 import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
-import { getSortedKeys } from "../../lib/sort";
+import SearchBar from "./memoList/searchBar";
 
 function getSelectedIndex(
   memos: object,
@@ -81,6 +82,10 @@ export default function MemoList() {
   return (
     <>
       <div className="memo-list">
+        <div>
+          <SearchBar />
+        </div>
+
         {index.map((i) => {
           if (localDB.memos[i].trash === trashbox) {
             return (
@@ -128,9 +133,16 @@ export default function MemoList() {
 
 const memoListStyle = css`
   .memo-list {
+    width: 100%;
     height: 100%;
     overflow-y: scroll;
     user-select: none;
+  }
+
+  .memo-list > div:first-child {
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .memo-item {
