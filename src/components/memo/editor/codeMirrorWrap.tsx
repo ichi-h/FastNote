@@ -9,6 +9,7 @@ import { getCurrentDate } from "../../../lib/fastNoteDate";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/neat.css";
 import "codemirror/mode/markdown/markdown";
+import "codemirror/addon/edit/continuelist";
 
 const CodeMirrorWrap = React.memo(() => {
   const memoIndex = useRecoilValue(memoIndexState);
@@ -39,6 +40,9 @@ const CodeMirrorWrap = React.memo(() => {
             theme: "neat",
             lineNumbers: false,
             lineWrapping: true,
+            extraKeys: {
+              "Enter": "newlineAndIndentContinueMarkdownList",
+            }
           }}
           onBeforeChange={handleChangeContent}
         />
