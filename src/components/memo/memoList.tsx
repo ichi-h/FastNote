@@ -1,7 +1,11 @@
 import { css } from "styled-jsx/css";
 import { useRecoilValue, useRecoilState } from "recoil";
 
-import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
+import {
+  currentCategoryState,
+  starState,
+  trashboxState,
+} from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
 import { searchKeywordState } from "../../lib/atoms/searchAtom";
@@ -33,7 +37,8 @@ function getSelectedIndex(
   memos: object,
   sortedKeys: string[],
   category: string,
-  keyword: string
+  keyword: string,
+  star: boolean
 ) {
   if (!memos) {
     return [];
@@ -60,15 +65,22 @@ function getSelectedIndex(
       return keys;
     }
 
-    return keys.filter(
-      (key) => memos[key].category === category
-    );
+    return keys.filter((key) => memos[key].category === category);
+  };
+
+  const narrowWithStar = (keys: string[]): string[] => {
+    if (!star) {
+      return keys;
+    }
+
+    return keys.filter((key) => memos[key].star);
   };
 
   const withKeyword = narrowWithKeyword(sortedKeys);
   const withCat = narrowWithCat(withKeyword);
+  const withStar = narrowWithStar(withCat);
 
-  return withCat.map((i) => Number(i));
+  return withStar.map((i) => Number(i));
 }
 
 function starOrDel(trashbox: boolean, index: number) {
@@ -82,13 +94,20 @@ function starOrDel(trashbox: boolean, index: number) {
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const trashbox = useRecoilValue(trashboxState);
+  const star = useRecoilValue(starState);
   const keyword = useRecoilValue(searchKeywordState);
   const [memoIndex, setMemoIndex] = useRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
   const sortedKeys = getSortedKeys(localDB);
-  const index = getSelectedIndex(localDB.memos, sortedKeys, currentCategory, keyword);
+  const index = getSelectedIndex(
+    localDB.memos,
+    sortedKeys,
+    currentCategory,
+    keyword,
+    star
+  );
 
   const funcType: (trashbox: boolean) => FuncType = () => {
     switch (trashbox) {
