@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { searchKeywordState } from "../../../lib/atoms/searchAtom"
+import { searchKeywordState } from "../../../lib/atoms/searchAtom";
 import { getCurrentDate } from "../../../lib/fastNoteDate";
 import theme from "../../../lib/theme";
 
@@ -46,10 +46,10 @@ const CodeMirrorWrap = React.memo(() => {
             lineWrapping: true,
             styleSelectedText: true,
             extraKeys: {
-              "Enter": "newlineAndIndentContinueMarkdownList",
-              "Tab": (cm) => cm.execCommand("indentMore"),
+              Enter: "newlineAndIndentContinueMarkdownList",
+              Tab: (cm) => cm.execCommand("indentMore"),
               "Shift-Tab": (cm) => cm.execCommand("indentLess"),
-            }
+            },
           }}
           onBeforeChange={handleChangeContent}
         />
@@ -57,10 +57,10 @@ const CodeMirrorWrap = React.memo(() => {
 
       {codeMirrorWrapStyle(localStorage.getItem("fontSize"))}
       <style jsx global={true}>{`
-      .CodeMirror-marked {
-        background-color: ${theme.subColor};
-      }
-    `}</style>
+        .CodeMirror-marked {
+          background-color: ${theme.subColor};
+        }
+      `}</style>
     </>
   );
 });
