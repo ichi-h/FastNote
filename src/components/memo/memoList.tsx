@@ -4,6 +4,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { currentCategoryState, trashboxState } from "../../lib/atoms/uiAtoms";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
+import { searchKeywordState } from "../../lib/atoms/searchAtom";
 import { dateInfoToDate, calcDateDiff } from "../../lib/fastNoteDate";
 import { getSortedKeys } from "../../lib/sort";
 import theme from "../../lib/theme";
@@ -14,24 +15,60 @@ import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
 import SearchBar from "./memoList/searchBar";
 
+function joinObjectValues(obj: object): string {
+  const res = Object.values(obj).reduce((pre: string, value) => {
+    if (typeof value === "object") {
+      const valueStr = joinObjectValues(value);
+      pre = pre.concat(valueStr);
+    } else {
+      pre = pre.concat(value);
+    }
+    return pre;
+  }, "");
+
+  return res;
+}
+
 function getSelectedIndex(
   memos: object,
   sortedKeys: string[],
-  category: string
+  category: string,
+  keyword: string
 ) {
-  if (memos) {
-    if (category === "all") {
-      return sortedKeys.map((key) => Number(key));
-    }
-
-    const memosKeyList = sortedKeys.filter(
-      (key) => memos[key].category === category
-    );
-
-    return memosKeyList.map((i) => Number(i));
+  if (!memos) {
+    return [];
   }
 
-  return [];
+  const narrowWithKeyword = (keys: string[]): string[] => {
+    if (keyword === "") {
+      return keys;
+    }
+
+    return keys.filter((key) => {
+      const target = [
+        memos[key].title,
+        memos[key].category,
+        joinObjectValues(memos[key].tags),
+        memos[key].content,
+      ].join("");
+      return target.includes(keyword);
+    });
+  };
+
+  const narrowWithCat = (keys: string[]): string[] => {
+    if (category === "all") {
+      return keys;
+    }
+
+    return keys.filter(
+      (key) => memos[key].category === category
+    );
+  };
+
+  const withKeyword = narrowWithKeyword(sortedKeys);
+  const withCat = narrowWithCat(withKeyword);
+
+  return withCat.map((i) => Number(i));
 }
 
 function starOrDel(trashbox: boolean, index: number) {
@@ -45,12 +82,13 @@ function starOrDel(trashbox: boolean, index: number) {
 export default function MemoList() {
   const currentCategory = useRecoilValue(currentCategoryState);
   const trashbox = useRecoilValue(trashboxState);
+  const keyword = useRecoilValue(searchKeywordState);
   const [memoIndex, setMemoIndex] = useRecoilState(memoIndexState);
 
   const localDB = JSON.parse(useRecoilValue(localDBState));
 
   const sortedKeys = getSortedKeys(localDB);
-  const index = getSelectedIndex(localDB.memos, sortedKeys, currentCategory);
+  const index = getSelectedIndex(localDB.memos, sortedKeys, currentCategory, keyword);
 
   const funcType: (trashbox: boolean) => FuncType = () => {
     switch (trashbox) {
