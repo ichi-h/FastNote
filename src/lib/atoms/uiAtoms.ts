@@ -24,6 +24,12 @@ export const trashboxState = atom({
   default: false,
 });
 
+// starのみを表示するか否か
+export const starState = atom({
+  key: "starState",
+  default: false,
+});
+
 // 新規カテゴリーが追加状態であるか否か
 export const categoryInputState = atom({
   key: "categoryInputState",
