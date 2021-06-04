@@ -4642,10 +4642,9 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-codemirror2@^7.2.1:
+"react-codemirror2@git+https://github.com/ippee/react-codemirror2.git":
   version "7.2.1"
-  resolved "https://registry.yarnpkg.com/react-codemirror2/-/react-codemirror2-7.2.1.tgz#38dab492fcbe5fb8ebf5630e5bb7922db8d3a10c"
-  integrity sha512-t7YFmz1AXdlImgHXA9Ja0T6AWuopilub24jRaQdPVbzUJVNKIYuy3uCFZYa7CE5S3UW6SrSa5nAqVQvtzRF9gw==
+  resolved "git+https://github.com/ippee/react-codemirror2.git#8e88c4a99323edf6b4318df2aaf0c9e79e86a9d4"
 
 react-dom@17.0.2:
   version "17.0.2"
