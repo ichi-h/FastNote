@@ -12,76 +12,13 @@ import { searchKeywordState } from "../../lib/atoms/searchAtom";
 import { dateInfoToDate, calcDateDiff } from "../../lib/fastNoteDate";
 import { getSortedKeys } from "../../lib/sort";
 import theme from "../../lib/theme";
+import { getSelectedIndex } from "./memoList/util";
 
 import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
 import StarButton from "./memoList/starButton";
 import DeleteButton from "./memoList/deleteButton";
 import SearchBar from "./memoList/searchBar";
-
-function joinObjectValues(obj: object): string {
-  const res = Object.values(obj).reduce((pre: string, value) => {
-    if (typeof value === "object") {
-      const valueStr = joinObjectValues(value);
-      pre = pre.concat(valueStr);
-    } else {
-      pre = pre.concat(value);
-    }
-    return pre;
-  }, "");
-
-  return res;
-}
-
-function getSelectedIndex(
-  memos: object,
-  sortedKeys: string[],
-  category: string,
-  keyword: string,
-  star: boolean
-) {
-  if (!memos) {
-    return [];
-  }
-
-  const narrowWithKeyword = (keys: string[]): string[] => {
-    if (keyword === "") {
-      return keys;
-    }
-
-    return keys.filter((key) => {
-      const target = [
-        memos[key].title,
-        memos[key].category,
-        joinObjectValues(memos[key].tags),
-        memos[key].content,
-      ].join("");
-      return target.includes(keyword);
-    });
-  };
-
-  const narrowWithCat = (keys: string[]): string[] => {
-    if (category === "all") {
-      return keys;
-    }
-
-    return keys.filter((key) => memos[key].category === category);
-  };
-
-  const narrowWithStar = (keys: string[]): string[] => {
-    if (!star) {
-      return keys;
-    }
-
-    return keys.filter((key) => memos[key].star);
-  };
-
-  const withKeyword = narrowWithKeyword(sortedKeys);
-  const withCat = narrowWithCat(withKeyword);
-  const withStar = narrowWithStar(withCat);
-
-  return withStar.map((i) => Number(i));
-}
 
 function starOrDel(trashbox: boolean, index: number) {
   if (trashbox) {
