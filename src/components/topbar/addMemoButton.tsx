@@ -51,7 +51,13 @@ export default function AddMemoButton() {
 
       const newIndex = getNewIndex(keys());
 
-      localDB.memos[newIndex] = newMemo;
+      if (localDB["memos"]) {
+        localDB.memos[newIndex] = newMemo;
+      } else {
+        localDB["memos"] = {
+          "0": newMemo,
+        };
+      }
 
       setLocalDB(JSON.stringify(localDB));
       setIndex(newIndex);

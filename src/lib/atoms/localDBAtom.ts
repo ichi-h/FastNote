@@ -70,7 +70,16 @@ const localDBOriginState = atom({
         };
 
         process().catch((e) => {
-          if (e !== "データベースの更新は続行") {
+          if (e.message === "Cannot read property 'constructor' of undefined") {
+            const uid = firebase.auth().currentUser.uid;
+            firebase
+              .database()
+              .ref(`users/${uid}`)
+              .set(localDB)
+              .catch((e) => {
+                alert(`データベース更新中にエラーが発生しました。 \n${e}`);
+              });
+          } else if (e !== "データベースの更新は続行") {
             alert(`データベース更新中にエラーが発生しました。 \n${e}`);
           }
         });
