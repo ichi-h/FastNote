@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { css } from "styled-jsx/css";
 
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import theme from "../../../lib/theme";
+
+import StarCheckbox from "./starCheckbox";
 
 export default function StarButton(props: { index: number }) {
   const [localDBStr, setLocalDB] = useRecoilState(localDBState);
@@ -18,39 +18,11 @@ export default function StarButton(props: { index: number }) {
   };
 
   return (
-    <>
-      <label className="star-button" htmlFor={`star-${props.index}`}>
-        <input
-          type="checkbox"
-          className={`star`}
-          name="star"
-          id={`star-${props.index}`}
-          defaultChecked={checked}
-          onChange={handleChange}
-        />
-        <i className="icon-star" />
-      </label>
-
-      <style jsx>{starButtonStyle}</style>
-    </>
+    <StarCheckbox
+      id={`star-${props.index}`}
+      name="star-button"
+      defaultChecked={checked}
+      onChange={handleChange}
+    />
   );
 }
-
-const starButtonStyle = css`
-  .star-button {
-    cursor: pointer;
-    font-size: 2rem;
-  }
-
-  .star {
-    display: none;
-  }
-
-  .star ~ .icon-star::before {
-    color: rgba(0, 0, 0, 0.1);
-  }
-
-  .star:checked ~ .icon-star::before {
-    color: ${theme.subColor};
-  }
-`;
