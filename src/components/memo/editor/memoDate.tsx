@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import { DateInfo } from "../../../lib/databaseInfo";
+import { addZero } from "../../../lib/fastNoteDate";
 
 const displayDate = (dateInfo: DateInfo) => {
   dateInfo.month += 1;
@@ -13,7 +14,7 @@ const displayDate = (dateInfo: DateInfo) => {
     time: ["hours", "minutes", "seconds"],
   };
 
-  const convertTo = (type: "date" | "time") => {
+  const convert = (type: "date" | "time") => {
     const sep = () => {
       switch (type) {
         case "date":
@@ -25,7 +26,7 @@ const displayDate = (dateInfo: DateInfo) => {
 
     const res = keys[type]
       .reduce((pre, cur) => {
-        pre = pre + sep() + dateInfo[cur];
+        pre = pre + sep() + addZero(dateInfo[cur]);
         return pre;
       }, "")
       .slice(1);
@@ -33,8 +34,8 @@ const displayDate = (dateInfo: DateInfo) => {
     return res;
   };
 
-  const date = convertTo("date");
-  const time = convertTo("time");
+  const date = convert("date");
+  const time = convert("time");
 
   return `${date} ${time}`;
 };
