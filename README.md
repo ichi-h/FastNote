@@ -7,7 +7,7 @@
 Fast Note とは、**マークダウン形式で取ったメモをクラウド上に保存し管理できるメモアプリ** です。  
 保存したメモはログインしたどの端末からでもアクセス・更新ができます。
 
-解説記事: Coming soon...
+解説記事: [https://ippee-music.com/tech/fast_note/](https://ippee-music.com/tech/fast_note/)
 
 ## 主な機能
 
