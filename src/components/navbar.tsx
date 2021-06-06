@@ -48,9 +48,9 @@ const navbarStyle = (checked: boolean) => {
     if (bool) return "0";
 
     if (window.matchMedia("(max-width: 550px)").matches) {
-      return "-50vw";
+      return "-70vw";
     } else if (window.matchMedia("(max-width: 1050px)").matches) {
-      return "-30vw";
+      return "-50vw";
     } else {
       return "-20vw";
     }
@@ -82,13 +82,13 @@ const navbarStyle = (checked: boolean) => {
 
       @media screen and (max-width: 1050px) {
         .navbar {
-          width: 30vw;
+          width: 50vw;
         }
       }
 
       @media screen and (max-width: 550px) {
         .navbar {
-          width: 50vw;
+          width: 70vw;
           padding: 1rem;
           font-size: 1.5rem;
         }
