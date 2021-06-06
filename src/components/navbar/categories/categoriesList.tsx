@@ -145,26 +145,13 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
           transition: 0.1s;
         }
 
-        .category-button {
-          position: absolute;
-          top: 50%;
-          left: 0;
-          transform: translateY(-50%);
-        }
-
         .category-name {
           display: inline-block;
-          max-width: 15vw;
+          max-width: 70%;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
           vertical-align: bottom;
-        }
-
-        @media screen and (max-width: 550px) {
-          .category-name {
-            max-width: 30vw;
-          }
         }
       `}
     </style>
