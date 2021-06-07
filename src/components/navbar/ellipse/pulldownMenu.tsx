@@ -83,7 +83,7 @@ const pulldownMenuStyle = css`
   .pulldown-menu {
     position: absolute;
     bottom: 0;
-    right: -8rem;
+    right: 0;
     line-height: 0;
 
     background-color: white;
