@@ -142,7 +142,7 @@ const memoListStyle = css`
   .memo-item {
     display: flex;
     flex-direction: column;
-    height: 12rem;
+    height: 10rem;
     margin: 1rem;
     cursor: pointer;
   }
@@ -188,8 +188,8 @@ const memoListStyle = css`
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
-    font-size: 2rem;
-    width: 30rem;
+    font-size: 1.8rem;
+    width: 80%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -204,7 +204,7 @@ const memoListStyle = css`
   .content {
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 100%;
+    height: 4rem;
     width: 100%;
     padding: 1rem;
   }
@@ -223,12 +223,11 @@ const memoListStyle = css`
 
   @media screen and (max-width: 550px) {
     .memo-item {
-      height: 10rem;
+      height: 9rem;
     }
 
     .title {
       font-size: 1.5rem;
-      width: 20rem;
     }
   }
 `;
