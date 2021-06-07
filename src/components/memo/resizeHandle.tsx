@@ -14,7 +14,7 @@ export default function ResizeHandle() {
 
   const setTop = () => {
     setPosStatus(true);
-    setPos(homeHeight / 2);
+    setPos(homeHeight * 0.3);
   };
 
   const setBottom = () => {
@@ -33,16 +33,17 @@ export default function ResizeHandle() {
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const touch = e.changedTouches;
 
-    if (homeHeight / 2 < touch[0].clientY) {
+    if (homeHeight * 0.3 < touch[0].clientY) {
       setPos(touch[0].clientY);
     }
   };
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const touch = e.changedTouches;
+    const scrollAmount = remToPx("2rem");
 
-    const topThred = homeHeight / 2 + homeHeight / 2 / 3;
-    const bottomThred = homeHeight / 2 + (homeHeight / 2) * (2 / 3);
+    const topThred = homeHeight * 0.3 + scrollAmount;
+    const bottomThred = homeHeight - scrollAmount;
 
     if (bottomThred < touch[0].clientY) {
       setBottom();
