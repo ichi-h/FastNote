@@ -52,7 +52,7 @@ const navbarStyle = (checked: boolean) => {
     } else if (window.matchMedia("(max-width: 1050px)").matches) {
       return "-50vw";
     } else {
-      return "-20vw";
+      return "-30vw";
     }
   };
 
@@ -62,11 +62,11 @@ const navbarStyle = (checked: boolean) => {
         position: absolute;
         top: 0;
         left: ${leftPos(checked)};
-        width: 20vw;
+        width: 30vw;
         height: 100%;
         padding: 2rem;
         background-color: white;
-        font-size: 2rem;
+        font-size: 1.8rem;
         transition: 0.3s;
         z-index: 1000;
         user-select: none;
