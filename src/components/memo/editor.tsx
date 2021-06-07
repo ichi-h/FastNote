@@ -95,7 +95,7 @@ const editorStyle = (memoInfoY: number) => {
         gap: 1rem;
       }
 
-      @media screen and (max-width: 1050px) {
+      @media screen and (max-width: 1280px) {
         .memo-info > div:last-child {
           display: grid;
           grid-template-columns: 1fr;
