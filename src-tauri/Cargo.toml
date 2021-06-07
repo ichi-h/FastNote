@@ -1,0 +1,24 @@
+[package]
+name = "fast_note"
+version = "0.4.0"
+description = "マークダウン形式のメモをクラウド上に保存し管理できるWebアプリ。"
+authors = ["Ippee"]
+license = ""
+repository = "https://github.com/ippee/FastNote"
+default-run = "fast_note"
+edition = "2018"
+build = "src/build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.0.0-beta.0" }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "1.0.0-beta.1", features = ["api-all"] }
+
+[features]
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
