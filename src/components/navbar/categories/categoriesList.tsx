@@ -121,7 +121,7 @@ export default function CategoriesList(props: { categoriesChecked: boolean }) {
 
 const categoriesListStyle = (categoriesChecked: boolean) => {
   const showCategories = (bool: boolean) => {
-    if (bool) return "initial";
+    if (bool) return "inherit";
     else return "none";
   };
 
@@ -130,7 +130,8 @@ const categoriesListStyle = (categoriesChecked: boolean) => {
       {`
         .categories-list {
           display: ${showCategories(categoriesChecked)};
-          transition: 0.3s;
+          max-height: 65vh;
+          overflow-y: scroll;
         }
 
         .category {
