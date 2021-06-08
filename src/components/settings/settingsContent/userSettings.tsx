@@ -41,7 +41,7 @@ const RemoveAccout = () => {
         let provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().languageCode = "jp";
 
-        await firebase.auth().signInWithPopup(provider);
+        await firebase.auth().signInWithRedirect(provider);
       };
 
       const removeRemoteDB = async () => {
