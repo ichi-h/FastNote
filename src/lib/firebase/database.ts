@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/database";
 
 import { getCurrentDate } from "../fastNoteDate";
-import { DatabaseInfo } from "../databaseInfo";
+import { FastNoteDB } from "../databaseInfo";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
@@ -70,20 +70,26 @@ export class SetupDatabase {
     return new Promise((resolve, reject) => {
       const currentDate = getCurrentDate(new Date());
 
-      const newDatabase: DatabaseInfo = {
-        memos: [
-          {
+      const newDatabase: FastNoteDB = {
+        memos: {
+          "0": {
             title: "ようこそ、Fast Noteへ！",
             category: "FastNote",
-            tags: ["FastNote", "HowToUse"],
+            tags: {
+              "0": "FastNote",
+              "1": "HowToUse",
+            },
             star: false,
             trash: false,
             created: currentDate,
             updated: currentDate,
             content: memoContent,
           },
-        ],
-        categories: ["FastNote", "None"],
+        },
+        categories: {
+          "0": "FastNote",
+          "1": "None",
+        },
         lastUpdated: currentDate,
       };
 

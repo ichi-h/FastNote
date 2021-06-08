@@ -22,7 +22,9 @@ export default function AddMemoButton() {
       const newMemo: Memo = {
         title: "新しいメモ",
         category: "None",
-        tags: [""],
+        tags: {
+          "0": ""
+        },
         star: false,
         trash: false,
         created: currentDate,
