@@ -25,25 +25,25 @@ export default function PulldownMenu(props: PulldownMenuProps) {
   };
 
   const handleClick = props.items.reduce((pre, cur) => {
+    const afterClick = () => {
+      setLocalDB(JSON.stringify(localDB));
+      props.dispatch(false);
+    };
+
     const handler = () => {
       switch (cur.type) {
         case "deleteCategory":
         case "renameCategory":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            cur.handler({ localDB: localDB, e: e }).then(() => {
-              setLocalDB(JSON.stringify(localDB));
-              props.dispatch(false);
-            });
+            cur.handler({ localDB: localDB, e: e })
+            .then(afterClick);
           };
 
         case "deleteTrashedMemos":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             cur
               .handler({ localDB: localDB, e: e, setIndex: setIndex })
-              .then(() => {
-                setLocalDB(JSON.stringify(localDB));
-                props.dispatch(false);
-              });
+              .then(afterClick);
           };
       }
     };
