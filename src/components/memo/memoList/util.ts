@@ -1,19 +1,24 @@
+import { ArrayObject, Memo } from "../../../lib/fastNoteDB";
+
 function joinObjectValues(obj: object): string {
-  const res = Object.values(obj).reduce((pre: string, value) => {
-    if (typeof value === "object") {
-      const valueStr = joinObjectValues(value);
-      pre = pre.concat(valueStr);
-    } else {
-      pre = pre.concat(value);
-    }
-    return pre;
-  }, "");
+  const res = Object.values(obj).reduce(
+    (pre: string, value: string | object) => {
+      if (typeof value === "object") {
+        const valueStr = joinObjectValues(value);
+        pre = pre.concat(valueStr);
+      } else {
+        pre = pre.concat(value);
+      }
+      return pre;
+    },
+    ""
+  );
 
   return res;
 }
 
 export function getSelectedIndex(
-  memos: object,
+  memos: ArrayObject<Memo>,
   sortedKeys: string[],
   category: string,
   keyword: string,
