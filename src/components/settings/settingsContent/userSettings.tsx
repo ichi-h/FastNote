@@ -7,6 +7,7 @@ import "firebase/auth";
 
 import { generalStyle } from "../settingsContent";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
+import { FastNoteDB } from "../../../lib/fastNoteDB";
 
 const UserID = () => {
   const userID = firebase.auth().currentUser.uid;
@@ -26,7 +27,7 @@ const UserID = () => {
 };
 
 const RemoveAccout = () => {
-  const localDB = JSON.parse(useRecoilValue(localDBState));
+  const localDB: FastNoteDB = JSON.parse(useRecoilValue(localDBState));
 
   const handleClick = () => {
     const res = confirm(

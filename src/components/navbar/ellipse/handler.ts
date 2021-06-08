@@ -1,5 +1,7 @@
+import { FastNoteDB } from "../../../lib/fastNoteDB";
+
 interface HandlerProps {
-  localDB: any;
+  localDB: FastNoteDB;
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>;
 }
 

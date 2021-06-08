@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
+import { FastNoteDB } from "../../../lib/fastNoteDB";
 import { deleteCategory, renameCategory } from "../ellipse/handler";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
 import {
@@ -12,7 +13,7 @@ import {
 
 import EllipsisButton from "../ellipse/ellipsisButton";
 
-function getCategories(localDB: any): [string[], number[]] {
+function getCategories(localDB: FastNoteDB): [string[], number[]] {
   const categories = Object.entries(localDB.categories).map(
     ([_, category]: [string, string]) => category
   );

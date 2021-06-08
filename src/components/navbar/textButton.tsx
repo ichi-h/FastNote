@@ -14,17 +14,18 @@ import {
 import { deleteTrashedMemos } from "./ellipse/handler";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";
+import { FastNoteDB, ArrayObject, Memo } from "../../lib/fastNoteDB";
 
 import EllipsisButton from "./ellipse/ellipsisButton";
 
 type TextButtonType = "trash" | "settings" | "logout";
 
-function countTrashedMemos(memos: any) {
+function countTrashedMemos(memos: ArrayObject<Memo>) {
   let count = 0;
 
   if (memos) {
     count = Object.entries(memos)
-      .map(([_, memo]: [string, any]) => memo)
+      .map(([_, memo]: [string, Memo]) => memo)
       .reduce((pre: number, memo) => {
         if (memo.trash) {
           pre += 1;
@@ -43,7 +44,7 @@ export default function TextButton(props: { type: TextButtonType }) {
   const setIndex = useSetRecoilState(memoIndexState);
   const setURL = useSetRecoilState(urlState);
 
-  const localDB = JSON.parse(useRecoilValue(localDBState));
+  const localDB: FastNoteDB = JSON.parse(useRecoilValue(localDBState));
 
   const history = useHistory();
 

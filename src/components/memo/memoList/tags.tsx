@@ -1,6 +1,7 @@
 import { css } from "styled-jsx/css";
+import { FastNoteDB } from "../../../lib/fastNoteDB";
 
-export default function Tags(props: { localDB: any; index: number }) {
+export default function Tags(props: { localDB: FastNoteDB; index: number }) {
   const tagItems = Object.fromEntries(
     Object.entries(props.localDB.memos[props.index].tags).map(([_, tag], j) => {
       if (tag === "") {

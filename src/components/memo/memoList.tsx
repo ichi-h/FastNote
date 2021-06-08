@@ -13,6 +13,7 @@ import { dateInfoToDate, calcDateDiff } from "../../lib/fastNoteDate";
 import { getSortedKeys } from "../../lib/sort";
 import theme from "../../lib/theme";
 import { getSelectedIndex } from "./memoList/util";
+import { FastNoteDB } from "../../lib/fastNoteDB";
 
 import Tags from "./memoList/tags";
 import TrashRevertButton, { FuncType } from "./memoList/trashRevertButton";
@@ -35,7 +36,7 @@ export default function MemoList() {
   const keyword = useRecoilValue(searchKeywordState);
   const [memoIndex, setMemoIndex] = useRecoilState(memoIndexState);
 
-  const localDB = JSON.parse(useRecoilValue(localDBState));
+  const localDB: FastNoteDB = JSON.parse(useRecoilValue(localDBState));
 
   const sortedKeys = getSortedKeys(localDB);
   const index = getSelectedIndex(

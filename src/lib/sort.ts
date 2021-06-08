@@ -1,6 +1,7 @@
 import { dateInfoToNum } from "./fastNoteDate";
+import { FastNoteDB } from "./fastNoteDB";
 
-export function getSortedKeys(localDB: any): string[] {
+export function getSortedKeys(localDB: FastNoteDB): string[] {
   if (localDB.memos) {
     const keys = Object.keys(localDB.memos);
 

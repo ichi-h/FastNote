@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { DateInfo } from "../../../lib/fastNoteDB";
+import { DateInfo, FastNoteDB } from "../../../lib/fastNoteDB";
 import { addZero } from "../../../lib/fastNoteDate";
 
 const displayDate = (dateInfo: DateInfo) => {
@@ -42,7 +42,7 @@ const displayDate = (dateInfo: DateInfo) => {
 
 export default function MemoDate() {
   const memoIndex = useRecoilValue(memoIndexState);
-  const localDB = JSON.parse(useRecoilValue(localDBState));
+  const localDB: FastNoteDB = JSON.parse(useRecoilValue(localDBState));
 
   const created = localDB.memos[memoIndex].created;
   const updated = localDB.memos[memoIndex].updated;

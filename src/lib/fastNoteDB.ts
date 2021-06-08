@@ -1,4 +1,4 @@
-interface ArrayObject<T> {
+export interface ArrayObject<T> {
   [num: string]: T,
 }
 
