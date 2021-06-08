@@ -1,3 +1,7 @@
+interface ArrayObject<T> {
+  [num: string]: T,
+}
+
 export interface DateInfo {
   year: number;
   month: number;
@@ -10,7 +14,7 @@ export interface DateInfo {
 export interface Memo {
   title: string;
   category: string;
-  tags: string[];
+  tags: ArrayObject<string>;
   star: boolean;
   trash: boolean;
   created: DateInfo;
@@ -18,8 +22,8 @@ export interface Memo {
   content: string;
 }
 
-export interface DatabaseInfo {
-  memos: Memo[];
-  categories: string[];
+export interface FastNoteDB {
+  memos: ArrayObject<Memo>;
+  categories: ArrayObject<string>;
   lastUpdated: DateInfo;
 }
