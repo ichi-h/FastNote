@@ -1,5 +1,5 @@
 export interface ArrayObject<T> {
-  [num: string]: T,
+  [num: string]: T;
 }
 
 export interface DateInfo {

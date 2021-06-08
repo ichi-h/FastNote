@@ -35,8 +35,7 @@ export default function PulldownMenu(props: PulldownMenuProps) {
         case "deleteCategory":
         case "renameCategory":
           return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            cur.handler({ localDB: localDB, e: e })
-            .then(afterClick);
+            cur.handler({ localDB: localDB, e: e }).then(afterClick);
           };
 
         case "deleteTrashedMemos":

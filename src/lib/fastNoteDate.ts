@@ -62,4 +62,4 @@ export function addZero(num: number) {
   } else {
     return `${num}`;
   }
-};
+}

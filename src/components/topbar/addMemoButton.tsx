@@ -23,7 +23,7 @@ export default function AddMemoButton() {
         title: "新しいメモ",
         category: "None",
         tags: {
-          "0": ""
+          "0": "",
         },
         star: false,
         trash: false,
