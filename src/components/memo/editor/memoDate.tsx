@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 
 import { memoIndexState } from "../../../lib/atoms/editorAtoms";
 import { localDBState } from "../../../lib/atoms/localDBAtom";
-import { DateInfo } from "../../../lib/databaseInfo";
+import { DateInfo } from "../../../lib/fastNoteDB";
 import { addZero } from "../../../lib/fastNoteDate";
 
 const displayDate = (dateInfo: DateInfo) => {

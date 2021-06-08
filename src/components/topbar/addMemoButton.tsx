@@ -1,7 +1,7 @@
 import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import { css } from "styled-jsx/css";
 
-import { Memo } from "../../lib/databaseInfo";
+import { Memo } from "../../lib/fastNoteDB";
 import { getCurrentDate } from "../../lib/fastNoteDate";
 import { memoIndexState } from "../../lib/atoms/editorAtoms";
 import { localDBState } from "../../lib/atoms/localDBAtom";

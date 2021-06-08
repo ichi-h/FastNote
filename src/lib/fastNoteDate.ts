@@ -1,4 +1,4 @@
-import { DateInfo } from "./databaseInfo";
+import { DateInfo } from "./fastNoteDB";
 
 export function getCurrentDate(date: Date): DateInfo {
   return {

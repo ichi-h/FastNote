@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/database";
 
 import { getCurrentDate } from "../fastNoteDate";
-import { FastNoteDB } from "../databaseInfo";
+import { FastNoteDB } from "../fastNoteDB";
 
 export class SetupDatabase {
   private dbRef: firebase.database.Reference;
