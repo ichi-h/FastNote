@@ -50,12 +50,17 @@ export default function MemoDate() {
   return (
     <>
       <div className="memo-date">
-        <p>
-          <i className="icon-calendar" />: {displayDate(created)}
-        </p>
-        <p>
-          <i className="icon-arrows-cw" />: {displayDate(updated)}
-        </p>
+        <div className="icon">
+          <i className="icon-info-circled" />
+        </div>
+        <div className="popup">
+          <p>
+            <i className="icon-calendar" />: {displayDate(created)}
+          </p>
+          <p>
+            <i className="icon-arrows-cw" />: {displayDate(updated)}
+          </p>
+        </div>
       </div>
 
       <style jsx>{memoDateStyle}</style>
@@ -64,9 +69,31 @@ export default function MemoDate() {
 }
 
 const memoDateStyle = css`
+  p {
+    font-size: 1rem;
+  }
+
+  .icon-info-circled {
+    font-size: 2rem;
+  }
+
   .memo-date {
-    text-align: right;
+    position: relative;
+  }
+
+  .popup {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: auto;
     margin: auto 0;
+    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.5));
+    z-index: 10;
+  }
+
+  .icon:hover ~ .popup,
+  .popup:hover {
+    display: initial;
   }
 
   .icon-calendar,
