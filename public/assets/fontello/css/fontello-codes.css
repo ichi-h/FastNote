@@ -22,12 +22,18 @@
 .icon-tags:before {
   content: "\e807";
 } /* '' */
+.icon-list:before {
+  content: "\e808";
+} /* '' */
 .icon-user:before {
   content: "\e809";
 } /* '' */
 .icon-pencil:before {
   content: "\e80a";
 } /* '' */
+.icon-info-circled:before {
+  content: "\e80b";
+} /* '' */
 .icon-angle-right:before {
   content: "\f105";
 } /* '' */

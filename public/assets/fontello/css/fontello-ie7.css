@@ -59,6 +59,12 @@
     this.innerHTML = "&#xe807;&nbsp;"
   );
 }
+.icon-list {
+  *zoom: expression(
+    this.runtimeStyle[ "zoom" ] = "1",
+    this.innerHTML = "&#xe808;&nbsp;"
+  );
+}
 .icon-user {
   *zoom: expression(
     this.runtimeStyle[ "zoom" ] = "1",
@@ -69,6 +75,12 @@
   *zoom: expression(
     this.runtimeStyle[ "zoom" ] = "1",
     this.innerHTML = "&#xe80a;&nbsp;"
+  );
+}
+.icon-info-circled {
+  *zoom: expression(
+    this.runtimeStyle[ "zoom" ] = "1",
+    this.innerHTML = "&#xe80b;&nbsp;"
   );
 }
 .icon-angle-right {
