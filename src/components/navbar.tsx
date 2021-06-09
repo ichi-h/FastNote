@@ -35,7 +35,10 @@ export default function Navbar() {
 
         <TextButton type="trash" />
         <TextButton type="settings" />
-        <TextButton type="logout" />
+
+        <div className="logout-button">
+          <TextButton type="logout" />
+        </div>
       </div>
 
       {navbarStyle(checked)}
@@ -78,6 +81,12 @@ const navbarStyle = (checked: boolean) => {
 
       .buttons {
         display: flex;
+      }
+
+      .logout-button {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
       }
 
       @media screen and (max-width: 1050px) {
