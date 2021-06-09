@@ -37,14 +37,18 @@ export default function Editor() {
       <>
         <div className="editor">
           <div className="memo-info" ref={memoInfoRef}>
-            <div>
+            <div className="top">
               <MemoTitle />
             </div>
 
-            <div>
-              <MemoCategory />
-              <MemoTags />
-              <MemoDate />
+            <div className="bottom">
+              <div>
+                <MemoCategory />
+              </div>
+              <div>
+                <MemoTags />
+                <MemoDate />
+              </div>
             </div>
           </div>
 
@@ -85,23 +89,20 @@ const editorStyle = (memoInfoY: number) => {
         padding: 1rem;
       }
 
-      .memo-info > div:first-child {
+      .top {
         margin-bottom: 1rem;
       }
 
-      .memo-info > div:last-child {
+      .bottom {
         display: grid;
-        grid-template-columns: 1fr 6fr 1fr;
+        grid-template-columns: 1fr 6fr;
         gap: 1rem;
+        width: 100%;
       }
 
-      @media screen and (max-width: 1280px) {
-        .memo-info > div:last-child {
-          display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: 1fr;
-          gap: 1rem;
-        }
+      .bottom > div:last-child {
+        display: flex;
+        width: 100%;
       }
     `}</style>
   );

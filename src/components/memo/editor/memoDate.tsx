@@ -69,31 +69,40 @@ export default function MemoDate() {
 }
 
 const memoDateStyle = css`
+  .memo-date {
+    position: relative;
+    height: 0;
+  }
+
   p {
     font-size: 1rem;
+    white-space: nowrap;
   }
 
   .icon-info-circled {
     font-size: 2rem;
   }
 
-  .memo-date {
-    position: relative;
+  .icon {
+    transform: translateY(-0.5rem);
   }
 
   .popup {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     position: absolute;
+    right: 0;
     background-color: white;
-    width: auto;
-    margin: auto 0;
+    padding: 0.5rem;
     filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.5));
     z-index: 10;
+    transition: 0.1s;
   }
 
   .icon:hover ~ .popup,
   .popup:hover {
-    display: initial;
+    visibility: visible;
+    opacity: 1;
   }
 
   .icon-calendar,
