@@ -36,6 +36,12 @@ export const categoryInputState = atom({
   default: false,
 });
 
+// エディターが編集状態か否か
+export const isEditState = atom({
+  key: "isEditState",
+  default: false,
+});
+
 // 現在のURL
 export const urlState = atom({
   key: "urlState",
