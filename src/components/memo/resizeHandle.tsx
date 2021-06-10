@@ -22,14 +22,6 @@ export default function ResizeHandle() {
     setPos(homeHeight);
   };
 
-  const handleClick = () => {
-    if (posStatus) {
-      setBottom();
-    } else {
-      setTop();
-    }
-  };
-
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const touch = e.changedTouches;
 
@@ -63,7 +55,6 @@ export default function ResizeHandle() {
       <div
         className="resize-handle"
         ref={ref}
-        onClick={handleClick}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
