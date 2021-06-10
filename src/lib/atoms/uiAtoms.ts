@@ -52,7 +52,7 @@ export const posYState = selector<number>({
   key: "posYState",
   get: ({ get }) => {
     if (get(posYOriginState) === -1) {
-      return document.documentElement.clientHeight / 2;
+      return document.documentElement.clientHeight * 0.3;
     }
 
     return get(posYOriginState);
