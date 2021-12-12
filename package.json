@@ -21,7 +21,7 @@
     "md2react": "mizchi/md2react",
     "next": "10.2.0",
     "react": "17.0.2",
-    "react-codemirror2": "git+https://github.com/ippee/react-codemirror2.git",
+    "react-codemirror2": "git+https://github.com/ichi-h/react-codemirror2.git",
     "react-dom": "17.0.2",
     "react-router-dom": "^5.2.0",
     "recoil": "^0.2.0",
